@@ -120,31 +120,65 @@ body {
 //Important note: We have to include jQuery separately, see https://katzurki.github.io/NFLX/jq.inline.min.js
 //For some reason every other kind of eval triggers Netflix's CSP security measures 
 
-var fps = 23.976023976023978 
-var frms = 1000 / fps 
+var fps = 23.976023976023978
+var frms = 1000 / fps
+var debug = false
+var totalAll = '';
+var total = '';
+var ready = false;
+var srtFile = '';
+
 function defer(method) {
     if (window.jQuery) {
         method();
     } else {
-        setTimeout(function() { defer(method) }, 50);
+        setTimeout(function () {
+            defer(method)
+        }, 50);
     }
 }
-var inel = document.querySelector("div.origination-editor").children[3].firstElementChild;
+var inel = document.querySelector("div.origination-editor")
+    .children[3].firstElementChild;
 var filter = false;
-if(inel.innerText=='Filter') {filter = true}
-if(filter) {
+if (inel.innerText == 'Filter') {
+    filter = true
+}
+if (filter) {
     inel.innerHTML = "<font color='white'><b><button class='bh-button bh-raised-button bh-accent-button'>EXPORT .SRT</button></b></font>";
-    inel.onclick = function(event) {
-        inel.innerHTML = "<marquee><u>SAVING... PLEASE WAIT</u></marquee>";
-        defer(function(){alert("Attempting SRT export.\nIt may take up to 2 minutes.\nThe SRT file will open in a new tab.\nClick OK to proceed and go have a cup of tea!"); runMain();});
-    }} 
-        else {
-            alert("INSTRUCTION:\nClick Filter, select Subtitle,\nClick on Event 1 to outline it\nClick ExportSRT bookmarklet again"); dieee.blah();
-        }
+    inel.onclick = function (event) {
+        inel.innerHTML = "<font color='white'><b><span class='bh-button bh-raised-button bh-accent-button'>SAVING... PLEASE WAIT</span></b></font>";
+        defer(function () {
+            alert("Attempting SRT export.\nIt may take up to 2 minutes.\nChrome will open the save file window when done.\nClick OK to proceed and go have a cup of tea!");
+            runMain();
+        });
+    }
+} else {
+    alert("INSTRUCTION:\nClick Filter, select Subtitle,\nClick on Event 1 to outline it\nClick ExportSRT bookmarklet again");
+    dieee.blah();
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+function srtName() {
+    var s = $("#appView > div > div.cpe-page-menu > div > span.cpe-page-menu-label")[0].innerText
+    var srtName = (s.replace(/[ ]/g, '_')
+            .replace(/[^a-z0-9_]/gi, '') + ".srt")
+        .trim()
+    return srtName
+}
+
+var filename = srtName()
+
 function parseDuration(duration) {
     let remain = duration
-    let days = Math.floor(remain / (1000 * 60 * 60 * 24))
-    remain = remain % (1000 * 60 * 60 * 24)
     let hours = Math.floor(remain / (1000 * 60 * 60))
     remain = remain % (1000 * 60 * 60)
     let minutes = Math.floor(remain / (1000 * 60))
@@ -153,56 +187,13 @@ function parseDuration(duration) {
     remain = remain % (1000)
     let milliseconds = remain
     return {
-        days,
         hours,
         minutes,
         seconds,
         milliseconds
-    } 
-}
-function formatTime(o, useMilli = true) {
-    let parts = []
-    if (o.days) {
-        let ret = o.days + ' day'
-        if (o.days !== 1) {
-            ret += 's'
-        }
-        parts.push(ret)
-    }
-    if (o.hours) {
-        let ret = o.hours + ' hour'
-        if (o.hours !== 1) {
-            ret += 's'
-        }
-        parts.push(ret)
-    }
-    if (o.minutes) {
-        let ret = o.minutes + ' minute'
-        if (o.minutes !== 1) {
-            ret += 's'
-        }
-        parts.push(ret)
-    }
-    if (o.seconds) {
-        let ret = o.seconds + ' second'
-        if (o.seconds !== 1) {
-            ret += 's'
-        }
-        parts.push(ret)
-    }
-    if (useMilli && o.milliseconds) {
-        let ret = o.milliseconds + ' millisecond'
-        if (o.milliseconds !== 1) {
-            ret += 's'
-        }
-        parts.push(ret)
-    }
-    if (parts.length === 0) {
-        return 'instantly'
-    } else {
-        return parts.join(' ')
     }
 }
+
 function formatTimeHMS(o) {
     let hours = o.hours.toString()
     if (hours.length === 1) hours = '0' + hours
@@ -215,115 +206,124 @@ function formatTimeHMS(o) {
     if (milliseconds.length === 2) milliseconds = '0' + milliseconds
     return hours + ":" + minutes + ":" + seconds + "," + milliseconds
 }
+
 function TimeConversion(duration) {
     let time = parseDuration(duration)
     return formatTimeHMS(time)
 }
-function formatDuration(duration, useMilli = true) {
-    let time = parseDuration(duration)
-    return formatTime(time, useMilli)
-}
+
 function StartTC() {
-    var start_tc = '' 
-    var hr = document.querySelector("div.selected").children[0].children[0].children[0].children[0].value 
-    var mm = document.querySelector("div.selected").children[0].children[0].children[0].children[1].value 
-    var ss = document.querySelector("div.selected").children[0].children[0].children[0].children[2].value 
-    var fr = document.querySelector("div.selected").children[0].children[0].children[0].children[3].value 
-    var h = hr * 1 
-    var m = mm * 1 
-    var s = ss * 1 
-    var f = fr * 1 
+    var start_tc = ''
+    var hr = document.querySelector("div.selected")
+        .children[0].children[0].children[0].children[0].value
+    var mm = document.querySelector("div.selected")
+        .children[0].children[0].children[0].children[1].value
+    var ss = document.querySelector("div.selected")
+        .children[0].children[0].children[0].children[2].value
+    var fr = document.querySelector("div.selected")
+        .children[0].children[0].children[0].children[3].value
+    var h = hr * 1
+    var m = mm * 1
+    var s = ss * 1
+    var f = fr * 1
     var z = ":"
-    var frames = f + s * fps + m * 60 * fps + h * 60 * fps 
-    var milliseconds = Math.round(frames * frms) 
-    var human_readable = TimeConversion(milliseconds) 
-    return human_readable 
+    var frames = f + s * fps + m * 60 * fps + h * 60 * fps
+    var milliseconds = Math.round(frames * frms)
+    var human_readable = TimeConversion(milliseconds)
+    return human_readable
 }
+
 function EndTC() {
-    var hr = document.querySelector("div.selected").children[0].children[0].children[1].children[0].value 
-    var mm = document.querySelector("div.selected").children[0].children[0].children[1].children[1].value 
-    var ss = document.querySelector("div.selected").children[0].children[0].children[1].children[2].value 
-    var fr = document.querySelector("div.selected").children[0].children[0].children[1].children[3].value 
-    var h = hr * 1 
-    var m = mm * 1 
-    var s = ss * 1 
-    var f = fr * 1 
+    var hr = document.querySelector("div.selected")
+        .children[0].children[0].children[1].children[0].value
+    var mm = document.querySelector("div.selected")
+        .children[0].children[0].children[1].children[1].value
+    var ss = document.querySelector("div.selected")
+        .children[0].children[0].children[1].children[2].value
+    var fr = document.querySelector("div.selected")
+        .children[0].children[0].children[1].children[3].value
+    var h = hr * 1
+    var m = mm * 1
+    var s = ss * 1
+    var f = fr * 1
     var z = ":"
-    var frames = f + s * fps + m * 60 * fps + h * 60 * fps 
-    var milliseconds = Math.round(frames * frms) 
-    var human_readable = TimeConversion(milliseconds) 
-    return human_readable 
+    var frames = f + s * fps + m * 60 * fps + h * 60 * fps
+    var milliseconds = Math.round(frames * frms)
+    var human_readable = TimeConversion(milliseconds)
+    return human_readable
 }
+
 function SubIndex() {
-    var indexStr = document.querySelector("div.selected > div.details > div.content > div.header > span.index").innerText * 1 + '' 
-    return indexStr 
+    var indexStr = document.querySelector("div.selected > div.details > div.content > div.header > span.index")
+        .innerText * 1 + ''
+    return indexStr
 }
+
 function subContent() {
-    var lines = document.querySelector("div.selected > div.details > div.content").children[1].children[0].children 
-    var subText = '' 
+    var lines = document.querySelector("div.selected > div.details > div.content")
+        .children[1].children[0].children
+    var subText = ''
     for (line of lines) {
-        subText += line.innerText + "\n" 
+        subText += line.innerText + "\n"
     }
     subText = subText.trim()
-    return subText 
+    return subText
 }
+
 function constructSub() {
-    var x = SubIndex() + "\n" + StartTC() + " --> " + EndTC() + "\n" + subContent() 
-    return x 
+    var x = SubIndex() + "\n" + StartTC() + " --> " + EndTC() + "\n" + subContent()
+    return x
 }
 var nextButton = null
-function assignNext(){
-buttons = document.getElementsByClassName("bh-flat-button bh-button") 
-for (button of buttons) {
-    if (button.innerText == "NEXT") {
-        nextButton = button
-    } 
+
+function assignNext() {
+    buttons = document.getElementsByClassName("bh-flat-button bh-button")
+    for (button of buttons) {
+        if (button.innerText == "NEXT") {
+            nextButton = button
+        }
+    }
+    if (!nextButton) {
+        alert("Filter by Subtitle, click on text in Subtitle 1, make sure the box has a blue outline.");
+        throw new Error();
+    }
 }
-if(!nextButton) {alert("Filter by Subtitle, click on text in Subtitle 1, make sure the box has a blue outline."); throw new Error();}
-}
+
 function next() {
-    nextButton.click() 
+    nextButton.click()
 }
-function textToClipboard (text) {
-    var dummy = document.createElement("textarea") 
-    document.body.appendChild(dummy) 
-    dummy.value = text 
-    dummy.select() 
-    document.execCommand("copy") 
-    document.body.removeChild(dummy) 
+
+function waitSrtExport() {
+    if (ready) {
+        if (!filename) {
+            filename = srtName();
+        }
+        download(filename, srtFile)
+        inel.innerHTML = "<span class='bh-raised-button bh-accent-button'>" + filename.toUpperCase() + "   HAS   BEEN SAVED&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;RELOAD ORIGINATOR TO CONTINUE</span></font>";
+    } else {
+        
+        setTimeout(waitSrtExport, 1000)
+    }
 }
-var openSuccess = false 
-function textToNewWindow (text) {
-var myWindow = window.open("", "SRT File", "") 
-myWindow.document.write("<pre>"+text) 
-if(myWindow) {openSuccess = true; inel.innerText="DONE! RELOAD ORIGINATOR TO RESUME WORK" }
-}
-function waitSrtExport () {
-  if (ready) {
-    textToNewWindow(srtFile) 
-    if(!openSuccess) {
-    alert("If there's no SRT Export window, check that the pop-up wasn't blocked, reposition at Subtitle 1 and try again.") }
-  } else {
-    setTimeout(waitSrtExport, 300) 
-  }
-}
-var totalAll = '';
-var total = '';
-var ready = false;
-var srtFile = '';
+
 function runMain() {
-if(!nextButton) {assignNext()}
-totalAll = nextButton.previousElementSibling.previousElementSibling.outerText.split(" ") 
-total = totalAll[2] 
-total++ 
-waitSrtExport() 
-for (var i = 1; i < total; i++) {
-    var sub = constructSub() + "\n\n" 
-    srtFile += sub 
-    next() 
-    current = nextButton.previousElementSibling.previousElementSibling.outerText 
-}
-ready = true 
+    if (!nextButton) {
+        assignNext()
+    }
+    totalAll = nextButton.previousElementSibling.previousElementSibling.outerText.split(" ")
+    total = totalAll[2]
+    total++
+    waitSrtExport()
+    for (var i = 1; i < total; i++) {
+        var sub = constructSub() + "\n\n"
+        srtFile += sub
+        next()
+        current = nextButton.previousElementSibling.previousElementSibling.outerText
+        if (debug) {
+            console.log("Parsed event #" + i + "");
+        }
+    }
+    ready = true
 }
 </pre></code>
 
