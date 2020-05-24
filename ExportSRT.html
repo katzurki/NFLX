@@ -290,12 +290,18 @@ function formatTimeHMSS(o) {
 }
 </pre></code>
 
-<h2>CHANGELOG</h2>
+<h2><font color="white">CHANGELOG</font></h2>
 <pre>
 v1.0. Initial beta release
 v1.0.1 Now the SRT file is saved as a proper file
 v2.0 Everything rewritten in vanilla JS - no more jQuery. Speed improvements. Additional checks.  
 </pre>
-WIP:
+<font color="white">
+<pre>
+WIP (these are works in progress and not guaranteed to work or work well):
+</pre>
 <hr>
 	<a class="btn btn-blue" href="javascript:!function(){var%20t=window.prompt(%22Enter%20Font%20and%20Size%20(e.g.%20Lucida%2018%20or%20Verdana%2016):%22),e=%22%22!==t%3Ft.split(%22%20%22):%22Verdana%2016%22.split(%22%20%22),n=(e[0],e[1],%22.StyledTextEditor%20{%20font-family:%20%22+e[0]+%22!important;%20font-size:%20%22+e[1]+%22px!important;}%22),a=document.createElement(%22style%22);a.type=%22text/css%22,document.getElementsByTagName(%22head%22)[0].appendChild(a),a[%22string%22==typeof%20document.body.style.t%3F%22innerText%22:%22innerHTML%22]=n}();">FlixFont+</a>
+<hr>
+	<a class="btn btn-blue" href="javascript:(function()%7Bfunction%20download(videolink)%20%7B%0A%20%20%20%20var%20element%20%3D%20document%0A%20%20%20%20%20%20%20%20.createElement('a')%3B%0A%20%20%20%20element.setAttribute('href'%0A%20%20%20%20%20%20%20%20%2C%20videolink)%3B%0A%20%20%20%20element.setAttribute('download'%0A%20%20%20%20%20%20%20%20%2C%20filename)%3B%0A%20%20%20%20element.style.display%20%3D%20'none'%3B%0A%20%20%20%20document.body.appendChild(element)%3B%0A%20%20%20%20element.click()%3B%0A%20%20%20%20document.body.removeChild(element)%3B%0A%7D%0A%0Avideolink%20%3D%20%24(%22div.video-holder%20%3E%20video%22).src%0A%0Adownload(videolink)%7D)()%3B">Export MP4</a>
+	<hr>
