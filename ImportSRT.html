@@ -30,20 +30,34 @@ function uid() {
 
 function setFPS(){
 var new_fps = prompt("Current FPS set to: " + fps + "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:");
-new_fps = new_fps.replace(".","").replace(",","")
-if (new_fps.length == 2) new_fps = new_fps + "00"
-new_fps = (new_fps.substr(0,2) + "." + new_fps.substr(2)) * 1
-if (new_fps !== fps) {fps = new_fps; alert("FPS set to: "+fps);}
+new_fps = (new_fps/100);
+if (new_fps && new_fps !== fps) fps = new_fps
 }
-
 
 
 
 function srtPrepare(){
 
-setFPS()
+var style_obj = {}; var style_arr = [];
+function stylify()
+{
+if (txt.indexOf("<i>") == -1) { return style_arr }
+	else {
+
+		from = txt.indexOf("<i>");
+		txt = txt.replace("<i>","")
+		to = txt.indexOf("</i>");
+		txt = txt.replace("</i>","")
+		styleobj = {type:"italic", from:from, to:to}
+		style_arr.push(styleobj)
+        styleobj = {}
+        stylify()
+	}
+}
+
 var allEvents = document.getElementById('srt').value.split("\n\n");
 var values = []
+setFPS()
 
 for(event of allEvents){
 var event_lines = event.split("\n") 
@@ -55,7 +69,9 @@ end = tc2frames(end)
 event_lines.splice(0,2)
 var txt = event_lines.join("\n")
 var rgn = "bottom";
-var styles = [];
+if(txt.indexOf("an8}")) rgn = "top"
+txt=txt.replace(/{.an.}/,"")
+var styles = stylify();
 var editedByUser = true;
 var markup = [];
 var annotations = {};
@@ -79,9 +95,9 @@ document.addEventListener('copy', function(e) {
 	}
 	)
 document.removeEventListener('copy')
-window.location.reload(true); 
-}	
-	
+
+}
+
 	</script>
 </head>
 <body>
