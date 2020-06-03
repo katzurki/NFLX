@@ -1,0 +1,100 @@
+
+<head>
+	<script type="text/javascript">
+var fps = 23.976
+var event_counter = 0;
+
+function tc2frames(timeString, framerate)
+{
+
+  var timeArray = timeString.split(":");
+  var hours   = parseInt(timeArray[0]) * 60 * 60;
+  var minutes = parseInt(timeArray[1]) * 60;
+  var s_ms = timeArray[2].split(",");
+  var seconds = parseInt(s_ms[0]);
+  var ms  = parseInt(s_ms[1]);
+
+  var totalTime = hours + minutes + seconds + ms/1000;
+
+  var totalFrames = Math.round(totalTime * fps);
+
+  return totalFrames;
+}
+
+function uid() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
+
+function setFPS(){
+var new_fps = prompt("Current FPS set to: " + fps + "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:");
+new_fps = (new_fps/100);
+if (new_fps !== fps) fps = new_fps
+}
+
+
+
+function srtPrepare(){
+
+setFPS()
+var allEvents = document.getElementById('srt').value.split("\n\n");
+var values = []
+
+for(event of allEvents){
+var event_lines = event.split("\n") 
+var timecode = event_lines[1]
+var start = timecode.split("-->")[0].trim()
+start = tc2frames(start)
+var end = timecode.split("-->")[1].trim()
+end = tc2frames(end)
+event_lines.splice(0,2)
+var txt = event_lines.join("\n")
+var rgn = "bottom";
+var styles = [];
+var editedByUser = true;
+var markup = [];
+var annotations = {};
+var rubies = {};
+var validations = {};
+var knp = [];
+var id = uid()
+var eventType = "TIMED_TEXT_EVENT"
+var subtitle = {id:id,start:start,end:end,txt:txt,eventType:eventType,rgn:rgn,styles:styles,editedByUser:editedByUser,markup:markup,annotations:annotations,rubies:rubies,validations:validations,knp:knp}
+values.push(subtitle)
+event_counter++
+}
+var result = {type:"CLIPBOARD_VALUES",values:values}
+json_events = JSON.stringify(result)
+alert("Press Enter and Ctrl+C");
+
+document.addEventListener('copy', function(e) {
+	   e.clipboardData.setData('application/json', json_events);
+	   e.preventDefault();
+	   alert("Copied " + event_counter + " events at FPS " + fps);
+	}
+	)
+document.removeEventListener('copy')
+}	
+	
+	</script>
+</head>
+<body>
+	<textarea placeholder="Paste your .SRT here" cols="50" rows="30" id="srt" name="srtSource">
+</textarea><button onclick="srtPrepare()">Click, then Ctrl+C</button>
+<center>
+<b>INSTRUCTIONS:</b>
+
+Paste your completely valid SRT file into the box above, press the button, enter the desired FPS and press Enter.
+
+This prepares your SRT for the Originator.
+
+Next, press Ctrl+C to copy the Originator events into the clipboard.
+
+In the Originator make an empty event that begins at the exact same frame as the first event of your SRT.
+
+Put the cursor where you want your first event to start and press Ctrl+V.
+
+To import next SRT, be sure to reload this page.
+</center>
