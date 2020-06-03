@@ -45,8 +45,8 @@
 			text = text.replace("<i>","")
 			to = text.indexOf("</i>");
 			text = text.replace("</i>","")
-			styleobj = {type:"italic", from:from, to:to}
-			style_arr.push(styleobj)
+			
+			if(from !== -1 && to !== -1) {styleobj = {type:"italic", from:from, to:to}; style_arr.push(styleobj)}
 	        styleobj = {}
 	   } while ( text.indexOf("<i>") !== -1  )
 	return style_arr
