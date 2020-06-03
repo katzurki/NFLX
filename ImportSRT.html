@@ -3,6 +3,7 @@
 	<script type="text/javascript">
     var fps = 24.00
     var event_counter = 0
+    var new_fps = 0
 
     function tc2frames(timeString, framerate) {
      var timeArray = timeString.split(":")
@@ -28,13 +29,19 @@
       )
     }
 
+    function isInt(value){
+    value = value*1
+    if (value === parseInt(value, 10)) return true
+    return false
+    }
+
     function setFPS() {
      var new_fps = prompt("Current FPS set to: " + fps +
       "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:"
      )
-     if(!new_fps) new_fps = 2400
+     if(!new_fps) var new_fps = 2400
      new_fps = new_fps.replace(".", "")
-      .replace(",", "")
+     new_fps = new_fps.replace(",", "")
      if (new_fps.length == 2) new_fps = new_fps + "00"
      new_fps = (new_fps.substr(0, 2) + "." + new_fps.substr(2)) * 1
      if (new_fps !== fps) {
@@ -81,7 +88,7 @@
       var event_lines = event.split("\n")
       if (!isInt(event_lines[0]) || !event_lines[1].includes(
         "-->")) {
-        alert("Invalid event in SRT:\n" + event)
+        alert("Invalid event in SRT:\n0: " + event_lines[0] + "\n1: " + event_lines[1] + "\nEvent: " + event)
         throw new Error("Invalid SRT!")
        }
        var timecode = event_lines[1]
@@ -98,7 +105,8 @@
        }
        txt = txt.replace(/\{.an.\}/g, "")
        var styles = stylify(txt)
-       txt = txt.replace(/<i>/g, "").replace(/<\/i>/g, "")
+       txt = txt.replace(/<i>/g, "")
+       txt = txt.replace(/<\/i>/g, "")
        var editedByUser = true
        var markup = []
        var annotations = {}
@@ -137,8 +145,9 @@
        e.preventDefault()
        alert("Copied " + event_counter +
         " events at FPS " + fps)
+       event_counter = 0
       })
-      event_counter = 0
+
      }	</script>
 </head>
 <body>
@@ -149,14 +158,12 @@
 	<pre>
 <b>INSTRUCTIONS:</b>
 
-Paste your completely valid SRT file into the box above, press the button, enter the desired FPS and press Enter.
+1. Your SRT file must be completely valid. No empty events. The only tags acceptable are:
+<b>&lt;i&gt;&lt;/i&gt;</b> (multiple per event is OK), <b>{\an2}</b> (bottom position) <b>{\an8}</b> (top position).
 
-This prepares your SRT for the Originator.
+2. Click the button; this will convert SRT events to Originator events, unless there is an error.
 
-Next, press Ctrl+C to copy the Originator events into the clipboard.
+3. Press <b>Ctrl+C</b> (Windows) or <b>Cmd+C</b> (Mac) to copy the Originator events into the clipboard.
 
-In the Originator there must be at least one empty event anywhere.
-
-Put the cursor where you want the first event of your SRT file to start and press Ctrl+V.
-
-This page must be reloaded before you process any more SRT files.</center>
+4. In the Originator there must be at least one empty event. It must be outlined in blue for the paste functionality to work.
+Position your slider on the exact in-cue frame of the first event of your SRT file and press <b>Ctrl+V (Cmd+V)</b>. 
