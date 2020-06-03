@@ -37,9 +37,9 @@
 
     function setFPS() {
      var new_fps = prompt("Current FPS set to: " + fps +
-      "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:"
+      "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:","2400"
      )
-     if(!new_fps) var new_fps = 2400
+     if(new_fps === null) var new_fps = 2400
      new_fps = new_fps.replace(".", "")
      new_fps = new_fps.replace(",", "")
      if (new_fps.length == 2) new_fps = new_fps + "00"
@@ -146,6 +146,7 @@
        alert("Copied " + event_counter +
         " events at FPS " + fps)
        event_counter = 0
+       setTimeout(function(){ location.reload(); }, 1000);
       })
 
      }	</script>
