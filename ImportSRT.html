@@ -1,102 +1,108 @@
 
 <head>
 	<script type="text/javascript">
-var fps = 24
-var event_counter = 0;
+	var fps = 24
+	var event_counter = 0;
 
-function tc2frames(timeString, framerate)
+	function tc2frames(timeString, framerate)
+	{
+
+	  var timeArray = timeString.split(":");
+	  var hours   = parseInt(timeArray[0]) * 60 * 60;
+	  var minutes = parseInt(timeArray[1]) * 60;
+	  var s_ms = timeArray[2].split(",");
+	  var seconds = parseInt(s_ms[0]);
+	  var ms  = parseInt(s_ms[1]);
+
+	  var totalTime = hours + minutes + seconds + ms/1000;
+
+	  var totalFrames = Math.round(totalTime * fps);
+
+	  return totalFrames;
+	}
+
+	function uid() {
+	  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+	    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	  );
+	}
+
+
+	function setFPS(){
+	var new_fps = prompt("Current FPS set to: " + fps + "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:");
+	new_fps = (new_fps/100);
+	if (new_fps && new_fps !== fps) fps = new_fps
+	}
+
+
+	function stylify(text, iteration = 1)
 {
+	if (iteration == 1) {var style_arr = []; var styleobj = {}; var c=2}
+	{
+	if (text.indexOf("<i>") == -1) { return style_arr }
+		else {
 
-  var timeArray = timeString.split(":");
-  var hours   = parseInt(timeArray[0]) * 60 * 60;
-  var minutes = parseInt(timeArray[1]) * 60;
-  var s_ms = timeArray[2].split(",");
-  var seconds = parseInt(s_ms[0]);
-  var ms  = parseInt(s_ms[1]);
-
-  var totalTime = hours + minutes + seconds + ms/1000;
-
-  var totalFrames = Math.round(totalTime * fps);
-
-  return totalFrames;
-}
-
-function uid() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  );
-}
-
-
-function setFPS(){
-var new_fps = prompt("Current FPS set to: " + fps + "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:");
-new_fps = (new_fps/100);
-if (new_fps && new_fps !== fps) fps = new_fps
-}
-
-
-
-function srtPrepare(){
-
-var style_obj = {}; var style_arr = [];
-function stylify()
-{
-if (txt.indexOf("<i>") == -1) { return style_arr }
-	else {
-
-		from = txt.indexOf("<i>");
-		txt = txt.replace("<i>","")
-		to = txt.indexOf("</i>");
-		txt = txt.replace("</i>","")
-		styleobj = {type:"italic", from:from, to:to}
-		style_arr.push(styleobj)
-        styleobj = {}
-        stylify()
+			from = text.indexOf("<i>");
+			text = text.replace("<i>","")
+			to = text.indexOf("</i>");
+			text = text.replace("</i>","")
+			styleobj = {type:"italic", from:from, to:to}
+			style_arr.push(styleobj)
+	        styleobj = {}
+	        stylify(text, c++)
+		}
 	}
 }
 
-var allEvents = document.getElementById('srt').value.split("\n\n");
-var values = []
-setFPS()
 
-for(event of allEvents){
-var event_lines = event.split("\n") 
-var timecode = event_lines[1]
-var start = timecode.split("-->")[0].trim()
-start = tc2frames(start)
-var end = timecode.split("-->")[1].trim()
-end = tc2frames(end)
-event_lines.splice(0,2)
-var txt = event_lines.join("\n")
-var rgn = "bottom";
-if(txt.indexOf("an8}")) rgn = "top"
-txt=txt.replace(/{.an.}/,"")
-var styles = stylify();
-var editedByUser = true;
-var markup = [];
-var annotations = {};
-var rubies = {};
-var validations = {};
-var knp = [];
-var id = uid()
-var eventType = "TIMED_TEXT_EVENT"
-var subtitle = {id:id,start:start,end:end,txt:txt,eventType:eventType,rgn:rgn,styles:styles,editedByUser:editedByUser,markup:markup,annotations:annotations,rubies:rubies,validations:validations,knp:knp}
-values.push(subtitle)
-event_counter++
-}
-var result = {type:"CLIPBOARD_VALUES",values:values}
-json_events = JSON.stringify(result)
-alert("Press Enter and Ctrl+C");
+	function srtPrepare(){
 
-document.addEventListener('copy', function(e) {
-	   e.clipboardData.setData('application/json', json_events);
-	   e.preventDefault();
-	   alert("Copied " + event_counter + " events at FPS " + fps);
+
+	var allEvents = document.getElementById('srt').value.split("\n\n");
+	var values = []
+	setFPS()
+
+
+	for(event of allEvents){
+
+	var style_obj = {}; var style_arr = [];
+
+
+	var event_lines = event.split("\n") 
+	var timecode = event_lines[1]
+	var start = timecode.split("-->")[0].trim()
+	start = tc2frames(start)
+	var end = timecode.split("-->")[1].trim()
+	end = tc2frames(end)
+	event_lines.splice(0,2)
+	var txt = event_lines.join("\n")
+	var rgn = "bottom";
+	if(txt.indexOf("an8}") !== -1) {rgn = "top"}
+	txt=txt.replace(/{.an.}/,"")
+	var styles = stylify(txt);
+	var editedByUser = true;
+	var markup = [];
+	var annotations = {};
+	var rubies = {};
+	var validations = {};
+	var knp = [];
+	var id = uid()
+	var eventType = "TIMED_TEXT_EVENT"
+	var subtitle = {id:id,start:start,end:end,txt:txt,eventType:eventType,rgn:rgn,styles:styles,editedByUser:editedByUser,markup:markup,annotations:annotations,rubies:rubies,validations:validations,knp:knp}
+	values.push(subtitle)
+	event_counter++
 	}
-	)
-document.removeEventListener('copy')
+	var result = {type:"CLIPBOARD_VALUES",values:values}
+	json_events = JSON.stringify(result)
+	alert("Press Enter and Ctrl+C");
 
-}
+	document.addEventListener('copy', function(e) {
+		   e.clipboardData.setData('application/json', json_events);
+		   e.preventDefault();
+		   alert("Copied " + event_counter + " events at FPS " + fps);
+		}
+		)
+	}
 
 	</script>
 </head>
