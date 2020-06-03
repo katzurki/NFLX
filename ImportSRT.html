@@ -1,22 +1,22 @@
 
 <head>
 	<script type="text/javascript">
-    var fps = 24.00;
-    var event_counter = 0;
+     var fps = 24.00
+    var event_counter = 0
 
     function tc2frames(timeString, framerate) {
-     var timeArray = timeString.split(":");
-     var hours = parseInt(timeArray[0]) * 60 * 60;
-     var minutes = parseInt(timeArray[1]) * 60;
-     var s_ms = timeArray[2].split(",");
-     var seconds = parseInt(s_ms[0]);
-     var ms = parseInt(s_ms[1]);
+     var timeArray = timeString.split(":")
+     var hours = parseInt(timeArray[0]) * 60 * 60
+     var minutes = parseInt(timeArray[1]) * 60
+     var s_ms = timeArray[2].split(",")
+     var seconds = parseInt(s_ms[0])
+     var ms = parseInt(s_ms[1])
 
-     var totalTime = hours + minutes + seconds + ms / 1000;
+     var totalTime = hours + minutes + seconds + ms / 1000
 
-     var totalFrames = Math.round(totalTime * fps);
+     var totalFrames = Math.round(totalTime * fps)
 
-     return totalFrames;
+     return totalFrames
     }
 
     function uid() {
@@ -25,20 +25,20 @@
        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >>
         c / 4)
        .toString(16)
-      );
+      )
     }
 
     function setFPS() {
      var new_fps = prompt("Current FPS set to: " + fps +
       "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:"
-     );
+     )
      new_fps = new_fps.replace(".", "")
       .replace(",", "")
      if (new_fps.length == 2) new_fps = new_fps + "00"
      new_fps = (new_fps.substr(0, 2) + "." + new_fps.substr(2)) * 1
      if (new_fps !== fps) {
-      fps = new_fps;
-      alert("FPS set to: " + fps);
+      fps = new_fps
+      alert("FPS set to: " + fps)
      }
     }
 
@@ -47,9 +47,9 @@
      var styleobj = {}
 
      do {
-      from = text.indexOf("<i>");
+      from = text.indexOf("<i>")
       text = text.replace("<i>", "")
-      to = text.indexOf("</i>");
+      to = text.indexOf("</i>")
       text = text.replace("</i>", "")
 
       if (from !== -1 && to !== -1) {
@@ -57,7 +57,7 @@
         type: "italic",
         from: from,
         to: to
-       };
+       }
        style_arr.push(styleobj)
       }
       styleobj = {}
@@ -68,40 +68,41 @@
     function srtPrepare() {
 
      var allEvents = document.getElementById('srt')
-      .value.split("\n\n");
+      .value.split("\n\n")
      var values = []
      setFPS()
 
      for (event of allEvents) {
 
-      var style_obj = {};
-      var style_arr = [];
+      var style_obj = {}
+      var style_arr = []
 
       var event_lines = event.split("\n")
       if (!isInt(event_lines[0] || !event_lines[1].includes(
         "-->")) {
-        alert("Invalid event in SRT:\n" + event);
-        throw new Error("Invalid SRT!");
-       };
+        alert("Invalid event in SRT:\n" + event)
+        throw new Error("Invalid SRT!")
+       }
        var timecode = event_lines[1]
        var start = timecode.split("-->")[0].trim()
        start = tc2frames(start) var end = timecode.split(
         "-->")[1].trim()
        end = tc2frames(end) event_lines.splice(0, 2) var
         txt = event_lines.join("\n")
-       var rgn = "bottom";
-       if (txt.indexOf("an8}") !== -1) {
+       var rgn = "bottom"
+       if (txt.indexOf("{\\an8}") !== -1) {
         rgn = "top"
        }
-       var regex = /\{.an.\}/g; txt = txt.replace(regex, "");
+       txt = txt.replace(/\{.an.\}/g, "")
        var styles = stylify(
-        txt); txt = txt.replace(/<i>/g, "")
-       .replace(/<\/i>/g, "") var editedByUser = true;
-       var markup = [];
-       var annotations = {};
-       var rubies = {};
-       var validations = {};
-       var knp = [];
+        txt) txt = txt.replace(/<i>/g, "")
+       .replace(/<\/i>/g, "")
+       var editedByUser = true
+       var markup = []
+       var annotations = {}
+       var rubies = {}
+       var validations = {}
+       var knp = []
        var id = uid()
        var eventType = "TIMED_TEXT_EVENT"
        var subtitle = {
@@ -119,20 +120,21 @@
         validations: validations,
         knp: knp
        }
-       values.push(subtitle); event_counter++
+       values.push(subtitle)
+       event_counter++
       }
       var result = {
        type: "CLIPBOARD_VALUES",
        values: values
       }
       json_events = JSON.stringify(result)
-      alert("Press Enter and Ctrl+C");
+      alert("Press Enter and Ctrl+C")
 
       document.addEventListener('copy', function(e) {
-       e.clipboardData.setData('application/json', json_events);
-       e.preventDefault();
+       e.clipboardData.setData('application/json', json_events)
+       e.preventDefault()
        alert("Copied " + event_counter +
-        " events at FPS " + fps);
+        " events at FPS " + fps)
       })
      }
 	</script>
