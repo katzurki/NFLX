@@ -1,7 +1,7 @@
 
 <head>
 	<script type="text/javascript">
-    var fps = 24.00
+     var fps = 24.00
     var event_counter = 0
 
     function tc2frames(timeString, framerate) {
@@ -85,18 +85,19 @@
        }
        var timecode = event_lines[1]
        var start = timecode.split("-->")[0].trim()
-       start = tc2frames(start) var end = timecode.split(
+       start = tc2frames(start)
+       var end = timecode.split(
         "-->")[1].trim()
-       end = tc2frames(end) event_lines.splice(0, 2) var
-        txt = event_lines.join("\n")
+       end = tc2frames(end)
+       event_lines.splice(0, 2)
+       var txt = event_lines.join("\n")
        var rgn = "bottom"
        if (txt.indexOf("{\\an8}") !== -1) {
         rgn = "top"
        }
        txt = txt.replace(/\{.an.\}/g, "")
-       var styles = stylify(
-        txt) txt = txt.replace(/<i>/g, "")
-       .replace(/<\/i>/g, "")
+       var styles = stylify(txt)
+       txt = txt.replace(/<i>/g, "").replace(/<\/i>/g, "")
        var editedByUser = true
        var markup = []
        var annotations = {}
@@ -136,6 +137,7 @@
        alert("Copied " + event_counter +
         " events at FPS " + fps)
       })
+      event_counter = 0
      }
 	</script>
 </head>
