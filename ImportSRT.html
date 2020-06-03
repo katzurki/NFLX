@@ -78,9 +78,9 @@
 	var rgn = "bottom";
 	if(txt.indexOf("an8}") !== -1) {rgn = "top"}
 	txt=txt.replace(/{.an.}/,"")
+	var styles = stylify(txt);
 	txt=txt.replace(/<i>/,"")
 	txt=txt.replace(/<\/i>/,"")
-	var styles = stylify(txt);
 	var editedByUser = true;
 	var markup = [];
 	var annotations = {};
