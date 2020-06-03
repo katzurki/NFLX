@@ -1,7 +1,7 @@
 
 <head>
 	<script type="text/javascript">
-     var fps = 24.00
+    var fps = 24.00
     var event_counter = 0
 
     function tc2frames(timeString, framerate) {
@@ -78,7 +78,7 @@
       var style_arr = []
 
       var event_lines = event.split("\n")
-      if (!isInt(event_lines[0] || !event_lines[1].includes(
+      if (!isInt(event_lines[0]) || !event_lines[1].includes(
         "-->")) {
         alert("Invalid event in SRT:\n" + event)
         throw new Error("Invalid SRT!")
