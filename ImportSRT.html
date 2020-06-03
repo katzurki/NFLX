@@ -89,7 +89,7 @@
       var event_lines = event.split("\n")
       if (!isInt(event_lines[0]) || !event_lines[1].includes(
         "-->")) {
-        alert("Invalid event in SRT:\n0: " + event_lines[0] + "\n1: " + event_lines[1] + "\nEvent: " + event)
+        alert("Invalid event in SRT. One of these is wrong:\nSubtitle index: " + event_lines[0] + "\nIn/out-cue in 00:01:02,123 format: " + event_lines[1] + "\nFull event text: " + event)
         throw new Error("Invalid SRT!")
        }
        var timecode = event_lines[1]
