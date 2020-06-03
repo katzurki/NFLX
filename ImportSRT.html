@@ -153,7 +153,24 @@ function srtPrepare() {
 </head>
 <body>
 	<center>
-	<textarea placeholder="Paste your .SRT here" cols="50" rows="30" id="srt" name="srtSource">
+	<textarea placeholder="Paste your .SRT here
+  It must be perfectly valid, meaning:
+     
+     • no empty events
+     • timecode format
+       00:01:02,123 --> 00:01:02,456
+     • events separated by 1 empty line
+     • events numbered sequentially
+     • if required, {\an8} used for top position
+       and {\an2} for bottom position (default)
+     • italics are enclosed in <i></i> tags
+
+  Frame gap of 2 added automatically if needed.
+  When pasting into the Originator it is
+  recommended to disable internet access
+  for safety. Enable it if the paste looks good.
+  If not, reload.
+  " cols="50" rows="30" id="srt" name="srtSource">
 </textarea><br><button onclick="srtPrepare()">Click, Then Ctrl/Cmd+C</button>
 <center>
 	<pre>
