@@ -1,7 +1,7 @@
 
 <head>
 	<script type="text/javascript">
-var fps = 23.976
+var fps = 24
 var event_counter = 0;
 
 function tc2frames(timeString, framerate)
@@ -30,9 +30,12 @@ function uid() {
 
 function setFPS(){
 var new_fps = prompt("Current FPS set to: " + fps + "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:");
-new_fps = (new_fps/100);
-if (new_fps !== fps) fps = new_fps
+new_fps = new_fps.replace(".","").replace(",","")
+if (new_fps.length == 2) new_fps = new_fps + "00"
+new_fps = (new_fps.substr(0,2) + "." + new_fps.substr(2)) * 1
+if (new_fps !== fps) {fps = new_fps; alert("FPS set to: "+fps);
 }
+
 
 
 
@@ -76,6 +79,7 @@ document.addEventListener('copy', function(e) {
 	}
 	)
 document.removeEventListener('copy')
+window.location.reload(true); 
 }	
 	
 	</script>
