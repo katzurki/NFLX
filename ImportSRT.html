@@ -35,13 +35,12 @@
 	}
 
 
-	function stylify(text, iteration = 1)
+	function stylify(text)
 {
-	if (iteration == 1) {var style_arr = []; var styleobj = {}; var c=2}
-	{
-	if (text.indexOf("<i>") == -1) { return style_arr }
-		else {
+	var style_arr = []
+	var styleobj = {}
 
+	do{
 			from = text.indexOf("<i>");
 			text = text.replace("<i>","")
 			to = text.indexOf("</i>");
@@ -49,10 +48,9 @@
 			styleobj = {type:"italic", from:from, to:to}
 			style_arr.push(styleobj)
 	        styleobj = {}
-	        stylify(text, c++)
-		}
-	}
+	   } while ( text.indexOf("<i>") !== -1  )
 }
+
 
 
 	function srtPrepare(){
@@ -103,6 +101,7 @@
 		}
 		)
 	}
+
 
 	</script>
 </head>
