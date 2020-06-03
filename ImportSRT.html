@@ -33,7 +33,7 @@ var new_fps = prompt("Current FPS set to: " + fps + "\nPress Enter to keep curre
 new_fps = new_fps.replace(".","").replace(",","")
 if (new_fps.length == 2) new_fps = new_fps + "00"
 new_fps = (new_fps.substr(0,2) + "." + new_fps.substr(2)) * 1
-if (new_fps !== fps) {fps = new_fps; alert("FPS set to: "+fps);
+if (new_fps !== fps) {fps = new_fps; alert("FPS set to: "+fps);}
 }
 
 
