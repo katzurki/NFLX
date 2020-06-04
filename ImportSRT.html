@@ -10,6 +10,26 @@
 	<script src="https://katzurki.github.io/gtt-bookmarklets/hl.js"></script>
 
 	<style>
+		srt-html * {
+  color: #eeeeee !important;
+  background-color: #292929 !important;
+}
+
+img, video {z-index: 1}
+* {border-color: #555555 !important}
+cite, cite * {color: #029833 !important}
+:link, :link * {color: #00AAEE !important}
+input, textarea {background-color: #333333 !important}
+a {background-color: rgba(255, 255, 255, 0.01) !important}
+:visited, :visited * {color: rgb(211, 138, 138) !important}
+html, html::before, body, body::before, input, select, button {background-image: none !important}
+
+video {
+  background-color: transparent !important;
+}
+	
+	
+	
 #page-wrap {
      width: 900px;
      margin: 0 auto;
@@ -257,8 +277,9 @@ function srtPrepare() {
 </head>
 <body>
 	<center>
-		<b><h2><pre>Import SRT file into the Originator
-(Paste from Clipboard method)</pre></h2</b>
+		<div class="srt-html">
+		<font color="silver"><b><h2><pre>Import SRT file into the Originator
+(Paste from Clipboard method)</pre></h2></b>
 			<left><h4>Check out <a href="./ExportSRT.html">Export SRT</a></h4></left>
 			</center>
 			<center>
@@ -280,7 +301,7 @@ function srtPrepare() {
   for safety. Enable it if the paste looks good.
   If not, reload.
   " cols="50" rows="25" id="srt" name="srtSource">
-</textarea><br><button onclick="srtPrepare()">Click, Then Ctrl/Cmd+C</button>
+</textarea><br><button style="background-color: #555555;" onclick="srtPrepare()"><b>Click, ⏎, ^+C</b></button>
 <center>
 	<pre>
 <b>INSTRUCTIONS:</b>
@@ -302,9 +323,8 @@ ALSO SEE:
 
 <a href="https://katzurki.github.io/NFLX/ExportSRT.html">Export SRT</a> from Originator
 <a href="https://katzurki.github.io/NFLX/ExportSRT.html">Export MP4</a> from Originator (bottom of page)
+</div>
 <hr>
-<br>
-<br>
 <div id="page-wrap">
 <center><h2>Source code</h2>
 </center>
@@ -321,16 +341,16 @@ var frames = Math.round(seconds_frac * framerate) + '' //export as ,000 timecode
 var date = new Date(0);                                    //and vice versa
 date.setSeconds(seconds_int);
 var timeString = date.toISOString().substr(11, 8)  
-if(frames.length == 1) frames = "0"+frames    //to make sure frames count as 01, 02, etc.
-var timecodef = timeString + ":" + frames
+if(frames.length == 1) frames = &quot;0&quot;+frames    //to make sure frames count as 01, 02, etc.
+var timecodef = timeString + &quot;:&quot; + frames
 return timecodef
 }
 
 function tc2frames(timeString, framerate) {   //timecode format 00:01:02,000 to frames
-    var timeArray = timeString.split(":")   
+    var timeArray = timeString.split(&quot;:&quot;)   
     var hours = parseInt(timeArray[0]) * 60 * 60 
     var minutes = parseInt(timeArray[1]) * 60    
-    var s_ms = timeArray[2].split(",")           
+    var s_ms = timeArray[2].split(&quot;,&quot;)           
     var seconds = parseInt(s_ms[0])           
     var ms = parseInt(s_ms[1])
     var totalTime = hours + minutes + seconds + ms / 1000
@@ -340,8 +360,8 @@ function tc2frames(timeString, framerate) {   //timecode format 00:01:02,000 to 
 
 function uid() {   //gratefully stolen from Chrome source code
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11)
-        .replace(/[018]/g, c => (c ^ crypto.getRandomValues(
-                new Uint8Array(1))[0] & 15 >> c / 4)
+        .replace(/[018]/g, c =&gt; (c ^ crypto.getRandomValues(
+                new Uint8Array(1))[0] &amp; 15 &gt;&gt; c / 4)
             .toString(16))
 }
 
@@ -352,38 +372,38 @@ function isInt(value) { //to avoid int conversion in the main code -- we need it
 }
 
 function setFPS() { //icky, but at least it takes almost any input and doesn't break
-    var new_fps = prompt("Current FPS set to: " + fps +
-        "\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:",
-        "2400")
+    var new_fps = prompt(&quot;Current FPS set to: &quot; + fps +
+        &quot;\nPress Enter to keep current FPS or enter new, e.g. 2500 or 2397 or 2997:&quot;,
+        &quot;2400&quot;)
     if (new_fps === null) var new_fps = 2400
-    new_fps = new_fps.replace(".", "")
-    new_fps = new_fps.replace(",", "")
-    if (new_fps.length == 2) new_fps = new_fps + "00"
-    new_fps = (new_fps.substr(0, 2) + "." + new_fps.substr(2)) * 1
+    new_fps = new_fps.replace(&quot;.&quot;, &quot;&quot;)
+    new_fps = new_fps.replace(&quot;,&quot;, &quot;&quot;)
+    if (new_fps.length == 2) new_fps = new_fps + &quot;00&quot;
+    new_fps = (new_fps.substr(0, 2) + &quot;.&quot; + new_fps.substr(2)) * 1
     if (new_fps !== fps) {
         fps = new_fps
-        alert("FPS set to: " + fps)
+        alert(&quot;FPS set to: &quot; + fps)
     }
 }
 
-function stylify(text) {  //recursively returns styles: {"type":"italic", "from": INT, "to":INT AS STRING}
+function stylify(text) {  //recursively returns styles: {&quot;type&quot;:&quot;italic&quot;, &quot;from&quot;: INT, &quot;to&quot;:INT AS STRING}
     var style_arr = []     //suitable for multiple tags in one event
     var styleobj = {}
     do {
-        from = text.indexOf("<i>")
-        text = text.replace("<i>", "")
-        to = text.indexOf("</i>")
-        text = text.replace("</i>", "")
-        if (from !== -1 && to !== -1) {
+        from = text.indexOf(&quot;&lt;i&gt;&quot;)
+        text = text.replace(&quot;&lt;i&gt;&quot;, &quot;&quot;)
+        to = text.indexOf(&quot;&lt;/i&gt;&quot;)
+        text = text.replace(&quot;&lt;/i&gt;&quot;, &quot;&quot;)
+        if (from !== -1 &amp;&amp; to !== -1) {
             styleobj = {
-                type: "italic"
+                type: &quot;italic&quot;
                 , from: from
                 , to: to
             }
             style_arr.push(styleobj)
         }
         styleobj = {}
-    } while (text.indexOf("<i>") !== -1)
+    } while (text.indexOf(&quot;&lt;i&gt;&quot;) !== -1)
     return style_arr
 }
 
@@ -391,56 +411,56 @@ function srtPrepare() {
     var start_previous = 0
     var end_previous = 0
     var allEvents = document.getElementById('srt')
-        .value.split("\n\n")
+        .value.split(&quot;\n\n&quot;)
     var values = []
     setFPS()
     for (event of allEvents) {
         var style_obj = {}
         var style_arr = []
-        var event_lines = event.split("\n")
+        var event_lines = event.split(&quot;\n&quot;)
         if (!isInt(event_lines[0]) || !event_lines[1].includes(
-            "-->")) {
-            alert("Invalid event in SRT:\n0: " + event_lines[0] +
-                "\n1: " + event_lines[1] + "\nEvent: " + event)
+            &quot;--&gt;&quot;)) {
+            alert(&quot;Invalid event in SRT:\n0: &quot; + event_lines[0] +
+                &quot;\n1: &quot; + event_lines[1] + &quot;\nEvent: &quot; + event)
             setTimeout(function () {
                 location.reload();
             }, 3000)
-            throw new Error("Invalid SRT!")
+            throw new Error(&quot;Invalid SRT!&quot;)
         }
-        var timecode = event_lines[1].replace(/\\./g, ",")
-        var start = timecode.split("-->")[0].trim()
+        var timecode = event_lines[1].replace(/\\./g, &quot;,&quot;)
+        var start = timecode.split(&quot;--&gt;&quot;)[0].trim()
         start = tc2frames(start)
-        var end = timecode.split("-->")[1].trim()
+        var end = timecode.split(&quot;--&gt;&quot;)[1].trim()
         end = tc2frames(end)
         delta_start = start - start_previous
         delta_end = end - end_previous
-        if (delta_start < 0 || delta_end <= 0 || delta_start > 7200 ||
-            delta_end > 7200) {
-            alert("Funky timecodes in event " + event +    //7200 is a hard-coded value
-                "\n This event in-cue: " + start +         //approx 5 min max gap between events
-                "; previous event in-cue: " + start_previous +  //because the Originator WILL break
-                "\nThis event out-cue: " + end +              //if given a value of, say, 99999999 frames
-                "; previous event out-cue: " + end_previous)
+        if (delta_start &lt; 0 || delta_end &lt;= 0 || delta_start &gt; 7200 ||
+            delta_end &gt; 7200) {
+            alert(&quot;Funky timecodes in event &quot; + event +    //7200 is a hard-coded value
+                &quot;\n This event in-cue: &quot; + start +         //approx 5 min max gap between events
+                &quot;; previous event in-cue: &quot; + start_previous +  //because the Originator WILL break
+                &quot;\nThis event out-cue: &quot; + end +              //if given a value of, say, 99999999 frames
+                &quot;; previous event out-cue: &quot; + end_previous)
             setTimeout(function () {
                 location.reload();
             }, 3000)
             throw new Error(
-                "Timecodes wrong--either not sequential or too large a gap between"
+                &quot;Timecodes wrong--either not sequential or too large a gap between&quot;
                 )
         }
 
         if (delta_start === 0) start += 2   //frame gap of 2 added automatically
         event_lines.splice(0, 2)
-        var txt = event_lines.join("\n")
+        var txt = event_lines.join(&quot;\n&quot;)
             .trim()
-        var rgn = "bottom"
-        if (txt.indexOf("{\\an8}") !== -1) {
-            rgn = "top"
+        var rgn = &quot;bottom&quot;
+        if (txt.indexOf(&quot;{\\an8}&quot;) !== -1) {
+            rgn = &quot;top&quot;
         }
-        txt = txt.replace(/\{.an.\}/g, "")
+        txt = txt.replace(/\{.an.\}/g, &quot;&quot;)
         var styles = stylify(txt)
-        txt = txt.replace(/<i>/g, "")
-        txt = txt.replace(/<\/i>/g, "")
+        txt = txt.replace(/&lt;i&gt;/g, &quot;&quot;)
+        txt = txt.replace(/&lt;\/i&gt;/g, &quot;&quot;)
         var editedByUser = true
         var markup = []
         var annotations = {}
@@ -448,7 +468,7 @@ function srtPrepare() {
         var validations = {}
         var knp = []
         var id = uid()
-        var eventType = "TIMED_TEXT_EVENT"
+        var eventType = &quot;TIMED_TEXT_EVENT&quot;
         var subtitle = {
             id: id
             , start: start
@@ -470,16 +490,16 @@ function srtPrepare() {
         event_counter++
     }
     var result = {
-        type: "CLIPBOARD_VALUES"
+        type: &quot;CLIPBOARD_VALUES&quot;
         , values: values
     }
     json_events = JSON.stringify(result)
-    alert("Press Enter and Ctrl+C")
+    alert(&quot;Press Enter and Ctrl+C&quot;)
     document.addEventListener('copy', function (e) {
         e.clipboardData.setData('application/json',
             json_events)
         e.preventDefault()
-        alert("Copied " + event_counter + " events at FPS " +
+        alert(&quot;Copied &quot; + event_counter + &quot; events at FPS &quot; +
             fps)
         event_counter = 0
             location.reload();
