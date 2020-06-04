@@ -125,12 +125,11 @@ body {
 <script>hljs.initHighlightingOnLoad();</script>
 
 	<script type="text/javascript">
-		//(c) Dan Biktashev, June 3 2020. Contact me at katzurki@gmail.com
+		//(c) Dan Biktashev, June 4 2020. Contact me at katzurki@gmail.com
 var fps = 24.00
 var event_counter = 0
 var new_fps = 0
 var initial_timecode = ''
-
 
 function frames2tcf(framenumber, framerate) {
 var seconds_float = framenumber / framerate
@@ -253,6 +252,7 @@ function srtPrepare() {
         event_lines.splice(0, 2)
         var txt = event_lines.join("\n")
             .trim()
+        if(txt.indexOf("<b></b>")!== -1) {var type_fn = "fn"; txt = txt.replace("<b></b>", "")}
         var rgn = "bottom"
         if (txt.indexOf("{\\an8}") !== -1) {
             rgn = "top"
@@ -284,6 +284,7 @@ function srtPrepare() {
             , validations: validations
             , knp: knp
         }
+        if(type_fn) {subtitle.type = "fn"; type_fn = undefined; delete(type_fn)}
         values.push(subtitle)
         start_previous = start
         end_previous = end
@@ -314,6 +315,7 @@ function srtPrepare() {
 		<div class="srt-html">
 		<font color="silver"><b><h2><pre>Import SRT file into the Originator
 (Paste from Clipboard method)</pre></h2></b>
+			<h4>(imports FNs, italics and positioning!)</h4>
 			<left><h4>Check out <a href="./ExportSRT.html">Export SRT</a></h4></left>
 			</center>
 			<center>
