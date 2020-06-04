@@ -137,65 +137,57 @@ Please make sure to review it.
 May 24 2020 v2.0
 */
 
-var our_clq = document.location.href.toString()
-    .split("=")[1].split(":")[2]
-var clq_pattern = new RegExp(
-    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
-    'i');
+
+var our_clq = document.location.href.toString().split(&quot;=&quot;)[1].split(&quot;:&quot;)[2]
+var clq_pattern = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$','i');
 
 if (!our_clq || !clq_pattern.test(our_clq)) {
-    alert("You must be in an Originator task!");
+    alert(&quot;You must be in an Originator task!&quot;);
     throw new Error
 }
 
 if (!clq_pattern.test(our_clq)) {
-    alert("The CLQ is invalid: " + our_clq + "\n" +
-        "Please report me to the developer.");
+    alert(&quot;The CLQ is invalid: &quot; + our_clq + &quot;\n&quot; + &quot;Please report me to the developer.&quot;);
     throw new Error
 }
 
-var lsJson = localStorage["clq:origination:" + our_clq]
+var lsJson = localStorage[&quot;clq:origination:&quot; + our_clq]
 if (!lsJson) {
-    alert("Timed text events not found in localStorage\nfor CLQ: " +
-        our_clq + "\n" + "If the CLQ is correct and" + "\n" +
-        "\"Save to local storage\" is enabled in Settings," +
-        "\n" + "save the task and try again.");
+    alert(&quot;Timed text events not found in localStorage\nfor CLQ: &quot; + our_clq + &quot;\n&quot; + &quot;If the CLQ is correct and&quot; + &quot;\n&quot; + &quot;\&quot;Save to local storage\&quot; is enabled in Settings,&quot; + &quot;\n&quot; + &quot;save the task and try again.&quot;);
     throw new Error
 }
 var json_obj = JSON.parse(lsJson)
-var src = json_obj["events"]
-var fps_ = json_obj["meta"]["fps"];
-var fps = fps_.split("_")[1] / 100
-//From {"fps":"FPS_2500"}
-var proposed_fps = prompt("Framerate set to: " + fps +
-    " fps.\n\nEnter new value like 2997, 2500 or 23976023976023978:"
-    );
+var src = json_obj[&quot;events&quot;]
+var fps_ = json_obj[&quot;meta&quot;][&quot;fps&quot;];
+var fps = fps_.split(&quot;_&quot;)[1] / 100
+//From {&quot;fps&quot;:&quot;FPS_2500&quot;}
+var proposed_fps = prompt(&quot;Framerate set to: &quot; + fps + &quot; fps.\n\nEnter new value like 2997, 2500 or 23976023976023978:&quot;);
 if (proposed_fps) {
     var int_fps = proposed_fps.substring(0, 2);
     var decimal_fps = proposed_fps.substring(2, proposed_fps.length);
-    fps_ = "FPS" + "_" + int_fps + decimal_fps
-    fps = (int_fps + "." + decimal_fps) * 1;
+    fps_ = &quot;FPS&quot; + &quot;_&quot; + int_fps+decimal_fps
+    fps = (int_fps + &quot;.&quot; + decimal_fps)*1;
 }
 
-alert("Proceeding with FPS " + fps + ". File will be named _" + fps_)
-//if(fps >= 23.97 && fps <= 24) fps = 24 //To take care of dropframes
+alert(&quot;Proceeding with FPS &quot; + fps + &quot;. File will be named _&quot;+fps_)
+//if(fps &gt;= 23.97 &amp;&amp; fps &lt;= 24) fps = 24 //To take care of dropframes
 var frms = 1000 / fps
 download(srtName(fps_), array2srt(src))
 
-function srtName(suffix = "") {
+function srtName(suffix = &quot;&quot;) {
     var s = document
         .getElementsByClassName(
-            "cpe-page-menu-label")[0]
+            &quot;cpe-page-menu-label&quot;)[0]
         .innerText
     var srtName = (s.replace(/[ ]/g
                 , '_')
             .replace(/[^a-z0-9_]/gi
-                , '') + "_" + suffix + ".srt"
+                , '') + &quot;_&quot; + suffix + &quot;.srt&quot;
         ) //This gets rid of all punctuation, spaces and non-English letters
         .trim() //resulting in a name like 14545_El_Burrito_A_Breaking_Fat_Movie_FPS_2500.srt
     if (!srtName) srtName = our_clq +
-        "_" + suffix +
-        ".srt" //Fallback measure. Useful for debugging later
+        &quot;_&quot; + suffix +
+        &quot;.srt&quot; //Fallback measure. Useful for debugging later
     return srtName
 }
 
@@ -212,16 +204,16 @@ function array2srt(events_object) {
     for (var id in events_object) {
         ordered_events.push([
             events_object[id][
-                "start"
+                &quot;start&quot;
             ]
             , events_object[id][
-                "end"
+                &quot;end&quot;
             ], events_object[id]
-            ["txt"]
-            , events_object[id]
-            ["styles"]
-            , events_object[id]
-            ["rgn"]
+            [&quot;txt&quot;],
+            events_object[id]
+            [&quot;styles&quot;],
+            events_object[id]
+            [&quot;rgn&quot;]
         ])
     }
     ordered_events.sort(function (a
@@ -237,48 +229,34 @@ function array2srt(events_object) {
         var end = frames2timecode(event[
             1])
         var content = event[2]
+        try { if( typeof event[3][0][&quot;type&quot;] !== &quot;undefined&quot; ) { if(event[3][0][&quot;type&quot;] == &quot;italic&quot; ) 
+            { content = italicize(content, event[3]) } 
+        } } catch (e) {}
+        
         try {
-            if (typeof event[3][0]["type"] !== "undefined") {
-                if (event[3][0]["type"] == "italic") {
-                    content = italicize(content, event[3])
-                }
-            }
-        }
-        catch (e) {}
-
-        try {
-            if (typeof event[4] !== "undefined") {
-                if (event[4] == "top") {
-                    content = "{\\an8}" + content
-                }
-            }
-        }
-        catch (e) {}
+        if( typeof event[4] !== &quot;undefined&quot; ) { if (event[4] == &quot;top&quot; ) {
+            content = &quot;{\\an8}&quot; + content
+        } } } catch (e) {}
         console.log(content)
         var current_event = index +
-            "\n" + start + " --> " +
+            &quot;\n&quot; + start + &quot; --&gt; &quot; +
             end +
-            "\n" + content + "\n"
-        srt_txt += current_event + "\n"
+            &quot;\n&quot; + content + &quot;\n&quot;
+        srt_txt += current_event + &quot;\n&quot;
     }
     return srt_txt
 }
 
-function italicize(content, italics_array) {
-    position_offset = 0
-    for (var italic of italics_array) {
-        var position_from = italic["from"] + position_offset;
-        position_offset += 3
-        content = [content.slice(0, position_from), "<i>", content
-            .slice(position_from)
-        ].join('')
-        var position_to = italic["to"] + position_offset;
-        position_offset += 4
-        content = [content.slice(0, position_to), "</i>", content
-            .slice(position_to)
-        ].join('')
-    }
-    return content
+
+function italicize(content, italics_array){
+position_offset = 0
+for(var italic of italics_array){
+    var position_from = italic[&quot;from&quot;]+position_offset; position_offset += 3
+    content = [content.slice(0, position_from), &quot;&lt;i&gt;&quot;, content.slice(position_from)].join('')
+    var position_to = italic[&quot;to&quot;]+position_offset; position_offset += 4
+    content = [content.slice(0, position_to), &quot;&lt;/i&gt;&quot;, content.slice(position_to)].join('')
+}
+return content
 }
 
 function download(filename, text) {
@@ -338,11 +316,12 @@ function formatTimeHMSS(o) {
     if (milliseconds.length === 2)
         milliseconds = '0' +
         milliseconds
-    return hours + ":" + minutes + ":" +
+    return hours + &quot;:&quot; + minutes + &quot;:&quot; +
         //Example: 00:01:02,999 -- note that the SRT spec calls for a comma, not a period!
-        seconds + "," +
+        seconds + &quot;,&quot; +
         milliseconds
-}
+}   
+
 </pre></code>
 
 <h2><font color="white">CHANGELOG</font></h2>
