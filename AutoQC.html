@@ -129,302 +129,13 @@ Send suggestions :)
 June 6 2020
 */
 
-var our_clq = document.location.href.toString().split(&quot;=&quot;)[1].split(&quot;:&quot;)[2]
-var clq_pattern = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$', 'i');
-
-if (!our_clq || !clq_pattern.test(our_clq)) {
-    alert(&quot;You must be in an Originator task!&quot;);
-    throw new Error
-}
-
-if (!clq_pattern.test(our_clq)) {
-    alert(&quot;The CLQ is invalid: &quot; + our_clq + &quot;\n&quot; + &quot;Please report me to the developer.&quot;);
-    throw new Error
-}
-
-var lsJson = localStorage[&quot;clq:origination:&quot; + our_clq]
-if (!lsJson) {
-    alert(&quot;Timed text events not found in localStorage\nfor CLQ: &quot; + our_clq + &quot;\n&quot; + &quot;If the CLQ is correct and&quot; + &quot;\n&quot; + &quot;\&quot;Save to local storage\&quot; is enabled in Settings,&quot; + &quot;\n&quot; + &quot;save the task and try again.&quot;);
-    throw new Error
-}
-
-var json_obj = JSON.parse(lsJson)
-var src = json_obj[&quot;events&quot;]
-var fps_ = json_obj[&quot;meta&quot;][&quot;fps&quot;];
-var fps = fps_.split(&quot;_&quot;)[1] / 100
-//From {&quot;fps&quot;:&quot;FPS_2500&quot;}
-//var proposed_fps = prompt(&quot;Framerate set to: &quot; + fps + &quot; fps.\n\nEnter new value like 2997, 2500 or 23976023976023978:&quot;);
-try {
-    if (proposed_fps) {
-        var int_fps = proposed_fps.substring(0, 2);
-        var decimal_fps = proposed_fps.substring(2, proposed_fps.length);
-        fps_ = &quot;FPS&quot; + &quot;_&quot; + int_fps + decimal_fps
-        fps = (int_fps + &quot;.&quot; + decimal_fps) * 1;
-    }
-} catch (e) {}
-
-var frms = 1000 / fps
-var line_limit = 42
-
-function srtName(suffix = &quot;&quot;) {
-    var s = document
-        .getElementsByClassName(
-            &quot;cpe-page-menu-label&quot;)[0]
-        .innerText
-    var srtName = (s.replace(/[ ]/g, '_')
-            .replace(/[^a-z0-9_]/gi, '') + &quot;_&quot; + suffix + &quot;.srt&quot;
-        ) //This gets rid of all punctuation, spaces and non-English letters
-        .trim() //resulting in a name like 14545_El_Burrito_A_Breaking_Fat_Movie_FPS_2500.srt
-    if (!srtName) srtName = our_clq +
-        &quot;_&quot; + suffix +
-        &quot;.srt&quot; //Fallback measure. Useful for debugging later
-    return srtName
-}
-
-function frames2tcf(framenumber, framerate = fps) { //frames to 00:01:02:24 format
-    var seconds_float = framenumber / framerate
-    var seconds_int = Math.floor(seconds_float)
-    var seconds_frac = seconds_float - seconds_int
-    var frames = Math.round(seconds_frac * framerate) + ''
-    var date = new Date(0);
-    date.setSeconds(seconds_int);
-    var timeString = date.toISOString().substr(11, 8)
-    if (frames.length == 1) frames = &quot;0&quot; + frames
-    var timecodef = timeString + &quot;:&quot; + frames
-    return timecodef
-}
-
-function frames2timecode(frames) { //frames to 00:01:02,000 format
-    var milliseconds = Math.round(
-        frames * frms)
-    var srt_timecode = TimeConversion(
-        milliseconds)
-    return srt_timecode
-}
-
-function array2srt(events_object) {
-    var ordered_events = []
-    for (var id in events_object) {
-        try {
-            var type_fn = events_object[id][&quot;type&quot;]
-            if (type_fn === &quot;fn&quot;) {
-                events_object[id][&quot;txt&quot;] += &quot;&lt;b&gt;&lt;/b&gt;&quot;;
-                type_fn = undefined;
-                delete(type_fn)
-            }
-        } catch (e) {}
-        ordered_events.push([
-            events_object[id][
-                &quot;start&quot;
-            ], events_object[id][
-                &quot;end&quot;
-            ], events_object[id]
-            [&quot;txt&quot;],
-            events_object[id]
-            [&quot;styles&quot;],
-            events_object[id]
-            [&quot;rgn&quot;]
-        ])
-    }
-    ordered_events.sort(function(a, b) {
-        return a[0] - b[0];
-    }); //Array sorted by in_cues, sequentially
-    var index = 0
-    var srt_txt = ''
-    for (event of ordered_events) {
-        index++
-        var start = frames2timecode(
-            event[0])
-        var end = frames2timecode(event[
-            1])
-        var content = event[2]
-        try {
-            if (typeof event[3][0][&quot;type&quot;] !== &quot;undefined&quot;) {
-                if (event[3][0][&quot;type&quot;] == &quot;italic&quot;) {
-                    content = italicize(content, event[3])
-                }
-            }
-        } catch (e) {}
-
-        try {
-            if (typeof event[4] !== &quot;undefined&quot;) {
-                if (event[4] == &quot;top&quot;) {
-                    content = &quot;{\\an8}&quot; + content
-                }
-            }
-        } catch (e) {}
-
-        try {
-            if (event[&quot;type&quot;] == &quot;fn&quot;) {
-                content += '&lt;b&gt;&lt;/b&gt;'
-            }
-        } catch (e) {}
-        console.log(content)
-        var current_event = index +
-            &quot;\n&quot; + start + &quot; --&gt; &quot; +
-            end +
-            &quot;\n&quot; + content + &quot;\n&quot;
-        srt_txt += current_event + &quot;\n&quot;
-    }
-    return srt_txt
-}
-
-
-function italicize(content, italics_array) {
-    position_offset = 0
-    for (var italic of italics_array) {
-        var position_from = italic[&quot;from&quot;] + position_offset;
-        position_offset += 3
-        content = [content.slice(0, position_from), &quot;&lt;i&gt;&quot;, content.slice(position_from)].join('')
-        var position_to = italic[&quot;to&quot;] + position_offset;
-        position_offset += 4
-        content = [content.slice(0, position_to), &quot;&lt;/i&gt;&quot;, content.slice(position_to)].join('')
-    }
-    return content
-}
-
-function download(filename, text) {
-    var element = document
-        .createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
-        encodeURIComponent(text));
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-}
-
-function TimeConversion(duration) {
-    let time = parseDuration(duration)
-    return formatTimeHMSS(time)
-}
-
-function parseDuration(duration) {
-    let remain = duration
-    let hours = Math.floor(remain / (
-        1000 * 60 * 60))
-    remain = remain % (1000 * 60 * 60)
-    let minutes = Math.floor(remain / (
-        1000 * 60))
-    remain = remain % (1000 * 60)
-    let seconds = Math.floor(remain / (
-        1000))
-    remain = remain % (1000)
-    let milliseconds = remain
-    return {
-        hours,
-        minutes,
-        seconds,
-        milliseconds
-    }
-}
-
-function formatTimeHMSS(o) {
-    let hours = o.hours.toString()
-    if (hours.length === 1) hours =
-        '0' + hours
-    let minutes = o.minutes.toString()
-    if (minutes.length === 1) minutes =
-        '0' + minutes
-    let seconds = o.seconds.toString()
-    if (seconds.length === 1) seconds =
-        '0' + seconds
-    let milliseconds = o.milliseconds
-        .toString()
-    if (milliseconds.length === 1)
-        milliseconds = '00' +
-        milliseconds
-    if (milliseconds.length === 2)
-        milliseconds = '0' +
-        milliseconds
-    return hours + &quot;:&quot; + minutes + &quot;:&quot; +
-        //Example: 00:01:02,999 -- note that the SRT spec calls for a comma, not a period!
-        seconds + &quot;,&quot; +
-        milliseconds
-}
-
-function leftFillNum(num, targetLength) {
-    return num.toString().padStart(targetLength, 0);
-}
-
-var SRT = parseSRT(array2srt(JSON.parse(localStorage[&quot;clq:origination:&quot; + our_clq])[&quot;events&quot;]));
-var issues = []
-
-for (event of SRT) {
-    var start_frames = Math.round(event[&quot;start&quot;] * fps)
-    var end_frames = Math.round(event[&quot;end&quot;] * fps)
-    var start_tcf = frames2tcf(start_frames)
-    var end_tcf = frames2tcf(end_frames)
-    var id = event[&quot;id&quot;]
-    var _id = leftFillNum(id, 4)
-    var eventIssue = []
-    var eventTxt = event[&quot;text&quot;]
-    eventTxt = eventTxt.replace(/(&lt;([^&gt;]+)&gt;)/ig, &quot;&quot;);
-    eventTxt = eventTxt.replace(/{.an.}/ig, &quot;&quot;);
-    if (eventTxt.indexOf(&quot;\n&quot;) !== -1 &amp;&amp;
-        eventTxt.indexOf(&quot;\n-&quot;) == -1 &amp;&amp;
-        eventTxt.replace(&quot;\n&quot;, &quot; &quot;).length &lt;= line_limit) {
-        eventIssue.push(&quot;Can fit on one line&quot;);
-    }
-
-    if (eventTxt.indexOf(&quot;...&quot;) !== -1) {
-        eventIssue.push(&quot;Can replace ... with …&quot;);
-    }
-
-    var hasSpace = /\s$|^\s/;
-    var eventTxt_lines = eventTxt.split(&quot;\n&quot;);
-    var nPos = eventTxt.lastIndexOf(&quot;\n&quot;);
-    var hasSpaceIssue = nPos &amp;&amp; (typeof eventTxt[nPos + 1] == &quot;undefined&quot;)
-    var overLineLimit = false
-    for (var line of eventTxt_lines) {
-        hasSpaceIssue = (hasSpace.test(line) || hasSpaceIssue)
-        if (line.length &gt; line_limit) {
-            overLineLimit = true
-        }
-    }
-
-    if (hasSpaceIssue) {
-        eventIssue.push(&quot;One of the lines begins or ends with whitespace&quot;);
-    }
-
-    if (overLineLimit) {
-        eventIssue.push(&quot;Line over max limit of &quot; + line_limit);
-    }
-
-    var totalLength = eventTxt.length
-    var eventLines = eventTxt.split(&quot;\n&quot;)
-    if (typeof eventIssue !== &quot;undefined&quot; &amp;&amp; eventIssue.length &gt; 0) {
-        log_event = (start_tcf + &quot;    &quot; + eventTxt_lines[0].padEnd(44, &quot; &quot;) + _id).padEnd(50, &quot; &quot;)
-        if (typeof eventTxt_lines[1] !== &quot;undefined&quot;) {
-            log_event += &quot;\n&quot; + end_tcf + &quot;    &quot; + eventTxt_lines[1].padEnd(48, &quot; &quot;)
-        } else {
-            log_event += &quot;\n&quot; + end_tcf + &quot;    &quot; + &quot; &quot;.padEnd(48, &quot; &quot;)
-        }
-        console.log('%c' + log_event, 'background: #12343b; color: #e1b382')
-        //console.log((+_id+&quot;\n&quot;+start_tcf+&quot;\n&quot;+end_tcf+&quot;\n&quot;+eventTxt).padEnd(50), 'background: #222; color: #bada55');
-        console.log(('%c' + eventIssue.join(&quot;\n&quot;)).padEnd(50), 'background: #FFF; color: #FF0000; font-style: italic; border:solid 1px #000;')
-        console.log(&quot;┉&quot;.repeat(63))
-
-        issue = {
-            id: id,
-            issues: eventIssue,
-            content: eventTxt,
-            start_tcf: start_tcf,
-            end_tcf: end_tcf,
-            start_frames: start_frames,
-            end_frames: end_frames
-        }
-        issues.push(issue)
-
-    }
-}
-
-(function(global, factory) {
-    typeof exports === 'object' &amp;&amp; typeof module !== 'undefined' ? module.exports = factory() :
-        typeof define === 'function' &amp;&amp; define.amd ? define(factory) :
+(function (global, factory) {
+    typeof exports === 'object' &amp;&amp; typeof module !== 'undefined' ?
+        module.exports = factory() :
+        typeof define === 'function' &amp;&amp; define.amd ? define(
+            factory) :
         (global.parseSRT = factory());
-}(this, (function() {
+}(this, (function () {
     'use strict';
 
     function toSeconds(time) {
@@ -437,8 +148,11 @@ for (event of SRT) {
                 s = t[2].split('.');
             }
 
-            return parseFloat(t[0], 10) * 3600 + parseFloat(t[1], 10) * 60 + parseFloat(s[0], 10) + parseFloat(s[1], 10) / 1000;
-        } catch (e) {
+            return parseFloat(t[0], 10) * 3600 +
+                parseFloat(t[1], 10) * 60 + parseFloat(s[
+                    0], 10) + parseFloat(s[1], 10) / 1000;
+        }
+        catch (e) {
             return 0;
         }
     }
@@ -464,7 +178,8 @@ for (event of SRT) {
     }
 
     function parseSRT() {
-        var data = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : '';
+        var data = arguments.length &gt; 0 &amp;&amp; arguments[
+            0] !== undefined ? arguments[0] : '';
 
         var subs = [];
         var lines = data.split(/(?:\r\n|\r|\n)/gm);
@@ -495,11 +210,17 @@ for (event of SRT) {
                 text.push(lines[i++]);
             }
 
-            sub.text = text.join('\\N').replace(/\{(\\[\w]+\(?([\w\d]+,?)+\)?)+\}/gi, '');
+            sub.text = text.join('\\N')
+                .replace(
+                    /\{(\\[\w]+\(?([\w\d]+,?)+\)?)+\}/gi,
+                    '');
 
-            sub.text = sub.text.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;');
+            sub.text = sub.text.replace(/&lt;/g, '&amp;lt;')
+                .replace(/&gt;/g, '&amp;gt;');
 
-            sub.text = sub.text.replace(/&amp;lt;(\/?(font|b|u|i|s))((\s+(\w|\w[\w\-]*\w)(\s*=\s*(?:&quot;.*?&quot;|'.*?'|[^'&quot;&gt;\s]+))?)+\s*|\s*)(\/?)&amp;gt;/gi, '&lt;$1$3$7&gt;');
+            sub.text = sub.text.replace(
+                /&amp;lt;(\/?(font|b|u|i|s))((\s+(\w|\w[\w\-]*\w)(\s*=\s*(?:&quot;.*?&quot;|'.*?'|[^'&quot;&gt;\s]+))?)+\s*|\s*)(\/?)&amp;gt;/gi,
+                '&lt;$1$3$7&gt;');
             sub.text = sub.text.replace(/\\N/gi, &quot;\n&quot;);
 
             subs.push(sub);
@@ -511,4 +232,355 @@ for (event of SRT) {
     return parseSRT;
 
 })));
+
+var our_clq = document.location.href.toString()
+    .split(&quot;=&quot;)[1].split(&quot;:&quot;)[2]
+var clq_pattern = new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+    'i');
+
+if (!our_clq || !clq_pattern.test(our_clq)) {
+    alert(&quot;You must be in an Originator task!&quot;);
+    throw new Error
+}
+
+if (!clq_pattern.test(our_clq)) {
+    alert(&quot;The CLQ is invalid: &quot; + our_clq + &quot;\n&quot; +
+        &quot;Please report me to the developer.&quot;);
+    throw new Error
+}
+
+var lsJson = localStorage[&quot;clq:origination:&quot; + our_clq]
+if (!lsJson) {
+    alert(&quot;Timed text events not found in localStorage\nfor CLQ: &quot; +
+        our_clq + &quot;\n&quot; + &quot;If the CLQ is correct and&quot; + &quot;\n&quot; +
+        &quot;\&quot;Save to local storage\&quot; is enabled in Settings,&quot; +
+        &quot;\n&quot; + &quot;save the task and try again.&quot;);
+    throw new Error
+}
+
+var json_obj = JSON.parse(lsJson)
+var src = json_obj[&quot;events&quot;]
+var fps_ = json_obj[&quot;meta&quot;][&quot;fps&quot;];
+var fps = fps_.split(&quot;_&quot;)[1] / 100
+//From {&quot;fps&quot;:&quot;FPS_2500&quot;}
+//var proposed_fps = prompt(&quot;Framerate set to: &quot; + fps + &quot; fps.\n\nEnter new value like 2997, 2500 or 23976023976023978:&quot;);
+try {
+    if (proposed_fps) {
+        var int_fps = proposed_fps.substring(0, 2);
+        var decimal_fps = proposed_fps.substring(2, proposed_fps
+            .length);
+        fps_ = &quot;FPS&quot; + &quot;_&quot; + int_fps + decimal_fps
+        fps = (int_fps + &quot;.&quot; + decimal_fps) * 1;
+    }
+}
+catch (e) {}
+
+var frms = 1000 / fps
+var line_limit = 42
+
+function srtName(suffix = &quot;&quot;) {
+    var s = document
+        .getElementsByClassName(
+            &quot;cpe-page-menu-label&quot;)[0]
+        .innerText
+    var srtName = (s.replace(/[ ]/g
+                , '_')
+            .replace(/[^a-z0-9_]/gi
+                , '') + &quot;_&quot; + suffix + &quot;.srt&quot;
+        ) //This gets rid of all punctuation, spaces and non-English letters
+        .trim() //resulting in a name like 14545_El_Burrito_A_Breaking_Fat_Movie_FPS_2500.srt
+    if (!srtName) srtName = our_clq +
+        &quot;_&quot; + suffix +
+        &quot;.srt&quot; //Fallback measure. Useful for debugging later
+    return srtName
+}
+
+function frames2tcf(framenumber, framerate =
+fps) { //frames to 00:01:02:24 format
+    var seconds_float = framenumber / framerate
+    var seconds_int = Math.floor(seconds_float)
+    var seconds_frac = seconds_float - seconds_int
+    var frames = Math.round(seconds_frac * framerate) + ''
+    var date = new Date(0);
+    date.setSeconds(seconds_int);
+    var timeString = date.toISOString()
+        .substr(11, 8)
+    if (frames.length == 1) frames = &quot;0&quot; + frames
+    var timecodef = timeString + &quot;:&quot; + frames
+    return timecodef
+}
+
+function frames2timecode(frames) { //frames to 00:01:02,000 format
+    var milliseconds = Math.round(
+        frames * frms)
+    var srt_timecode = TimeConversion(
+        milliseconds)
+    return srt_timecode
+}
+
+function array2srt(events_object) {
+    var ordered_events = []
+    for (var id in events_object) {
+        try {
+            var type_fn = events_object[id][&quot;type&quot;]
+            if (type_fn === &quot;fn&quot;) {
+                events_object[id][&quot;txt&quot;] += &quot;&lt;b&gt;&lt;/b&gt;&quot;;
+                type_fn = undefined;
+                delete(type_fn)
+            }
+        }
+        catch (e) {}
+        ordered_events.push([
+            events_object[id][
+                &quot;start&quot;
+            ]
+            , events_object[id][
+                &quot;end&quot;
+            ], events_object[id]
+            [&quot;txt&quot;]
+            , events_object[id]
+            [&quot;styles&quot;]
+            , events_object[id]
+            [&quot;rgn&quot;]
+        ])
+    }
+    ordered_events.sort(function (a
+        , b) {
+        return a[0] - b[0];
+    }); //Array sorted by in_cues, sequentially
+    var index = 0
+    var srt_txt = ''
+    for (event of ordered_events) {
+        index++
+        var start = frames2timecode(
+            event[0])
+        var end = frames2timecode(event[
+            1])
+        var content = event[2]
+        try {
+            if (typeof event[3][0][&quot;type&quot;] !== &quot;undefined&quot;) {
+                if (event[3][0][&quot;type&quot;] == &quot;italic&quot;) {
+                    content = italicize(content, event[3])
+                }
+            }
+        }
+        catch (e) {}
+
+        try {
+            if (typeof event[4] !== &quot;undefined&quot;) {
+                if (event[4] == &quot;top&quot;) {
+                    content = &quot;{\\an8}&quot; + content
+                }
+            }
+        }
+        catch (e) {}
+
+        try {
+            if (event[&quot;type&quot;] == &quot;fn&quot;) {
+                content += '&lt;b&gt;&lt;/b&gt;'
+            }
+        }
+        catch (e) {}
+        console.log(content)
+        var current_event = index +
+            &quot;\n&quot; + start + &quot; --&gt; &quot; +
+            end +
+            &quot;\n&quot; + content + &quot;\n&quot;
+        srt_txt += current_event + &quot;\n&quot;
+    }
+    return srt_txt
+}
+
+function italicize(content, italics_array) {
+    position_offset = 0
+    for (var italic of italics_array) {
+        var position_from = italic[&quot;from&quot;] + position_offset;
+        position_offset += 3
+        content = [content.slice(0, position_from), &quot;&lt;i&gt;&quot;, content
+            .slice(position_from)
+        ].join('')
+        var position_to = italic[&quot;to&quot;] + position_offset;
+        position_offset += 4
+        content = [content.slice(0, position_to), &quot;&lt;/i&gt;&quot;, content
+            .slice(position_to)
+        ].join('')
+    }
+    return content
+}
+
+function download(filename, text) {
+    var element = document
+        .createElement('a');
+    element.setAttribute('href'
+        , 'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(text));
+    element.setAttribute('download'
+        , filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+function TimeConversion(duration) {
+    let time = parseDuration(duration)
+    return formatTimeHMSS(time)
+}
+
+function parseDuration(duration) {
+    let remain = duration
+    let hours = Math.floor(remain / (
+        1000 * 60 * 60))
+    remain = remain % (1000 * 60 * 60)
+    let minutes = Math.floor(remain / (
+        1000 * 60))
+    remain = remain % (1000 * 60)
+    let seconds = Math.floor(remain / (
+        1000))
+    remain = remain % (1000)
+    let milliseconds = remain
+    return {
+        hours
+        , minutes
+        , seconds
+        , milliseconds
+    }
+}
+
+function formatTimeHMSS(o) {
+    let hours = o.hours.toString()
+    if (hours.length === 1) hours =
+        '0' + hours
+    let minutes = o.minutes.toString()
+    if (minutes.length === 1) minutes =
+        '0' + minutes
+    let seconds = o.seconds.toString()
+    if (seconds.length === 1) seconds =
+        '0' + seconds
+    let milliseconds = o.milliseconds
+        .toString()
+    if (milliseconds.length === 1)
+        milliseconds = '00' +
+        milliseconds
+    if (milliseconds.length === 2)
+        milliseconds = '0' +
+        milliseconds
+    return hours + &quot;:&quot; + minutes + &quot;:&quot; +
+        //Example: 00:01:02,999 -- note that the SRT spec calls for a comma, not a period!
+        seconds + &quot;,&quot; +
+        milliseconds
+}
+
+function leftFillNum(num, targetLength) {
+    return num.toString()
+        .padStart(targetLength, 0);
+}
+
+var SRT = parseSRT(array2srt(JSON.parse(localStorage[
+    &quot;clq:origination:&quot; + our_clq])[&quot;events&quot;]));
+var issues = []
+
+for (event of SRT) {
+    var start_frames = Math.round(event[&quot;start&quot;] * fps)
+    var end_frames = Math.round(event[&quot;end&quot;] * fps)
+    var start_tcf = frames2tcf(start_frames)
+    var end_tcf = frames2tcf(end_frames)
+    var id = event[&quot;id&quot;]
+    var _id = leftFillNum(id, 4)
+    var eventIssue = []
+    var eventTxt = event[&quot;text&quot;]
+    eventTxt = eventTxt.replace(/(&lt;([^&gt;]+)&gt;)/ig, &quot;&quot;);
+    eventTxt = eventTxt.replace(/{.an.}/ig, &quot;&quot;);
+    if (eventTxt.indexOf(&quot;\n&quot;) !== -1 &amp;&amp;
+        eventTxt.indexOf(&quot;\n-&quot;) == -1 &amp;&amp;
+        eventTxt.replace(&quot;\n&quot;, &quot; &quot;)
+        .length &lt;= line_limit) {
+        eventIssue.push(&quot;Can fit on one line&quot;);
+    }
+
+    if (eventTxt.indexOf(&quot;...&quot;) !== -1) {
+        eventIssue.push(
+            &quot;Legacy ellipsis detected: replace ... with …&quot;);
+    }
+
+    var hasSpace = /\s$|^\s/;
+    var eventTxt_lines = eventTxt.split(&quot;\n&quot;);
+    var nPos = eventTxt.lastIndexOf(&quot;\n&quot;);
+    var hasSpaceIssue = nPos &amp;&amp; (typeof eventTxt[nPos + 1] ==
+        &quot;undefined&quot;)
+    var overLineLimit = false
+    var hasDoubleSpace = eventTxt.replace(&quot;\n&quot;, &quot;&quot;)
+        .split(/\s\s/)
+        .length - 1
+    var hasThreeLines = typeof eventTxt_lines[2] !== &quot;undefined&quot;
+
+    for (var line of eventTxt_lines) {
+        hasSpaceIssue = (hasSpace.test(line) || hasSpaceIssue)
+        if (line.length &gt; line_limit) {
+            overLineLimit = true
+        }
+    }
+
+    if (hasDoubleSpace) {
+        eventIssue.push(
+            &quot;Double spaces detected, replace with single space&quot;);
+    }
+
+    if (hasThreeLines) {
+        eventIssue.push(&quot;Three lines detected in this event&quot;);
+    }
+
+    if (hasSpaceIssue) {
+        if (eventTxt.length &gt; 1) {
+            eventIssue.push(
+                &quot;One of the lines begins or ends with whitespace&quot;);
+        }
+        else {
+            eventIssue.push(&quot;Empty event detected&quot;);
+        }
+
+    }
+
+    if (overLineLimit) {
+        eventIssue.push(&quot;Line over max limit of &quot; + line_limit);
+    }
+
+    var totalLength = eventTxt.length
+    var eventLines = eventTxt.split(&quot;\n&quot;)
+    if (typeof eventIssue !== &quot;undefined&quot; &amp;&amp; eventIssue.length &gt; 0) {
+        log_event = (start_tcf + &quot;    &quot; + eventTxt_lines[0].slice(0,
+                    line_limit)
+                .padEnd(line_limit + 4, &quot; &quot;) + _id)
+            .padEnd(line_limit + 10, &quot; &quot;)
+        if (typeof eventTxt_lines[1] !== &quot;undefined&quot;) {
+            log_event += &quot;\n&quot; + end_tcf + &quot;    &quot; + eventTxt_lines[1]
+                .padEnd(line_limit + 8, &quot; &quot;)
+        }
+        else {
+            log_event += &quot;\n&quot; + end_tcf + &quot;      &quot; + &quot; &quot;.padEnd(48,
+                &quot; &quot;)
+        }
+        console.log('%c' + log_event,
+            'background: #12343b; color: #e1b382')
+        //console.log((+_id+&quot;\n&quot;+start_tcf+&quot;\n&quot;+end_tcf+&quot;\n&quot;+eventTxt).padEnd(50), 'background: #222; color: #bada55');
+        console.log(('%c' + eventIssue.join(&quot;\n&quot;))
+            .padEnd(50),
+            'background: #FFF; color: #FF0000; font-style: italic; border:solid 1px #000;'
+            )
+        console.log(&quot;┉&quot;.repeat(63))
+
+        issue = {
+            id: id
+            , issues: eventIssue
+            , content: eventTxt
+            , start_tcf: start_tcf
+            , end_tcf: end_tcf
+            , start_frames: start_frames
+            , end_frames: end_frames
+        }
+        issues.push(issue)
+
+    }
+}
 </pre></code>
