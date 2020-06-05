@@ -1,0 +1,515 @@
+
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168419916-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-168419916-1');
+</script>
+
+        <title>Bookmarklets for NFLX: AutoQC.js</title>
+	<meta property="fb:app_id"          content="1234567890" /> 
+<meta property="og:type"            content="article" /> 
+<meta property="og:url"             content="https://katzurki.github.io/NFLX/AutoQC.html" /> 
+<meta property="og:title"           content="AutoQC for Current Task" /> 
+<meta property="og:description"    content="https://katzurki.github.io/NFLX/README.md" />
+<style>
+#page-wrap {
+     width: 900px;
+     margin: 0 auto;
+}
+
+
+a.btn {
+	background-color: #e3e3e3;
+	border-color: rgba(0,0,0,0.5);
+	display: inline-block;
+	color: #000;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 12px;
+	padding: 10px 30px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 2px solid rgba(0,0,0,0.3);
+	border-bottom-width: 3px;
+}
+	a.btn:active {
+		background-color: #CCC;
+		border-color: rgba(0,0,0,0.9);
+	}
+
+/* blue button */
+
+
+div.text,
+#content,
+li[lang=ru] {
+  font: Verdana, Tahoma;
+  background: url('hatch.png') /* wtf? */;  color: #CACACA !important;
+  width: 40%;
+}
+ 
+pre {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+        /* Internet Explorer 5.5+ */
+}
+
+	
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  body:first-of-type pre::after {
+    content: 'highlight: ' attr(class);
+  }
+}
+
+
+@font-face {
+  font-family: Chunkfive; src: url('Chunkfive.otf');
+}
+
+div.text,
+#content,
+li[lang=ru] {
+  font: Tahoma, Chunkfive, sans-serif;
+  background: url('hatch.png') /* wtf? */;  color: #F0F0F0 !important;
+  font-size:14px!important;
+  width: 100%;
+}
+
+*.hljs-comment,.hljs-quote{color:#969896}.hljs-deletion,.hljs-name,.hljs-regexp,.hljs-selector-class,.hljs-selector-id,.hljs-tag,.hljs-template-variable,.hljs-variable{color:#d54e53}.hljs-built_in,.hljs-builtin-name,.hljs-link,.hljs-literal,.hljs-meta,.hljs-number,.hljs-params,.hljs-type{color:#e78c45}.hljs-attribute{color:#e7c547}.hljs-addition,.hljs-bullet,.hljs-string,.hljs-symbol{color:#b9ca4a}.hljs-section,.hljs-title{color:#7aa6da}.hljs-keyword,.hljs-selector-tag{color:#c397d8}.hljs{display:block;overflow-x:auto;background:#000;color:#eaeaea;padding:3em}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:100}
+
+
+.clearfix:after,.container-fluid:after,.container:after,.row-fluid:after,.row:after{clear:both}.lead,dl{margin-bottom:20px}hr,img{border:0}article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none}html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}a:focus{outline:#333 dotted thin;outline:-webkit-focus-ring-color auto 5px;outline-offset:-2px}a:active,a:hover{outline:0}sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{max-width:100%;vertical-align:middle;-ms-interpolation-mode:bicubic}button,input,select,textarea{margin:0;font-size:100%;vertical-align:middle}button,input{line-height:normal}button::-moz-focus-inner,input::-moz-focus-inner{padding:5em;border:5em}button,input[type=button],input[type=reset],input[type=submit]{cursor:pointer;-webkit-appearance:button}input[type=search]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}textarea{overflow:auto;vertical-align:top}.clearfix:after,.clearfix:before{display:table;content:""}.hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}body,p{font-size:13px;line-height:20px}body,h1,h2,h3,h4,h5,h6,p{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}.lead,h3{line-height:30px}.input-block-level{display:block;width:100%;min-height:14px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.row-fluid:after,.row-fluid:before,.row:after,.row:before{display:table;content:""}.container,.navbar-fixed-bottom .container,.navbar-fixed-top .container,.span12{width:940px}body{margin:0;color:#333;background-color:#f8f8f8}.navbar .brand,.row{margin-left:-20px}a:hover{text-decoration:underline}[class*=span]{float:left;margin-left:20px}.span11{width:860px}.span10{width:780px}.span9{width:700px}.span8{width:620px}.span7{width:540px}.span6{width:460px}.span5{width:380px}.span4{width:300px}.span3{width:220px}.span2{width:140px}.span1{width:60px}.offset12{margin-left:980px}.offset11{margin-left:900px}.offset10{margin-left:820px}.offset9{margin-left:740px}.offset8{margin-left:660px}.offset7{margin-left:580px}.offset6{margin-left:500px}.offset5{margin-left:420px}.offset4{margin-left:340px}.offset3{margin-left:260px}.offset2{margin-left:180px}.offset1{margin-left:100px}.row-fluid{width:100%}.row-fluid [class*=span]{display:block;width:100%;min-height:14px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;float:left;margin-left:2.127659574%}.container-fluid:after,.container-fluid:before,.container:after,.container:before{display:table;content:""}.row-fluid [class*=span]:first-child{margin-left:0}.row-fluid .span12{width:99.99999998999999%}.row-fluid .span11{width:91.489361693%}.row-fluid .span10{width:82.97872339599999%}.row-fluid .span9{width:74.468085099%}.row-fluid .span8{width:65.95744680199999%}.row-fluid .span7{width:57.446808505%}.row-fluid .span6{width:48.93617020799999%}.row-fluid .span5{width:40.425531911%}.row-fluid .span4{width:31.914893614%}.row-fluid .span3{width:23.404255317%}.row-fluid .span2{width:14.89361702%}.row-fluid .span1{width:6.382978723%}.container{margin-right:auto;margin-left:auto}.container-fluid{padding-right:20px;padding-left:20px}address,blockquote small{display:block}p{margin:0 0 10px}p small{font-size:11px;color:#999}.lead{font-size:20px;font-weight:200}blockquote p,ol ol,ol ul,ul ol,ul ul{margin-bottom:0}h1,h2{line-height:40px}h1,h2,h3,h4,h5,h6{margin:0;font-weight:700;color:inherit;text-rendering:optimizelegibility}.muted,blockquote small,h6{color:#999}h1 small,h2 small,h3 small,h4 small,h5 small,h6 small{font-weight:400;color:#999}dt,strong{font-weight:700}h1 small,h2 small{font-size:18px}h2{font-size:24px}h3{font-size:18px}h3 small,h4{font-size:14px}h4,h5,h6{line-height:20px}h4 small,h5{font-size:12px}h6{font-size:11px;text-transform:uppercase}.page-header h1{line-height:1}address,blockquote small,dd,dt,li{line-height:20px}ol,ul{padding:0;margin:0 0 10px 25px}ul{list-style:disc}ol{list-style:decimal}ol.unstyled,ul.unstyled{margin-left:0;list-style:none}dt{line-height:19px}dd{margin-left:10px}.dl-horizontal dt{float:left;width:120px;clear:left;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.filter:after,.navbar-form:after,.social-buttons:after,.thumbnails:after{clear:both}.dl-horizontal dd{margin-left:130px}hr{margin:20px 0;border-top:1px solid #999;border-bottom:1px solid #fff}em{font-style:italic}address,cite{font-style:normal}abbr[title]{cursor:help;border-bottom:1px dotted #ddd}abbr.initialism{font-size:90%;text-transform:uppercase}blockquote{padding:0 0 0 15px;margin:0 0 20px;border-left:5px solid #eee}blockquote p{font-size:16px;font-weight:300;line-height:25px}blockquote small:before{content:'\2014 \00A0'}blockquote.pull-right{float:right;padding-right:15px;padding-left:0;border-right:5px solid #eee;border-left:0}blockquote.pull-right p,blockquote.pull-right small{text-align:right}blockquote:after,blockquote:before,q:after,q:before{content:""}address{margin-bottom:20px}small{font-size:100%}@font-face{font-family:FontAwesome;src:url(../font/fontawesome-webfont.eot);src:url(../font/fontawesome-webfont.eot?#iefix) format('embedded-opentype'),url(../font/fontawesome-webfont.woff) format('woff'),url(../font/fontawesome-webfont.ttf) format('truetype'),url(../font/fontawesome-webfont.svgz#FontAwesomeRegular) format('svg'),url(../font/fontawesome-webfont.svg#FontAwesomeRegular) format('svg');font-weight:400;font-style:normal}[class*=" icon-"],[class^=icon-]{display:inline;width:auto;height:auto;line-height:inherit;vertical-align:baseline;background-image:none;background-position:0 0;background-repeat:repeat}li[class*=" icon-"],li[class^=icon-]{display:block;margin-left:0;list-style-type:none}[class*=" icon-"]:before,[class^=icon-]:before{font-family:FontAwesome;font-weight:400;font-style:normal;display:inline-block;text-decoration:inherit}a [class*=" icon-"],a [class^=icon-]{display:inline-block;text-decoration:inherit}.icon-large:before{vertical-align:top;font-size:1.3333333333333333em}.btn [class*=" icon-"],.btn [class^=icon-]{line-height:.9em}li [class*=" icon-"],li [class^=icon-]{display:inline-block;width:1.25em;text-align:center}li .icon-large[class*=" icon-"],li .icon-large[class^=icon-]{width:1.875em}li[class*=" icon-"]:before,li[class^=icon-]:before{text-indent:-2em;text-align:center}li[class*=" icon-"].icon-large:before,li[class^=icon-].icon-large:before{text-indent:-1.3333333333333333em}.icon-glass:before{content:"\f000"}.icon-music:before{content:"\f001"}.icon-search:before{content:"\f002"}.icon-envelope:before{content:"\f003"}.icon-heart:before{content:"\f004"}.icon-star:before{content:"\f005"}.icon-star-empty:before{content:"\f006"}.icon-user:before{content:"\f007"}.icon-film:before{content:"\f008"}.icon-th-large:before{content:"\f009"}.icon-th:before{content:"\f00a"}.icon-th-list:before{content:"\f00b"}.icon-ok:before{content:"\f00c"}.icon-remove:before{content:"\f00d"}.icon-zoom-in:before{content:"\f00e"}.icon-zoom-out:before{content:"\f010"}.icon-off:before{content:"\f011"}.icon-signal:before{content:"\f012"}.icon-cog:before{content:"\f013"}.icon-trash:before{content:"\f014"}.icon-home:before{content:"\f015"}.icon-file:before{content:"\f016"}.icon-time:before{content:"\f017"}.icon-road:before{content:"\f018"}.icon-download-alt:before{content:"\f019"}.icon-download:before{content:"\f01a"}.icon-upload:before{content:"\f01b"}.icon-inbox:before{content:"\f01c"}.icon-play-circle:before{content:"\f01d"}.icon-repeat:before{content:"\f01e"}.icon-refresh:before{content:"\f021"}.icon-list-alt:before{content:"\f022"}.icon-lock:before{content:"\f023"}.icon-flag:before{content:"\f024"}.icon-headphones:before{content:"\f025"}.icon-volume-off:before{content:"\f026"}.icon-volume-down:before{content:"\f027"}.icon-volume-up:before{content:"\f028"}.icon-qrcode:before{content:"\f029"}.icon-barcode:before{content:"\f02a"}.icon-tag:before{content:"\f02b"}.icon-tags:before{content:"\f02c"}.icon-book:before{content:"\f02d"}.icon-bookmark:before{content:"\f02e"}.icon-print:before{content:"\f02f"}.icon-camera:before{content:"\f030"}.icon-font:before{content:"\f031"}.icon-bold:before{content:"\f032"}.icon-italic:before{content:"\f033"}.icon-text-height:before{content:"\f034"}.icon-text-width:before{content:"\f035"}.icon-align-left:before{content:"\f036"}.icon-align-center:before{content:"\f037"}.icon-align-right:before{content:"\f038"}.icon-align-justify:before{content:"\f039"}.icon-list:before{content:"\f03a"}.icon-indent-left:before{content:"\f03b"}.icon-indent-right:before{content:"\f03c"}.icon-facetime-video:before{content:"\f03d"}.icon-picture:before{content:"\f03e"}.icon-pencil:before{content:"\f040"}.icon-map-marker:before{content:"\f041"}.icon-adjust:before{content:"\f042"}.icon-tint:before{content:"\f043"}.icon-edit:before{content:"\f044"}.icon-share:before{content:"\f045"}.icon-check:before{content:"\f046"}.icon-move:before{content:"\f047"}.icon-step-backward:before{content:"\f048"}.icon-fast-backward:before{content:"\f049"}.icon-backward:before{content:"\f04a"}.icon-play:before{content:"\f04b"}.icon-pause:before{content:"\f04c"}.icon-stop:before{content:"\f04d"}.icon-forward:before{content:"\f04e"}.icon-fast-forward:before{content:"\f050"}.icon-step-forward:before{content:"\f051"}.icon-eject:before{content:"\f052"}.icon-chevron-left:before{content:"\f053"}.icon-chevron-right:before{content:"\f054"}.icon-plus-sign:before{content:"\f055"}.icon-minus-sign:before{content:"\f056"}.icon-remove-sign:before{content:"\f057"}.icon-ok-sign:before{content:"\f058"}.icon-question-sign:before{content:"\f059"}.icon-info-sign:before{content:"\f05a"}.icon-screenshot:before{content:"\f05b"}.icon-remove-circle:before{content:"\f05c"}.icon-ok-circle:before{content:"\f05d"}.icon-ban-circle:before{content:"\f05e"}.icon-arrow-left:before{content:"\f060"}.icon-arrow-right:before{content:"\f061"}.icon-arrow-up:before{content:"\f062"}.icon-arrow-down:before{content:"\f063"}.icon-share-alt:before{content:"\f064"}.icon-resize-full:before{content:"\f065"}.icon-resize-small:before{content:"\f066"}.icon-plus:before{content:"\f067"}.icon-minus:before{content:"\f068"}.icon-asterisk:before{content:"\f069"}.icon-exclamation-sign:before{content:"\f06a"}.icon-gift:before{content:"\f06b"}.icon-leaf:before{content:"\f06c"}.icon-fire:before{content:"\f06d"}.icon-eye-open:before{content:"\f06e"}.icon-eye-close:before{content:"\f070"}.icon-warning-sign:before{content:"\f071"}.icon-plane:before{content:"\f072"}.icon-calendar:before{content:"\f073"}.icon-random:before{content:"\f074"}.icon-comment:before{content:"\f075"}.icon-magnet:before{content:"\f076"}.icon-chevron-up:before{content:"\f077"}.icon-chevron-down:before{content:"\f078"}.icon-retweet:before{content:"\f079"}.icon-shopping-cart:before{content:"\f07a"}.icon-folder-close:before{content:"\f07b"}.icon-folder-open:before{content:"\f07c"}.icon-resize-vertical:before{content:"\f07d"}.icon-resize-horizontal:before{content:"\f07e"}.icon-bar-chart:before{content:"\f080"}.icon-twitter-sign:before{content:"\f081"}.icon-facebook-sign:before{content:"\f082"}.icon-camera-retro:before{content:"\f083"}.icon-key:before{content:"\f084"}.icon-cogs:before{content:"\f085"}.icon-comments:before{content:"\f086"}.icon-thumbs-up:before{content:"\f087"}.icon-thumbs-down:before{content:"\f088"}.icon-star-half:before{content:"\f089"}.icon-heart-empty:before{content:"\f08a"}.icon-signout:before{content:"\f08b"}.icon-linkedin-sign:before{content:"\f08c"}.icon-pushpin:before{content:"\f08d"}.icon-external-link:before{content:"\f08e"}.icon-signin:before{content:"\f090"}.icon-trophy:before{content:"\f091"}.icon-github-sign:before{content:"\f092"}.icon-upload-alt:before{content:"\f093"}.icon-lemon:before{content:"\f094"}.btn{display:inline-block;padding:4px 10px;margin-bottom:0;font-size:13px;line-height:20px;color:#333;text-align:center;text-shadow:0 1px 1px rgba(255,255,255,.75);vertical-align:middle;cursor:pointer;background-color:#f5f5f5;background-image:-moz-linear-gradient(top,#fff,#e6e6e6);background-image:-ms-linear-gradient(top,#fff,#e6e6e6);background-image:-webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));background-image:-webkit-linear-gradient(top,#fff,#e6e6e6);background-image:-o-linear-gradient(top,#fff,#e6e6e6);background-image:linear-gradient(top,#fff,#e6e6e6);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);border:1px solid #ccc;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.05);border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.btn.active,.btn:active{background-color:#ccc\9}.btn:hover{color:#333;text-decoration:none;background-color:#e6e6e6;background-position:0 -15px;-webkit-transition:background-position .1s linear;-moz-transition:background-position .1s linear;-ms-transition:background-position .1s linear;-o-transition:background-position .1s linear;transition:background-position .1s linear}.btn:focus{outline:#333 dotted thin;outline:-webkit-focus-ring-color auto 5px;outline-offset:-2px}.btn.active,.btn:active{background-color:#e6e6e6;background-color:#d9d9d9\9;background-image:none;outline:0;-webkit-box-shadow:inset 0 2px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:inset 0 2px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05);box-shadow:inset 0 2px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05)}.btn.disabled,.btn[disabled]{cursor:default;background-color:#e6e6e6;background-image:none;opacity:.65;filter:alpha(opacity=65);-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.btn-danger,.btn-info,.btn-inverse,.btn-primary,.btn-success,.btn-warning{filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)}.btn-large{padding:9px 14px;font-size:15px;line-height:normal;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px}.btn-large [class^=icon-]{margin-top:1px}.btn-small{padding:5px 9px;font-size:11px;line-height:18px}.btn-small [class^=icon-]{margin-top:-1px}.btn-mini{padding:2px 6px;font-size:11px;line-height:16px}.btn-danger,.btn-danger:hover,.btn-info,.btn-info:hover,.btn-inverse,.btn-inverse:hover,.btn-primary,.btn-primary:hover,.btn-success,.btn-success:hover,.btn-warning,.btn-warning:hover{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,.25)}.btn-danger.active,.btn-info.active,.btn-inverse.active,.btn-primary.active,.btn-success.active,.btn-warning.active{color:rgba(255,255,255,.75)}.navbar,.navbar .navbar-link{color:#999}.btn-primary{background-color:#0084cc;background-image:-moz-linear-gradient(top,#0098cc,#0065cc);background-image:-ms-linear-gradient(top,#0098cc,#0065cc);background-image:-webkit-gradient(linear,0 0,0 100%,from(#0098cc),to(#0065cc));background-image:-webkit-linear-gradient(top,#0098cc,#0065cc);background-image:-o-linear-gradient(top,#0098cc,#0065cc);background-image:linear-gradient(top,#0098cc,#0065cc);background-repeat:repeat-x;border-color:#0065cc #0065cc #003f80;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.btn-primary.active,.btn-primary.disabled,.btn-primary:active,.btn-primary:hover,.btn-primary[disabled]{background-color:#0065cc}.btn-primary.active,.btn-primary:active{background-color:#004c99\9}.btn-warning{background-color:#faa732;background-image:-moz-linear-gradient(top,#fbb450,#f89406);background-image:-ms-linear-gradient(top,#fbb450,#f89406);background-image:-webkit-gradient(linear,0 0,0 100%,from(#fbb450),to(#f89406));background-image:-webkit-linear-gradient(top,#fbb450,#f89406);background-image:-o-linear-gradient(top,#fbb450,#f89406);background-image:linear-gradient(top,#fbb450,#f89406);background-repeat:repeat-x;border-color:#f89406 #f89406 #ad6704;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.btn-warning.active,.btn-warning.disabled,.btn-warning:active,.btn-warning:hover,.btn-warning[disabled]{background-color:#f89406}.btn-warning.active,.btn-warning:active{background-color:#c67605\9}.btn-danger{background-color:#da4f49;background-image:-moz-linear-gradient(top,#ee5f5b,#bd362f);background-image:-ms-linear-gradient(top,#ee5f5b,#bd362f);background-image:-webkit-gradient(linear,0 0,0 100%,from(#ee5f5b),to(#bd362f));background-image:-webkit-linear-gradient(top,#ee5f5b,#bd362f);background-image:-o-linear-gradient(top,#ee5f5b,#bd362f);background-image:linear-gradient(top,#ee5f5b,#bd362f);background-repeat:repeat-x;border-color:#bd362f #bd362f #802420;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.btn-danger.active,.btn-danger.disabled,.btn-danger:active,.btn-danger:hover,.btn-danger[disabled]{background-color:#bd362f}.btn-danger.active,.btn-danger:active{background-color:#942a25\9}.btn-success{background-color:#5bb75b;background-image:-moz-linear-gradient(top,#62c462,#51a351);background-image:-ms-linear-gradient(top,#62c462,#51a351);background-image:-webkit-gradient(linear,0 0,0 100%,from(#62c462),to(#51a351));background-image:-webkit-linear-gradient(top,#62c462,#51a351);background-image:-o-linear-gradient(top,#62c462,#51a351);background-image:linear-gradient(top,#62c462,#51a351);background-repeat:repeat-x;border-color:#51a351 #51a351 #387038;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.btn-success.active,.btn-success.disabled,.btn-success:active,.btn-success:hover,.btn-success[disabled]{background-color:#51a351}.btn-success.active,.btn-success:active{background-color:#408140\9}.btn-info{background-color:#49afcd;background-image:-moz-linear-gradient(top,#5bc0de,#2f96b4);background-image:-ms-linear-gradient(top,#5bc0de,#2f96b4);background-image:-webkit-gradient(linear,0 0,0 100%,from(#5bc0de),to(#2f96b4));background-image:-webkit-linear-gradient(top,#5bc0de,#2f96b4);background-image:-o-linear-gradient(top,#5bc0de,#2f96b4);background-image:linear-gradient(top,#5bc0de,#2f96b4);background-repeat:repeat-x;border-color:#2f96b4 #2f96b4 #1f6377;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.btn-info.active,.btn-info.disabled,.btn-info:active,.btn-info:hover,.btn-info[disabled]{background-color:#2f96b4}.btn-info.active,.btn-info:active{background-color:#24748c\9}.btn-inverse{background-color:#414141;background-image:-moz-linear-gradient(top,#555,#222);background-image:-ms-linear-gradient(top,#555,#222);background-image:-webkit-gradient(linear,0 0,0 100%,from(#555),to(#222));background-image:-webkit-linear-gradient(top,#555,#222);background-image:-o-linear-gradient(top,#555,#222);background-image:linear-gradient(top,#555,#222);background-repeat:repeat-x;border-color:#222 #222 #000;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25)}.navbar .btn-navbar,.navbar-inner{background-image:-moz-linear-gradient(top,#333,#222);background-image:-webkit-linear-gradient(top,#333,#222);background-repeat:repeat-x}.btn-inverse.active,.btn-inverse.disabled,.btn-inverse:active,.btn-inverse:hover,.btn-inverse[disabled]{background-color:#222}.btn-inverse.active,.btn-inverse:active{background-color:#080808\9}button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;border:0}.navbar{overflow:visible;margin-bottom:20px}.navbar-inner{min-height:40px;padding-left:20px;padding-right:20px;background-color:#2c2c2c;background-image:-ms-linear-gradient(top,#333,#222);background-image:-webkit-gradient(linear,0 0,0 100%,from(#333),to(#222));background-image:-o-linear-gradient(top,#333,#222);background-image:linear-gradient(top,#333,#222);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.25),inset 0 -1px 0 rgba(0,0,0,.1);-moz-box-shadow:0 1px 3px rgba(0,0,0,.25),inset 0 -1px 0 rgba(0,0,0,.1);box-shadow:0 1px 3px rgba(0,0,0,.25),inset 0 -1px 0 rgba(0,0,0,.1)}.nav-collapse.collapse{height:auto}.navbar .brand:hover{text-decoration:none}.navbar .brand{float:left;display:block;padding:8px 20px 12px;font-size:20px;font-weight:200;line-height:1}.navbar .navbar-text{margin-bottom:0;line-height:40px}.navbar .navbar-link:hover{color:#fff}.navbar .btn,.navbar .btn-group{margin-top:5px}.navbar .btn-group .btn{margin:0}.navbar-form{margin-bottom:0}.navbar-form:after,.navbar-form:before{display:table;content:""}.navbar-form .checkbox,.navbar-form .radio,.navbar-form input,.navbar-form select{margin-top:5px}.navbar-form input,.navbar-form select{display:inline-block;margin-bottom:0}.navbar-form input[type=image],.navbar-form input[type=checkbox],.navbar-form input[type=radio]{margin-top:3px}.navbar-form .input-append,.navbar-form .input-prepend{margin-top:6px;white-space:nowrap}.navbar-form .input-append input,.navbar-form .input-prepend input{margin-top:0}.navbar-search{position:relative;float:left;margin-top:6px;margin-bottom:0}.navbar-search .search-query{padding:4px 9px;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;font-weight:400;line-height:1;color:#fff;background-color:#626262;border:1px solid #151515;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1),0 1px 0 rgba(255,255,255,.15);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1),0 1px 0 rgba(255,255,255,.15);box-shadow:inset 0 1px 2px rgba(0,0,0,.1),0 1px 0 rgba(255,255,255,.15);-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none}.navbar-search .search-query:-moz-placeholder{color:#ccc}.navbar-search .search-query::-webkit-input-placeholder{color:#ccc}.navbar-search .search-query.focused,.navbar-search .search-query:focus{padding:5px 10px;color:#333;text-shadow:0 1px 0 #fff;background-color:#fff;border:0;-webkit-box-shadow:0 0 3px rgba(0,0,0,.15);-moz-box-shadow:0 0 3px rgba(0,0,0,.15);box-shadow:0 0 3px rgba(0,0,0,.15);outline:0}.navbar-fixed-bottom,.navbar-fixed-top{position:fixed;right:0;left:0;z-index:1030;margin-bottom:0}.navbar-fixed-bottom .navbar-inner,.navbar-fixed-top .navbar-inner{padding-left:0;padding-right:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}.navbar-fixed-top{top:0}.navbar-fixed-bottom{bottom:0}.navbar .nav{position:relative;left:0;display:block;float:left;margin:0 10px 0 0}.navbar .nav.pull-right{float:right}.navbar .nav>li{display:block;float:left}.navbar .nav>li>a{float:none;padding:9px 10px 11px;line-height:19px;color:#999;text-decoration:none;text-shadow:0 -1px 0 rgba(0,0,0,.25)}.navbar .btn{display:inline-block;padding:4px 10px;margin:5px 5px 6px;line-height:20px}.navbar .btn-group{margin:0;padding:5px 5px 6px}.navbar .nav>li>a:hover{background-color:transparent;color:#fff;text-decoration:none}.navbar .nav .active>a,.navbar .nav .active>a:hover{color:#fff;text-decoration:none;background-color:#222}.navbar .divider-vertical{height:40px;width:1px;margin:0 9px;overflow:hidden;background-color:#222;border-right:1px solid #333}.navbar .nav.pull-right{margin-left:10px;margin-right:0}.navbar .btn-navbar{display:none;float:right;padding:7px 10px;margin-left:5px;margin-right:5px;background-color:#2c2c2c;background-image:-ms-linear-gradient(top,#333,#222);background-image:-webkit-gradient(linear,0 0,0 100%,from(#333),to(#222));background-image:-o-linear-gradient(top,#333,#222);background-image:linear-gradient(top,#333,#222);border-color:#222 #222 #000;border-color:rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);filter:progid:DXImageTransform.Microsoft.gradient(enabled=false);-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1px 0 rgba(255,255,255,.075);-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1px 0 rgba(255,255,255,.075);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1px 0 rgba(255,255,255,.075)}.navbar .btn-navbar.active,.navbar .btn-navbar.disabled,.navbar .btn-navbar:active,.navbar .btn-navbar:hover,.navbar .btn-navbar[disabled]{background-color:#222}.navbar .btn-navbar.active,.navbar .btn-navbar:active{background-color:#080808\9}.navbar .btn-navbar .icon-bar{display:block;width:18px;height:2px;background-color:#f5f5f5;-webkit-border-radius:1px;-moz-border-radius:1px;border-radius:1px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.25);-moz-box-shadow:0 1px 0 rgba(0,0,0,.25);box-shadow:0 1px 0 rgba(0,0,0,.25)}.navbar .dropdown-menu:after,.navbar .dropdown-menu:before{content:'';display:inline-block;position:absolute}.btn-navbar .icon-bar+.icon-bar{margin-top:3px}.navbar .dropdown-menu:before{border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #ccc;border-bottom-color:rgba(0,0,0,.2);top:-7px;left:9px}.navbar .dropdown-menu:after{border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #fff;top:-6px;left:10px}.navbar-fixed-bottom .dropdown-menu:before{border-top:7px solid #ccc;border-top-color:rgba(0,0,0,.2);border-bottom:0;bottom:-7px;top:auto}.navbar-fixed-bottom .dropdown-menu:after{border-top:6px solid #fff;border-bottom:0;bottom:-6px;top:auto}.navbar .nav li.dropdown .dropdown-toggle .caret,.navbar .nav li.dropdown.open .caret{border-top-color:#fff;border-bottom-color:#fff}.navbar .nav li.dropdown.active .caret{opacity:1;filter:alpha(opacity=100)}.navbar .nav li.dropdown.active>.dropdown-toggle,.navbar .nav li.dropdown.open.active>.dropdown-toggle,.navbar .nav li.dropdown.open>.dropdown-toggle{background-color:transparent}.navbar .nav li.dropdown.active>.dropdown-toggle:hover{color:#fff}.navbar .dropdown-menu.pull-right,.navbar .pull-right .dropdown-menu{left:auto;right:0}.navbar .dropdown-menu.pull-right:before,.navbar .pull-right .dropdown-menu:before{left:auto;right:12px}.navbar .dropdown-menu.pull-right:after,.navbar .pull-right .dropdown-menu:after{left:auto;right:13px}.thumbnails{margin-left:-20px;list-style:none}.thumbnails:after,.thumbnails:before{display:table;content:""}.row-fluid .thumbnails{margin-left:0}.thumbnails>li{float:left;margin-bottom:20px;margin-left:20px}.thumbnail{display:block;padding:4px;line-height:1;border:1px solid #ddd;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.075);-moz-box-shadow:0 1px 1px rgba(0,0,0,.075);box-shadow:0 1px 1px rgba(0,0,0,.075)}a.thumbnail:hover{border-color:#0098cc;-webkit-box-shadow:0 1px 4px rgba(0,105,214,.25);-moz-box-shadow:0 1px 4px rgba(0,105,214,.25);box-shadow:0 1px 4px rgba(0,105,214,.25)}.thumbnail>img{display:block;max-width:100%;margin-left:auto;margin-right:auto}.thumbnail .caption{padding:9px}.pull-right{float:right}.pull-left,.social-buttons li{float:left}.hide{display:none}.show{display:block}.filter:after,.filter:before,.social-buttons:after,.social-buttons:before{display:table;content:""}.invisible{visibility:hidden}.isotope-item{z-index:2}.isotope-hidden.isotope-item{pointer-events:none;z-index:1}.isotope,.isotope .isotope-item{-webkit-transition-duration:.8s;-moz-transition-duration:.8s;-ms-transition-duration:.8s;-o-transition-duration:.8s;transition-duration:.8s}.isotope{-webkit-transition-property:height,width;-moz-transition-property:height,width;-ms-transition-property:height,width;-o-transition-property:height,width;transition-property:height,width}.isotope .isotope-item{-webkit-transition-property:-webkit-transform,opacity;-moz-transition-property:-moz-transform,opacity;-ms-transition-property:-ms-transform,opacity;-o-transition-property:top,left,opacity;transition-property:transform,opacity}.isotope .isotope-item.no-transition,.isotope.no-transition,.isotope.no-transition .isotope-item{-webkit-transition-duration:0s;-moz-transition-duration:0s;-ms-transition-duration:0s;-o-transition-duration:0s;transition-duration:0s}h1{text-shadow:0 1px 1px #eee;font-size:14px}.page-header .note,pre code{font-size:12px}h1,h2,h3{margin-bottom:.5em}a{text-decoration:none;color:#0098cc}a:hover{color:#005f80}code{padding:2px 4px;color:#d14;background-color:#f7f7f9;border:1px solid #e1e1e8;overflow:hidden}hr{border-style:dashed}.container{position:relative;padding:5px 0}.navbar{border-bottom:3px solid #0098cc;-webkit-box-shadow:rgba(0,0,0,.5) 0 5px 5px -4px;-moz-box-shadow:rgba(0,0,0,.5) 0 5px 5px -4px;box-shadow:rgba(0,0,0,.5) 0 5px 5px -4px}.navbar .navbar-inner{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}.navbar .container{width:940px;padding:0}.navbar .brand{color:#fff}.page-header{margin:30px 0 20px;padding-bottom:0;border-bottom:none;position:relative}.page-header h1{margin-bottom:10px}.page-header .btn-area{position:absolute;top:15px;right:0;text-align:center}.thumbnail{background:#fff;-webkit-transition:border-color .1s linear;transition:border-color .1s linear}.thumbnail img{border:1px solid #ccc}.thumbnail:hover{background:#f9f9f9;border-color:#0098cc;-webkit-transition:border-color .25s linear;-moz-transition:border-color .25s linear;-o-transition:border-color .25s linear;-ms-transition:border-color .25s linear;transition:border-color .25s linear;-webkit-box-shadow:0 1px 4px rgba(0,105,214,.25);-moz-box-shadow:0 1px 4px rgba(0,105,214,.25);box-shadow:0 1px 4px rgba(0,105,214,.25)}.btn{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;position:relative}.btn-large{padding-left:36px}.btn-large i{font-size:27px;position:absolute;top:6px;left:10px}.social-buttons{list-style-type:none;margin:0;padding:10px;background:#eee;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;height:20px}.header{margin-top:10px}.header-top{background:url(../img/palette.png) repeat-x;height:5px;-webkit-box-shadow:rgba(0,0,0,.5) 0 3px 3px -1px;-moz-box-shadow:rgba(0,0,0,.5) 0 3px 3px -1px;box-shadow:rgba(0,0,0,.5) 0 3px 3px -1px;position:fixed;width:100%;z-index:999;top:0;left:0}.main{padding:20px 0}.filter dt{color:#999;font-weight:400;margin-right:.3em}.filter dd,.filter dt{float:left;display:inline}.filter dd{margin-left:.3em}.filter dd a{text-decoration:none;-webkit-border-radius:12px;-moz-border-radius:12px;border-radius:12px;padding:3px 9px}.filter dd.active a{background:#0098cc;color:#fff}.filter dd.active a:hover{text-decoration:none}.adsense{text-align:center;margin-bottom:20px}body{padding-bottom:20px}.sidebar{margin:10px 0 20px;padding:9px;background:#fff;border:1px solid #ccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.sidebar.adsense{padding:0;background:0 0;border:none}
+
+body {
+  text-align: center;
+  background-color: #262626;
+ }
+
+#page-wrap {
+  text-align: left;
+  width: 800px;
+  margin: 0 auto;
+     
+}
+
+</style>
+
+<script src="https://katzurki.github.io/gtt-bookmarklets/hl.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<head>
+<title>Extending Originator UI: Perform AutoQC on Current Task</title>
+</head>
+
+	<div id="page-wrap">
+<center><font color="silver">
+<h2><p>Bookmarklets to Extend and Improve Originator UX</p></h2>
+	<a class="btn btn-blue" href="javascript:(function()%7B!function(e%2Ct)%7B%22object%22%3D%3Dtypeof%20exports%26%26%22undefined%22!%3Dtypeof%20module%3Fmodule.exports%3Dt()%3A%22function%22%3D%3Dtypeof%20define%26%26define.amd%3Fdefine(t)%3Ae.parseSRT%3Dt()%7D(this%2Cfunction()%7B%22use%20strict%22%3Bfunction%20e(e)%7Bvar%20t%3De.split(%22%3A%22)%3Btry%7Bvar%20n%3Dt%5B2%5D.split(%22%2C%22)%3Breturn%201%3D%3D%3Dn.length%26%26(n%3Dt%5B2%5D.split(%22.%22))%2C3600*parseFloat(t%5B0%5D%2C10)%2B60*parseFloat(t%5B1%5D%2C10)%2BparseFloat(n%5B0%5D%2C10)%2BparseFloat(n%5B1%5D%2C10)%2F1e3%7Dcatch(e)%7Breturn%200%7D%7Dfunction%20t(e%2Ct)%7Bfor(var%20n%3Dt%3B!e%5Bn%5D%3B)n%2B%2B%3Breturn%20n%7Dreturn%20function()%7Bfor(var%20n%3D%5B%5D%2Cs%3D(arguments.length%3E0%26%26void%200!%3D%3Darguments%5B0%5D%3Farguments%5B0%5D%3A%22%22).split(%2F(%3F%3A%5Cr%5Cn%7C%5Cr%7C%5Cn)%2Fgm)%2Cr%3Dfunction(e)%7Bfor(var%20t%3De.length-1%3Bt%3E%3D0%26%26!e%5Bt%5D%3B)t--%3Breturn%20t%7D(s)%2B1%2Co%3D0%2Ci%3Dvoid%200%2Ca%3Dvoid%200%2Cl%3Dvoid%200%2Cf%3D0%3Bf%3Cr%3Bf%2B%2B)%7Bfor(l%3D%7B%7D%2Ca%3D%5B%5D%2Cf%3Dt(s%2Cf)%2Cl.id%3DparseInt(s%5Bf%2B%2B%5D%2C10)%2Ci%3Ds%5Bf%2B%2B%5D.split(%2F%5B%5Ct%20%5D*--%3E%5B%5Ct%20%5D*%2F)%2Cl.start%3De(i%5B0%5D)%2C-1!%3D%3D(o%3Di%5B1%5D.indexOf(%22%20%22))%26%26(i%5B1%5D%3Di%5B1%5D.substr(0%2Co))%2Cl.end%3De(i%5B1%5D)%3Bf%3Cr%26%26s%5Bf%5D%3B)a.push(s%5Bf%2B%2B%5D)%3Bl.text%3Da.join(%22%5C%5CN%22).replace(%2F%5C%7B(%5C%5C%5B%5Cw%5D%2B%5C(%3F(%5B%5Cw%5Cd%5D%2B%2C%3F)%2B%5C)%3F)%2B%5C%7D%2Fgi%2C%22%22)%2Cl.text%3Dl.text.replace(%2F%3C%2Fg%2C%22%26lt%3B%22).replace(%2F%3E%2Fg%2C%22%26gt%3B%22)%2Cl.text%3Dl.text.replace(%2F%26lt%3B(%5C%2F%3F(font%7Cb%7Cu%7Ci%7Cs))((%5Cs%2B(%5Cw%7C%5Cw%5B%5Cw%5C-%5D*%5Cw)(%5Cs*%3D%5Cs*(%3F%3A%22.*%3F%22%7C'.*%3F'%7C%5B%5E'%22%3E%5Cs%5D%2B))%3F)%2B%5Cs*%7C%5Cs*)(%5C%2F%3F)%26gt%3B%2Fgi%2C%22%3C%241%243%247%3E%22)%2Cl.text%3Dl.text.replace(%2F%5C%5CN%2Fgi%2C%22%5Cn%22)%2Cn.push(l)%7Dreturn%20n%7D%7D)%3Bvar%20our_clq%3Ddocument.location.href.toString().split(%22%3D%22)%5B1%5D.split(%22%3A%22)%5B2%5D%2Cclq_pattern%3Dnew%20RegExp(%22%5E%5B0-9a-f%5D%7B8%7D-%5B0-9a-f%5D%7B4%7D-%5B1-5%5D%5B0-9a-f%5D%7B3%7D-%5B89ab%5D%5B0-9a-f%5D%7B3%7D-%5B0-9a-f%5D%7B12%7D%24%22%2C%22i%22)%3Bif(!our_clq%7C%7C!clq_pattern.test(our_clq))throw%20alert(%22You%20must%20be%20in%20an%20Originator%20task!%22)%2Cnew%20Error%3Bif(!clq_pattern.test(our_clq))throw%20alert(%22The%20CLQ%20is%20invalid%3A%20%22%2Bour_clq%2B%22%5CnPlease%20report%20me%20to%20the%20developer.%22)%2Cnew%20Error%3Bvar%20lsJson%3DlocalStorage%5B%22clq%3Aorigination%3A%22%2Bour_clq%5D%3Bif(!lsJson)throw%20alert(%22Timed%20text%20events%20not%20found%20in%20localStorage%5Cnfor%20CLQ%3A%20%22%2Bour_clq%2B'%5CnIf%20the%20CLQ%20is%20correct%20and%5Cn%22Save%20to%20local%20storage%22%20is%20enabled%20in%20Settings%2C%5Cnsave%20the%20task%20and%20try%20again.')%2Cnew%20Error%3Bvar%20json_obj%3DJSON.parse(lsJson)%2Csrc%3Djson_obj.events%2Cfps_%3Djson_obj.meta.fps%2Cfps%3Dfps_.split(%22_%22)%5B1%5D%2F100%3Btry%7Bif(proposed_fps)%7Bvar%20int_fps%3Dproposed_fps.substring(0%2C2)%2Cdecimal_fps%3Dproposed_fps.substring(2%2Cproposed_fps.length)%3Bfps_%3D%22FPS_%22%2Bint_fps%2Bdecimal_fps%2Cfps%3D1*(int_fps%2B%22.%22%2Bdecimal_fps)%7D%7Dcatch(e)%7B%7Dvar%20frms%3D1e3%2Ffps%2Cline_limit%3D42%3Bfunction%20srtName(e%3D%22%22)%7Bvar%20t%3D(document.getElementsByClassName(%22cpe-page-menu-label%22)%5B0%5D.innerText.replace(%2F%5B%20%5D%2Fg%2C%22_%22).replace(%2F%5B%5Ea-z0-9_%5D%2Fgi%2C%22%22)%2B%22_%22%2Be%2B%22.srt%22).trim()%3Breturn%20t%7C%7C(t%3Dour_clq%2B%22_%22%2Be%2B%22.srt%22)%2Ct%7Dfunction%20frames2tcf(e%2Ct%3Dfps)%7Bvar%20n%3De%2Ft%2Cs%3DMath.floor(n)%2Cr%3Dn-s%2Co%3DMath.round(r*t)%2B%22%22%2Ci%3Dnew%20Date(0)%3Bi.setSeconds(s)%3Bvar%20a%3Di.toISOString().substr(11%2C8)%3Breturn%201%3D%3Do.length%26%26(o%3D%220%22%2Bo)%2Ca%2B%22%3A%22%2Bo%7Dfunction%20frames2timecode(e)%7Breturn%20TimeConversion(Math.round(e*frms))%7Dfunction%20array2srt(e)%7Bvar%20t%3D%5B%5D%3Bfor(var%20n%20in%20e)%7Btry%7Bvar%20s%3De%5Bn%5D.type%3B%22fn%22%3D%3D%3Ds%26%26(e%5Bn%5D.txt%2B%3D%22%3Cb%3E%3C%2Fb%3E%22%2Cs%3Dvoid%200%2Cdelete%20s)%7Dcatch(e)%7B%7Dt.push(%5Be%5Bn%5D.start%2Ce%5Bn%5D.end%2Ce%5Bn%5D.txt%2Ce%5Bn%5D.styles%2Ce%5Bn%5D.rgn%5D)%7Dt.sort(function(e%2Ct)%7Breturn%20e%5B0%5D-t%5B0%5D%7D)%3Bvar%20r%3D0%2Co%3D%22%22%3Bfor(event%20of%20t)%7Br%2B%2B%3Bvar%20i%3Dframes2timecode(event%5B0%5D)%2Ca%3Dframes2timecode(event%5B1%5D)%2Cl%3Devent%5B2%5D%3Btry%7Bvoid%200!%3D%3Devent%5B3%5D%5B0%5D.type%26%26%22italic%22%3D%3Devent%5B3%5D%5B0%5D.type%26%26(l%3Ditalicize(l%2Cevent%5B3%5D))%7Dcatch(e)%7B%7Dtry%7Bvoid%200!%3D%3Devent%5B4%5D%26%26%22top%22%3D%3Devent%5B4%5D%26%26(l%3D%22%7B%5C%5Can8%7D%22%2Bl)%7Dcatch(e)%7B%7Dtry%7B%22fn%22%3D%3Devent.type%26%26(l%2B%3D%22%3Cb%3E%3C%2Fb%3E%22)%7Dcatch(e)%7B%7Dlog(l)%2Co%2B%3Dr%2B%22%5Cn%22%2Bi%2B%22%20--%5Cx3e%20%22%2Ba%2B%22%5Cn%22%2Bl%2B%22%5Cn%22%2B%22%5Cn%22%7Dreturn%20o%7Dfunction%20italicize(e%2Ct)%7Bfor(var%20n%20of(position_offset%3D0%2Ct))%7Bvar%20s%3Dn.from%2Bposition_offset%3Bposition_offset%2B%3D3%2Ce%3D%5Be.slice(0%2Cs)%2C%22%3Ci%3E%22%2Ce.slice(s)%5D.join(%22%22)%3Bvar%20r%3Dn.to%2Bposition_offset%3Bposition_offset%2B%3D4%2Ce%3D%5Be.slice(0%2Cr)%2C%22%3C%2Fi%3E%22%2Ce.slice(r)%5D.join(%22%22)%7Dreturn%20e%7Dfunction%20download(e%2Ct)%7Bvar%20n%3Ddocument.createElement(%22a%22)%3Bn.setAttribute(%22href%22%2C%22data%3Atext%2Fplain%3Bcharset%3Dutf-8%2C%22%2BencodeURIComponent(t))%2Cn.setAttribute(%22download%22%2Ce)%2Cn.style.display%3D%22none%22%2Cdocument.body.appendChild(n)%2Cn.click()%2Cdocument.body.removeChild(n)%7Dfunction%20TimeConversion(e)%7Breturn%20formatTimeHMSS(parseDuration(e))%7Dfunction%20parseDuration(e)%7Blet%20t%3De%2Cn%3DMath.floor(t%2F36e5)%3Bt%25%3D36e5%3Blet%20s%3DMath.floor(t%2F6e4)%3Breturn%20t%25%3D6e4%2C%7Bhours%3An%2Cminutes%3As%2Cseconds%3AMath.floor(t%2F1e3)%2Cmilliseconds%3At%25%3D1e3%7D%7Dfunction%20formatTimeHMSS(e)%7Blet%20t%3De.hours.toString()%3B1%3D%3D%3Dt.length%26%26(t%3D%220%22%2Bt)%3Blet%20n%3De.minutes.toString()%3B1%3D%3D%3Dn.length%26%26(n%3D%220%22%2Bn)%3Blet%20s%3De.seconds.toString()%3B1%3D%3D%3Ds.length%26%26(s%3D%220%22%2Bs)%3Blet%20r%3De.milliseconds.toString()%3Breturn%201%3D%3D%3Dr.length%26%26(r%3D%2200%22%2Br)%2C2%3D%3D%3Dr.length%26%26(r%3D%220%22%2Br)%2Ct%2B%22%3A%22%2Bn%2B%22%3A%22%2Bs%2B%22%2C%22%2Br%7Dfunction%20leftFillNum(e%2Ct)%7Breturn%20e.toString().padStart(t%2C0)%7Dvar%20SRT%3DparseSRT(array2srt(JSON.parse(localStorage%5B%22clq%3Aorigination%3A%22%2Bour_clq%5D).events))%2Cissues%3D%5B%5D%3Bfor(event%20of%20SRT)%7Bvar%20start_frames%3DMath.round(event.start*fps)%2Cend_frames%3DMath.round(event.end*fps)%2Cstart_tcf%3Dframes2tcf(start_frames)%2Cend_tcf%3Dframes2tcf(end_frames)%2Cid%3Devent.id%2C_id%3DleftFillNum(id%2C4)%2CeventIssue%3D%5B%5D%2CeventTxt%3Devent.text%3B-1!%3D%3D(eventTxt%3D(eventTxt%3DeventTxt.replace(%2F(%3C(%5B%5E%3E%5D%2B)%3E)%2Fgi%2C%22%22)).replace(%2F%7B.an.%7D%2Fgi%2C%22%22)).indexOf(%22%5Cn%22)%26%26-1%3D%3DeventTxt.indexOf(%22%5Cn-%22)%26%26eventTxt.replace(%22%5Cn%22%2C%22%20%22).length%3C%3Dline_limit%26%26eventIssue.push(%22Can%20fit%20on%20one%20line%22)%2C-1!%3D%3DeventTxt.indexOf(%22...%22)%26%26eventIssue.push(%22Can%20replace%20...%20with%20%E2%80%A6%22)%3Bvar%20hasSpace%3D%2F%5Cs%24%7C%5E%5Cs%2F%2CeventTxt_lines%3DeventTxt.split(%22%5Cn%22)%2CnPos%3DeventTxt.lastIndexOf(%22%5Cn%22)%2ChasSpaceIssue%3DnPos%26%26void%200%3D%3D%3DeventTxt%5BnPos%2B1%5D%2CoverLineLimit%3D!1%3Bfor(var%20line%20of%20eventTxt_lines)hasSpaceIssue%3DhasSpace.test(line)%7C%7ChasSpaceIssue%2Cline.length%3Eline_limit%26%26(overLineLimit%3D!0)%3BhasSpaceIssue%26%26eventIssue.push(%22One%20of%20the%20lines%20begins%20or%20ends%20with%20whitespace%22)%2CoverLineLimit%26%26eventIssue.push(%22Line%20over%20max%20limit%20of%20%22%2Bline_limit)%3Bvar%20totalLength%3DeventTxt.length%2CeventLines%3DeventTxt.split(%22%5Cn%22)%3Bvoid%200!%3D%3DeventIssue%26%26eventIssue.length%3E0%26%26(log_event%3D(start_tcf%2B%22%20%20%20%20%22%2BeventTxt_lines%5B0%5D.padEnd(44%2C%22%20%22)%2B_id).padEnd(50%2C%22%20%22)%2Cvoid%200!%3D%3DeventTxt_lines%5B1%5D%3Flog_event%2B%3D%22%5Cn%22%2Bend_tcf%2B%22%20%20%20%20%22%2BeventTxt_lines%5B1%5D.padEnd(48%2C%22%20%22)%3Alog_event%2B%3D%22%5Cn%22%2Bend_tcf%2B%22%20%20%20%20%22%2B%22%20%22.padEnd(48%2C%22%20%22)%2Cconsole.log(%22%25c%22%2Blog_event%2C%22background%3A%20%2312343b%3B%20color%3A%20%23e1b382%22)%2Cconsole.log((%22%25c%22%2BeventIssue.join(%22%5Cn%22)).padEnd(50)%2C%22background%3A%20%23FFF%3B%20color%3A%20%23FF0000%3B%20font-style%3A%20italic%3B%20border%3Asolid%201px%20%23000%3B%22)%2Cconsole.log(%22%E2%94%89%22.repeat(63))%2Cissue%3D%7Bid%3Aid%2Cissues%3AeventIssue%2Ccontent%3AeventTxt%2Cstart_tcf%3Astart_tcf%2Cend_tcf%3Aend_tcf%2Cstart_frames%3Astart_frames%2Cend_frames%3Aend_frames%7D%2Cissues.push(issue))%7D%7D)()%3B">AutoQC</a>
+	<br><font color="gray">outputs to Console (press F12)</font>
+	<left><h5>Check out <a href="./ImportSRT.html">Import SRT</a> and <a href="./ExportSRT.html">ExportSRT</a></h5></left></font>
+</center>
+<pre><code>
+/*
+	USAGE
+Drag the button above to your Bookmarks Bar in Chrome.
+Click the button when in an Originator task.
+Open Chrome Console and check the log of found issues.
+Send suggestions :)
+
+(c) Dan Biktashev katzurki@gmail.com
+June 6 2020
+*/
+
+var our_clq = document.location.href.toString().split(&quot;=&quot;)[1].split(&quot;:&quot;)[2]
+var clq_pattern = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$', 'i');
+
+if (!our_clq || !clq_pattern.test(our_clq)) {
+    alert(&quot;You must be in an Originator task!&quot;);
+    throw new Error
+}
+
+if (!clq_pattern.test(our_clq)) {
+    alert(&quot;The CLQ is invalid: &quot; + our_clq + &quot;\n&quot; + &quot;Please report me to the developer.&quot;);
+    throw new Error
+}
+
+var lsJson = localStorage[&quot;clq:origination:&quot; + our_clq]
+if (!lsJson) {
+    alert(&quot;Timed text events not found in localStorage\nfor CLQ: &quot; + our_clq + &quot;\n&quot; + &quot;If the CLQ is correct and&quot; + &quot;\n&quot; + &quot;\&quot;Save to local storage\&quot; is enabled in Settings,&quot; + &quot;\n&quot; + &quot;save the task and try again.&quot;);
+    throw new Error
+}
+
+var json_obj = JSON.parse(lsJson)
+var src = json_obj[&quot;events&quot;]
+var fps_ = json_obj[&quot;meta&quot;][&quot;fps&quot;];
+var fps = fps_.split(&quot;_&quot;)[1] / 100
+//From {&quot;fps&quot;:&quot;FPS_2500&quot;}
+//var proposed_fps = prompt(&quot;Framerate set to: &quot; + fps + &quot; fps.\n\nEnter new value like 2997, 2500 or 23976023976023978:&quot;);
+try {
+    if (proposed_fps) {
+        var int_fps = proposed_fps.substring(0, 2);
+        var decimal_fps = proposed_fps.substring(2, proposed_fps.length);
+        fps_ = &quot;FPS&quot; + &quot;_&quot; + int_fps + decimal_fps
+        fps = (int_fps + &quot;.&quot; + decimal_fps) * 1;
+    }
+} catch (e) {}
+
+var frms = 1000 / fps
+var line_limit = 42
+
+function srtName(suffix = &quot;&quot;) {
+    var s = document
+        .getElementsByClassName(
+            &quot;cpe-page-menu-label&quot;)[0]
+        .innerText
+    var srtName = (s.replace(/[ ]/g, '_')
+            .replace(/[^a-z0-9_]/gi, '') + &quot;_&quot; + suffix + &quot;.srt&quot;
+        ) //This gets rid of all punctuation, spaces and non-English letters
+        .trim() //resulting in a name like 14545_El_Burrito_A_Breaking_Fat_Movie_FPS_2500.srt
+    if (!srtName) srtName = our_clq +
+        &quot;_&quot; + suffix +
+        &quot;.srt&quot; //Fallback measure. Useful for debugging later
+    return srtName
+}
+
+function frames2tcf(framenumber, framerate = fps) { //frames to 00:01:02:24 format
+    var seconds_float = framenumber / framerate
+    var seconds_int = Math.floor(seconds_float)
+    var seconds_frac = seconds_float - seconds_int
+    var frames = Math.round(seconds_frac * framerate) + ''
+    var date = new Date(0);
+    date.setSeconds(seconds_int);
+    var timeString = date.toISOString().substr(11, 8)
+    if (frames.length == 1) frames = &quot;0&quot; + frames
+    var timecodef = timeString + &quot;:&quot; + frames
+    return timecodef
+}
+
+function frames2timecode(frames) { //frames to 00:01:02,000 format
+    var milliseconds = Math.round(
+        frames * frms)
+    var srt_timecode = TimeConversion(
+        milliseconds)
+    return srt_timecode
+}
+
+function array2srt(events_object) {
+    var ordered_events = []
+    for (var id in events_object) {
+        try {
+            var type_fn = events_object[id][&quot;type&quot;]
+            if (type_fn === &quot;fn&quot;) {
+                events_object[id][&quot;txt&quot;] += &quot;&lt;b&gt;&lt;/b&gt;&quot;;
+                type_fn = undefined;
+                delete(type_fn)
+            }
+        } catch (e) {}
+        ordered_events.push([
+            events_object[id][
+                &quot;start&quot;
+            ], events_object[id][
+                &quot;end&quot;
+            ], events_object[id]
+            [&quot;txt&quot;],
+            events_object[id]
+            [&quot;styles&quot;],
+            events_object[id]
+            [&quot;rgn&quot;]
+        ])
+    }
+    ordered_events.sort(function(a, b) {
+        return a[0] - b[0];
+    }); //Array sorted by in_cues, sequentially
+    var index = 0
+    var srt_txt = ''
+    for (event of ordered_events) {
+        index++
+        var start = frames2timecode(
+            event[0])
+        var end = frames2timecode(event[
+            1])
+        var content = event[2]
+        try {
+            if (typeof event[3][0][&quot;type&quot;] !== &quot;undefined&quot;) {
+                if (event[3][0][&quot;type&quot;] == &quot;italic&quot;) {
+                    content = italicize(content, event[3])
+                }
+            }
+        } catch (e) {}
+
+        try {
+            if (typeof event[4] !== &quot;undefined&quot;) {
+                if (event[4] == &quot;top&quot;) {
+                    content = &quot;{\\an8}&quot; + content
+                }
+            }
+        } catch (e) {}
+
+        try {
+            if (event[&quot;type&quot;] == &quot;fn&quot;) {
+                content += '&lt;b&gt;&lt;/b&gt;'
+            }
+        } catch (e) {}
+        log(content)
+        var current_event = index +
+            &quot;\n&quot; + start + &quot; --&gt; &quot; +
+            end +
+            &quot;\n&quot; + content + &quot;\n&quot;
+        srt_txt += current_event + &quot;\n&quot;
+    }
+    return srt_txt
+}
+
+
+function italicize(content, italics_array) {
+    position_offset = 0
+    for (var italic of italics_array) {
+        var position_from = italic[&quot;from&quot;] + position_offset;
+        position_offset += 3
+        content = [content.slice(0, position_from), &quot;&lt;i&gt;&quot;, content.slice(position_from)].join('')
+        var position_to = italic[&quot;to&quot;] + position_offset;
+        position_offset += 4
+        content = [content.slice(0, position_to), &quot;&lt;/i&gt;&quot;, content.slice(position_to)].join('')
+    }
+    return content
+}
+
+function download(filename, text) {
+    var element = document
+        .createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+function TimeConversion(duration) {
+    let time = parseDuration(duration)
+    return formatTimeHMSS(time)
+}
+
+function parseDuration(duration) {
+    let remain = duration
+    let hours = Math.floor(remain / (
+        1000 * 60 * 60))
+    remain = remain % (1000 * 60 * 60)
+    let minutes = Math.floor(remain / (
+        1000 * 60))
+    remain = remain % (1000 * 60)
+    let seconds = Math.floor(remain / (
+        1000))
+    remain = remain % (1000)
+    let milliseconds = remain
+    return {
+        hours,
+        minutes,
+        seconds,
+        milliseconds
+    }
+}
+
+function formatTimeHMSS(o) {
+    let hours = o.hours.toString()
+    if (hours.length === 1) hours =
+        '0' + hours
+    let minutes = o.minutes.toString()
+    if (minutes.length === 1) minutes =
+        '0' + minutes
+    let seconds = o.seconds.toString()
+    if (seconds.length === 1) seconds =
+        '0' + seconds
+    let milliseconds = o.milliseconds
+        .toString()
+    if (milliseconds.length === 1)
+        milliseconds = '00' +
+        milliseconds
+    if (milliseconds.length === 2)
+        milliseconds = '0' +
+        milliseconds
+    return hours + &quot;:&quot; + minutes + &quot;:&quot; +
+        //Example: 00:01:02,999 -- note that the SRT spec calls for a comma, not a period!
+        seconds + &quot;,&quot; +
+        milliseconds
+}
+
+function leftFillNum(num, targetLength) {
+    return num.toString().padStart(targetLength, 0);
+}
+
+var SRT = parseSRT(array2srt(JSON.parse(localStorage[&quot;clq:origination:&quot; + our_clq])[&quot;events&quot;]));
+var issues = []
+
+for (event of SRT) {
+    var start_frames = Math.round(event[&quot;start&quot;] * fps)
+    var end_frames = Math.round(event[&quot;end&quot;] * fps)
+    var start_tcf = frames2tcf(start_frames)
+    var end_tcf = frames2tcf(end_frames)
+    var id = event[&quot;id&quot;]
+    var _id = leftFillNum(id, 4)
+    var eventIssue = []
+    var eventTxt = event[&quot;text&quot;]
+    eventTxt = eventTxt.replace(/(&lt;([^&gt;]+)&gt;)/ig, &quot;&quot;);
+    eventTxt = eventTxt.replace(/{.an.}/ig, &quot;&quot;);
+    if (eventTxt.indexOf(&quot;\n&quot;) !== -1 &amp;&amp;
+        eventTxt.indexOf(&quot;\n-&quot;) == -1 &amp;&amp;
+        eventTxt.replace(&quot;\n&quot;, &quot; &quot;).length &lt;= line_limit) {
+        eventIssue.push(&quot;Can fit on one line&quot;);
+    }
+
+    if (eventTxt.indexOf(&quot;...&quot;) !== -1) {
+        eventIssue.push(&quot;Can replace ... with …&quot;);
+    }
+
+    var hasSpace = /\s$|^\s/;
+    var eventTxt_lines = eventTxt.split(&quot;\n&quot;);
+    var nPos = eventTxt.lastIndexOf(&quot;\n&quot;);
+    var hasSpaceIssue = nPos &amp;&amp; (typeof eventTxt[nPos + 1] == &quot;undefined&quot;)
+    var overLineLimit = false
+    for (var line of eventTxt_lines) {
+        hasSpaceIssue = (hasSpace.test(line) || hasSpaceIssue)
+        if (line.length &gt; line_limit) {
+            overLineLimit = true
+        }
+    }
+
+    if (hasSpaceIssue) {
+        eventIssue.push(&quot;One of the lines begins or ends with whitespace&quot;);
+    }
+
+    if (overLineLimit) {
+        eventIssue.push(&quot;Line over max limit of &quot; + line_limit);
+    }
+
+    var totalLength = eventTxt.length
+    var eventLines = eventTxt.split(&quot;\n&quot;)
+    if (typeof eventIssue !== &quot;undefined&quot; &amp;&amp; eventIssue.length &gt; 0) {
+        log_event = (start_tcf + &quot;    &quot; + eventTxt_lines[0].padEnd(44, &quot; &quot;) + _id).padEnd(50, &quot; &quot;)
+        if (typeof eventTxt_lines[1] !== &quot;undefined&quot;) {
+            log_event += &quot;\n&quot; + end_tcf + &quot;    &quot; + eventTxt_lines[1].padEnd(48, &quot; &quot;)
+        } else {
+            log_event += &quot;\n&quot; + end_tcf + &quot;    &quot; + &quot; &quot;.padEnd(48, &quot; &quot;)
+        }
+        console.log('%c' + log_event, 'background: #12343b; color: #e1b382')
+        //console.log((+_id+&quot;\n&quot;+start_tcf+&quot;\n&quot;+end_tcf+&quot;\n&quot;+eventTxt).padEnd(50), 'background: #222; color: #bada55');
+        console.log(('%c' + eventIssue.join(&quot;\n&quot;)).padEnd(50), 'background: #FFF; color: #FF0000; font-style: italic; border:solid 1px #000;')
+        console.log(&quot;┉&quot;.repeat(63))
+
+        issue = {
+            id: id,
+            issues: eventIssue,
+            content: eventTxt,
+            start_tcf: start_tcf,
+            end_tcf: end_tcf,
+            start_frames: start_frames,
+            end_frames: end_frames
+        }
+        issues.push(issue)
+
+    }
+}
+
+(function(global, factory) {
+    typeof exports === 'object' &amp;&amp; typeof module !== 'undefined' ? module.exports = factory() :
+        typeof define === 'function' &amp;&amp; define.amd ? define(factory) :
+        (global.parseSRT = factory());
+}(this, (function() {
+    'use strict';
+
+    function toSeconds(time) {
+        var t = time.split(':');
+
+        try {
+            var s = t[2].split(',');
+
+            if (s.length === 1) {
+                s = t[2].split('.');
+            }
+
+            return parseFloat(t[0], 10) * 3600 + parseFloat(t[1], 10) * 60 + parseFloat(s[0], 10) + parseFloat(s[1], 10) / 1000;
+        } catch (e) {
+            return 0;
+        }
+    }
+
+    function nextNonEmptyLine(linesArray, position) {
+        var idx = position;
+
+        while (!linesArray[idx]) {
+            idx++;
+        }
+
+        return idx;
+    }
+
+    function lastNonEmptyLine(linesArray) {
+        var idx = linesArray.length - 1;
+
+        while (idx &gt;= 0 &amp;&amp; !linesArray[idx]) {
+            idx--;
+        }
+
+        return idx;
+    }
+
+    function parseSRT() {
+        var data = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : '';
+
+        var subs = [];
+        var lines = data.split(/(?:\r\n|\r|\n)/gm);
+        var endIdx = lastNonEmptyLine(lines) + 1;
+        var idx = 0;
+        var time = void 0;
+        var text = void 0;
+        var sub = void 0;
+
+        for (var i = 0; i &lt; endIdx; i++) {
+            sub = {};
+            text = [];
+
+            i = nextNonEmptyLine(lines, i);
+            sub.id = parseInt(lines[i++], 10);
+
+            time = lines[i++].split(/[\t ]*--&gt;[\t ]*/);
+
+            sub.start = toSeconds(time[0]);
+
+            idx = time[1].indexOf(' ');
+            if (idx !== -1) {
+                time[1] = time[1].substr(0, idx);
+            }
+            sub.end = toSeconds(time[1]);
+
+            while (i &lt; endIdx &amp;&amp; lines[i]) {
+                text.push(lines[i++]);
+            }
+
+            sub.text = text.join('\\N').replace(/\{(\\[\w]+\(?([\w\d]+,?)+\)?)+\}/gi, '');
+
+            sub.text = sub.text.replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;');
+
+            sub.text = sub.text.replace(/&amp;lt;(\/?(font|b|u|i|s))((\s+(\w|\w[\w\-]*\w)(\s*=\s*(?:&quot;.*?&quot;|'.*?'|[^'&quot;&gt;\s]+))?)+\s*|\s*)(\/?)&amp;gt;/gi, '&lt;$1$3$7&gt;');
+            sub.text = sub.text.replace(/\\N/gi, &quot;\n&quot;);
+
+            subs.push(sub);
+        }
+
+        return subs;
+    }
+
+    return parseSRT;
+
+})));
+</pre></code>
+
+
+	<a class="btn btn-blue" href="javascript:(function()%7B!function(n%2Ct)%7Bvar%20e%2Cr%3B%22object%22%3D%3Dtypeof%20exports%26%26%22undefined%22!%3Dtypeof%20module%3Fmodule.exports%3Dt()%3A%22function%22%3D%3Dtypeof%20define%26%26define.amd%3Fdefine(%22underscore%22%2Ct)%3A(e%3Dn._%2Cr%3Dt()%2C(n._%3Dr).noConflict%3Dfunction()%7Breturn%20n._%3De%2Cr%7D)%7D(this%2Cfunction()%7Bvar%20n%3D%22object%22%3D%3Dtypeof%20self%26%26self.self%3D%3D%3Dself%26%26self%7C%7C%22object%22%3D%3Dtypeof%20global%26%26global.global%3D%3D%3Dglobal%26%26global%7C%7CFunction(%22return%20this%22)()%7C%7C%7B%7D%2Ct%3DArray.prototype%2Ce%3DObject.prototype%2Cr%3D%22undefined%22!%3Dtypeof%20Symbol%3FSymbol.prototype%3Anull%2Co%3Dt.push%2Ci%3Dt.slice%2Cu%3De.toString%2Ca%3De.hasOwnProperty%2Cl%3DArray.isArray%2Cf%3DObject.keys%2Cc%3DObject.create%2Cs%3Dn.isNaN%2Cp%3Dn.isFinite%2Cv%3Dfunction()%7B%7D%3Bfunction%20h(n)%7Breturn%20n%20instanceof%20h%3Fn%3Athis%20instanceof%20h%3Fvoid(this._wrapped%3Dn)%3Anew%20h(n)%7Dvar%20d%3Dh.VERSION%3D%221.10.2%22%3Bfunction%20g(n%2Ct%2Ce)%7Bif(void%200%3D%3D%3Dt)return%20n%3Bswitch(null%3D%3De%3F3%3Ae)%7Bcase%201%3Areturn%20function(e)%7Breturn%20n.call(t%2Ce)%7D%3Bcase%203%3Areturn%20function(e%2Cr%2Co)%7Breturn%20n.call(t%2Ce%2Cr%2Co)%7D%3Bcase%204%3Areturn%20function(e%2Cr%2Co%2Ci)%7Breturn%20n.call(t%2Ce%2Cr%2Co%2Ci)%7D%7Dreturn%20function()%7Breturn%20n.apply(t%2Carguments)%7D%7Dfunction%20m(n%2Ct%2Ce)%7Breturn%20null%3D%3Dn%3Frt%3A%24n(n)%3Fg(n%2Ct%2Ce)%3Azn(n)%26%26!Pn(n)%3Fit(n)%3Aot(n)%7Dfunction%20y(n%2Ct)%7Breturn%20m(n%2Ct%2C1%2F0)%7Dfunction%20_(n%2Ct%2Ce)%7Breturn%20h.iteratee!%3D%3Dy%3Fh.iteratee(n%2Ct)%3Am(n%2Ct%2Ce)%7Dfunction%20b(n%2Ct)%7Breturn%20t%3Dnull%3D%3Dt%3Fn.length-1%3A%2Bt%2Cfunction()%7Bfor(var%20e%3DMath.max(arguments.length-t%2C0)%2Cr%3DArray(e)%2Co%3D0%3Bo%3Ce%3Bo%2B%2B)r%5Bo%5D%3Darguments%5Bo%2Bt%5D%3Bswitch(t)%7Bcase%200%3Areturn%20n.call(this%2Cr)%3Bcase%201%3Areturn%20n.call(this%2Carguments%5B0%5D%2Cr)%3Bcase%202%3Areturn%20n.call(this%2Carguments%5B0%5D%2Carguments%5B1%5D%2Cr)%7Dvar%20i%3DArray(t%2B1)%3Bfor(o%3D0%3Bo%3Ct%3Bo%2B%2B)i%5Bo%5D%3Darguments%5Bo%5D%3Breturn%20i%5Bt%5D%3Dr%2Cn.apply(this%2Ci)%7D%7Dfunction%20x(n)%7Bif(!zn(n))return%7B%7D%3Bif(c)return%20c(n)%3Bv.prototype%3Dn%3Bvar%20t%3Dnew%20v%3Breturn%20v.prototype%3Dnull%2Ct%7Dfunction%20S(n)%7Breturn%20function(t)%7Breturn%20null%3D%3Dt%3Fvoid%200%3At%5Bn%5D%7D%7Dfunction%20j(n%2Ct)%7Breturn%20null!%3Dn%26%26a.call(n%2Ct)%7Dfunction%20w(n%2Ct)%7Bfor(var%20e%3Dt.length%2Cr%3D0%3Br%3Ce%3Br%2B%2B)%7Bif(null%3D%3Dn)return%3Bn%3Dn%5Bt%5Br%5D%5D%7Dreturn%20e%3Fn%3Avoid%200%7Dh.iteratee%3Dy%3Bvar%20T%3DMath.pow(2%2C53)-1%2CO%3DS(%22length%22)%3Bfunction%20E(n)%7Bvar%20t%3DO(n)%3Breturn%22number%22%3D%3Dtypeof%20t%26%260%3C%3Dt%26%26t%3C%3DT%7Dfunction%20M(n%2Ct%2Ce)%7Bvar%20r%2Co%3Bif(t%3Dg(t%2Ce)%2CE(n))for(r%3D0%2Co%3Dn.length%3Br%3Co%3Br%2B%2B)t(n%5Br%5D%2Cr%2Cn)%3Belse%7Bvar%20i%3Dwn(n)%3Bfor(r%3D0%2Co%3Di.length%3Br%3Co%3Br%2B%2B)t(n%5Bi%5Br%5D%5D%2Ci%5Br%5D%2Cn)%7Dreturn%20n%7Dfunction%20I(n%2Ct%2Ce)%7Bt%3D_(t%2Ce)%3Bfor(var%20r%3D!E(n)%26%26wn(n)%2Co%3D(r%7C%7Cn).length%2Ci%3DArray(o)%2Cu%3D0%3Bu%3Co%3Bu%2B%2B)%7Bvar%20a%3Dr%3Fr%5Bu%5D%3Au%3Bi%5Bu%5D%3Dt(n%5Ba%5D%2Ca%2Cn)%7Dreturn%20i%7Dfunction%20A(n)%7Breturn%20function(t%2Ce%2Cr%2Co)%7Bvar%20i%3D3%3C%3Darguments.length%3Breturn%20function(t%2Ce%2Cr%2Co)%7Bvar%20i%3D!E(t)%26%26wn(t)%2Cu%3D(i%7C%7Ct).length%2Ca%3D0%3Cn%3F0%3Au-1%3Bfor(o%7C%7C(r%3Dt%5Bi%3Fi%5Ba%5D%3Aa%5D%2Ca%2B%3Dn)%3B0%3C%3Da%26%26a%3Cu%3Ba%2B%3Dn)%7Bvar%20l%3Di%3Fi%5Ba%5D%3Aa%3Br%3De(r%2Ct%5Bl%5D%2Cl%2Ct)%7Dreturn%20r%7D(t%2Cg(e%2Co%2C4)%2Cr%2Ci)%7D%7Dvar%20N%3DA(1)%2Cq%3DA(-1)%3Bfunction%20F(n%2Ct%2Ce)%7Bvar%20r%3D(E(n)%3Fun%3Aqn)(n%2Ct%2Ce)%3Bif(void%200!%3D%3Dr%26%26-1!%3D%3Dr)return%20n%5Br%5D%7Dfunction%20k(n%2Ct%2Ce)%7Bvar%20r%3D%5B%5D%3Breturn%20t%3D_(t%2Ce)%2CM(n%2Cfunction(n%2Ce%2Co)%7Bt(n%2Ce%2Co)%26%26r.push(n)%7D)%2Cr%7Dfunction%20R(n%2Ct%2Ce)%7Bt%3D_(t%2Ce)%3Bfor(var%20r%3D!E(n)%26%26wn(n)%2Co%3D(r%7C%7Cn).length%2Ci%3D0%3Bi%3Co%3Bi%2B%2B)%7Bvar%20u%3Dr%3Fr%5Bi%5D%3Ai%3Bif(!t(n%5Bu%5D%2Cu%2Cn))return!1%7Dreturn!0%7Dfunction%20L(n%2Ct%2Ce)%7Bt%3D_(t%2Ce)%3Bfor(var%20r%3D!E(n)%26%26wn(n)%2Co%3D(r%7C%7Cn).length%2Ci%3D0%3Bi%3Co%3Bi%2B%2B)%7Bvar%20u%3Dr%3Fr%5Bi%5D%3Ai%3Bif(t(n%5Bu%5D%2Cu%2Cn))return!0%7Dreturn!1%7Dfunction%20C(n%2Ct%2Ce%2Cr)%7Breturn%20E(n)%7C%7C(n%3DOn(n))%2C(%22number%22!%3Dtypeof%20e%7C%7Cr)%26%26(e%3D0)%2C0%3C%3Dcn(n%2Ct%2Ce)%7Dvar%20B%3Db(function(n%2Ct%2Ce)%7Bvar%20r%2Co%3Breturn%20%24n(t)%3Fo%3Dt%3APn(t)%26%26(r%3Dt.slice(0%2C-1)%2Ct%3Dt%5Bt.length-1%5D)%2CI(n%2Cfunction(n)%7Bvar%20i%3Do%3Bif(!i)%7Bif(r%26%26r.length%26%26(n%3Dw(n%2Cr))%2Cnull%3D%3Dn)return%3Bi%3Dn%5Bt%5D%7Dreturn%20null%3D%3Di%3Fi%3Ai.apply(n%2Ce)%7D)%7D)%3Bfunction%20D(n%2Ct)%7Breturn%20I(n%2Cot(t))%7Dfunction%20P(n%2Ct%2Ce)%7Bvar%20r%2Co%2Ci%3D-1%2F0%2Cu%3D-1%2F0%3Bif(null%3D%3Dt%7C%7C%22number%22%3D%3Dtypeof%20t%26%26%22object%22!%3Dtypeof%20n%5B0%5D%26%26null!%3Dn)for(var%20a%3D0%2Cl%3D(n%3DE(n)%3Fn%3AOn(n)).length%3Ba%3Cl%3Ba%2B%2B)null!%3D(r%3Dn%5Ba%5D)%26%26i%3Cr%26%26(i%3Dr)%3Belse%20t%3D_(t%2Ce)%2CM(n%2Cfunction(n%2Ce%2Cr)%7Bo%3Dt(n%2Ce%2Cr)%2C(u%3Co%7C%7Co%3D%3D%3D-1%2F0%26%26i%3D%3D%3D-1%2F0)%26%26(i%3Dn%2Cu%3Do)%7D)%3Breturn%20i%7Dfunction%20z(n%2Ct%2Ce)%7Bif(null%3D%3Dt%7C%7Ce)return%20E(n)%7C%7C(n%3DOn(n))%2Cn%5But(n.length-1)%5D%3Bvar%20r%3DE(n)%3FCn(n)%3AOn(n)%2Co%3DO(r)%3Bt%3DMath.max(Math.min(t%2Co)%2C0)%3Bfor(var%20i%3Do-1%2Cu%3D0%3Bu%3Ct%3Bu%2B%2B)%7Bvar%20a%3Dut(u%2Ci)%2Cl%3Dr%5Bu%5D%3Br%5Bu%5D%3Dr%5Ba%5D%2Cr%5Ba%5D%3Dl%7Dreturn%20r.slice(0%2Ct)%7Dfunction%20J(n%2Ct)%7Breturn%20function(e%2Cr%2Co)%7Bvar%20i%3Dt%3F%5B%5B%5D%2C%5B%5D%5D%3A%7B%7D%3Breturn%20r%3D_(r%2Co)%2CM(e%2Cfunction(t%2Co)%7Bvar%20u%3Dr(t%2Co%2Ce)%3Bn(i%2Ct%2Cu)%7D)%2Ci%7D%7Dvar%20%24%3DJ(function(n%2Ct%2Ce)%7Bj(n%2Ce)%3Fn%5Be%5D.push(t)%3An%5Be%5D%3D%5Bt%5D%7D)%2CW%3DJ(function(n%2Ct%2Ce)%7Bn%5Be%5D%3Dt%7D)%2CQ%3DJ(function(n%2Ct%2Ce)%7Bj(n%2Ce)%3Fn%5Be%5D%2B%2B%3An%5Be%5D%3D1%7D)%2CH%3D%2F%5B%5E%5Cud800-%5Cudfff%5D%7C%5B%5Cud800-%5Cudbff%5D%5B%5Cudc00-%5Cudfff%5D%7C%5B%5Cud800-%5Cudfff%5D%2Fg%2CK%3DJ(function(n%2Ct%2Ce)%7Bn%5Be%3F0%3A1%5D.push(t)%7D%2C!0)%3Bfunction%20U(n%2Ct%2Ce)%7Breturn%20null%3D%3Dn%7C%7Cn.length%3C1%3Fnull%3D%3Dt%3Fvoid%200%3A%5B%5D%3Anull%3D%3Dt%7C%7Ce%3Fn%5B0%5D%3AV(n%2Cn.length-t)%7Dfunction%20V(n%2Ct%2Ce)%7Breturn%20i.call(n%2C0%2CMath.max(0%2Cn.length-(null%3D%3Dt%7C%7Ce%3F1%3At)))%7Dfunction%20Y(n%2Ct%2Ce)%7Breturn%20i.call(n%2Cnull%3D%3Dt%7C%7Ce%3F1%3At)%7Dfunction%20G(n%2Ct%2Ce%2Cr)%7Bfor(var%20o%3D(r%3Dr%7C%7C%5B%5D).length%2Ci%3D0%2Cu%3DO(n)%3Bi%3Cu%3Bi%2B%2B)%7Bvar%20a%3Dn%5Bi%5D%3Bif(E(a)%26%26(Pn(a)%7C%7CJn(a)))if(t)for(var%20l%3D0%2Cf%3Da.length%3Bl%3Cf%3B)r%5Bo%2B%2B%5D%3Da%5Bl%2B%2B%5D%3Belse%20G(a%2Ct%2Ce%2Cr)%2Co%3Dr.length%3Belse%20e%7C%7C(r%5Bo%2B%2B%5D%3Da)%7Dreturn%20r%7Dvar%20X%3Db(function(n%2Ct)%7Breturn%20tn(n%2Ct)%7D)%3Bfunction%20Z(n%2Ct%2Ce%2Cr)%7Bet(t)%7C%7C(r%3De%2Ce%3Dt%2Ct%3D!1)%2Cnull!%3De%26%26(e%3D_(e%2Cr))%3Bfor(var%20o%3D%5B%5D%2Ci%3D%5B%5D%2Cu%3D0%2Ca%3DO(n)%3Bu%3Ca%3Bu%2B%2B)%7Bvar%20l%3Dn%5Bu%5D%2Cf%3De%3Fe(l%2Cu%2Cn)%3Al%3Bt%26%26!e%3F(u%26%26i%3D%3D%3Df%7C%7Co.push(l)%2Ci%3Df)%3Ae%3FC(i%2Cf)%7C%7C(i.push(f)%2Co.push(l))%3AC(o%2Cl)%7C%7Co.push(l)%7Dreturn%20o%7Dvar%20nn%3Db(function(n)%7Breturn%20Z(G(n%2C!0%2C!0))%7D)%2Ctn%3Db(function(n%2Ct)%7Breturn%20t%3DG(t%2C!0%2C!0)%2Ck(n%2Cfunction(n)%7Breturn!C(t%2Cn)%7D)%7D)%3Bfunction%20en(n)%7Bfor(var%20t%3Dn%26%26P(n%2CO).length%7C%7C0%2Ce%3DArray(t)%2Cr%3D0%3Br%3Ct%3Br%2B%2B)e%5Br%5D%3DD(n%2Cr)%3Breturn%20e%7Dvar%20rn%3Db(en)%3Bfunction%20on(n)%7Breturn%20function(t%2Ce%2Cr)%7Be%3D_(e%2Cr)%3Bfor(var%20o%3DO(t)%2Ci%3D0%3Cn%3F0%3Ao-1%3B0%3C%3Di%26%26i%3Co%3Bi%2B%3Dn)if(e(t%5Bi%5D%2Ci%2Ct))return%20i%3Breturn-1%7D%7Dvar%20un%3Don(1)%2Can%3Don(-1)%3Bfunction%20ln(n%2Ct%2Ce%2Cr)%7Bfor(var%20o%3D(e%3D_(e%2Cr%2C1))(t)%2Ci%3D0%2Cu%3DO(n)%3Bi%3Cu%3B)%7Bvar%20a%3DMath.floor((i%2Bu)%2F2)%3Be(n%5Ba%5D)%3Co%3Fi%3Da%2B1%3Au%3Da%7Dreturn%20i%7Dfunction%20fn(n%2Ct%2Ce)%7Breturn%20function(r%2Co%2Cu)%7Bvar%20a%3D0%2Cl%3DO(r)%3Bif(%22number%22%3D%3Dtypeof%20u)0%3Cn%3Fa%3D0%3C%3Du%3Fu%3AMath.max(u%2Bl%2Ca)%3Al%3D0%3C%3Du%3FMath.min(u%2B1%2Cl)%3Au%2Bl%2B1%3Belse%20if(e%26%26u%26%26l)return%20r%5Bu%3De(r%2Co)%5D%3D%3D%3Do%3Fu%3A-1%3Bif(o!%3Do)return%200%3C%3D(u%3Dt(i.call(r%2Ca%2Cl)%2Ctt))%3Fu%2Ba%3A-1%3Bfor(u%3D0%3Cn%3Fa%3Al-1%3B0%3C%3Du%26%26u%3Cl%3Bu%2B%3Dn)if(r%5Bu%5D%3D%3D%3Do)return%20u%3Breturn-1%7D%7Dvar%20cn%3Dfn(1%2Cun%2Cln)%2Csn%3Dfn(-1%2Can)%3Bfunction%20pn(n%2Ct%2Ce%2Cr%2Co)%7Bif(!(r%20instanceof%20t))return%20n.apply(e%2Co)%3Bvar%20i%3Dx(n.prototype)%2Cu%3Dn.apply(i%2Co)%3Breturn%20zn(u)%3Fu%3Ai%7Dvar%20vn%3Db(function(n%2Ct%2Ce)%7Bif(!%24n(n))throw%20new%20TypeError(%22Bind%20must%20be%20called%20on%20a%20function%22)%3Bvar%20r%3Db(function(o)%7Breturn%20pn(n%2Cr%2Ct%2Cthis%2Ce.concat(o))%7D)%3Breturn%20r%7D)%2Chn%3Db(function(n%2Ct)%7Bvar%20e%3Dhn.placeholder%2Cr%3Dfunction()%7Bfor(var%20o%3D0%2Ci%3Dt.length%2Cu%3DArray(i)%2Ca%3D0%3Ba%3Ci%3Ba%2B%2B)u%5Ba%5D%3Dt%5Ba%5D%3D%3D%3De%3Farguments%5Bo%2B%2B%5D%3At%5Ba%5D%3Bfor(%3Bo%3Carguments.length%3B)u.push(arguments%5Bo%2B%2B%5D)%3Breturn%20pn(n%2Cr%2Cthis%2Cthis%2Cu)%7D%3Breturn%20r%7D)%3Bhn.placeholder%3Dh%3Bvar%20dn%3Db(function(n%2Ct)%7Bvar%20e%3D(t%3DG(t%2C!1%2C!1)).length%3Bif(e%3C1)throw%20new%20Error(%22bindAll%20must%20be%20passed%20function%20names%22)%3Bfor(%3Be--%3B)%7Bvar%20r%3Dt%5Be%5D%3Bn%5Br%5D%3Dvn(n%5Br%5D%2Cn)%7D%7D)%2Cgn%3Db(function(n%2Ct%2Ce)%7Breturn%20setTimeout(function()%7Breturn%20n.apply(null%2Ce)%7D%2Ct)%7D)%2Cmn%3Dhn(gn%2Ch%2C1)%3Bfunction%20yn(n)%7Breturn%20function()%7Breturn!n.apply(this%2Carguments)%7D%7Dfunction%20_n(n%2Ct)%7Bvar%20e%3Breturn%20function()%7Breturn%200%3C--n%26%26(e%3Dt.apply(this%2Carguments))%2Cn%3C%3D1%26%26(t%3Dnull)%2Ce%7D%7Dvar%20bn%3Dhn(_n%2C2)%2Cxn%3D!%7BtoString%3Anull%7D.propertyIsEnumerable(%22toString%22)%2CSn%3D%5B%22valueOf%22%2C%22isPrototypeOf%22%2C%22toString%22%2C%22propertyIsEnumerable%22%2C%22hasOwnProperty%22%2C%22toLocaleString%22%5D%3Bfunction%20jn(n%2Ct)%7Bvar%20r%3DSn.length%2Co%3Dn.constructor%2Ci%3D%24n(o)%26%26o.prototype%7C%7Ce%2Cu%3D%22constructor%22%3Bfor(j(n%2Cu)%26%26!C(t%2Cu)%26%26t.push(u)%3Br--%3B)(u%3DSn%5Br%5D)in%20n%26%26n%5Bu%5D!%3D%3Di%5Bu%5D%26%26!C(t%2Cu)%26%26t.push(u)%7Dfunction%20wn(n)%7Bif(!zn(n))return%5B%5D%3Bif(f)return%20f(n)%3Bvar%20t%3D%5B%5D%3Bfor(var%20e%20in%20n)j(n%2Ce)%26%26t.push(e)%3Breturn%20xn%26%26jn(n%2Ct)%2Ct%7Dfunction%20Tn(n)%7Bif(!zn(n))return%5B%5D%3Bvar%20t%3D%5B%5D%3Bfor(var%20e%20in%20n)t.push(e)%3Breturn%20xn%26%26jn(n%2Ct)%2Ct%7Dfunction%20On(n)%7Bfor(var%20t%3Dwn(n)%2Ce%3Dt.length%2Cr%3DArray(e)%2Co%3D0%3Bo%3Ce%3Bo%2B%2B)r%5Bo%5D%3Dn%5Bt%5Bo%5D%5D%3Breturn%20r%7Dfunction%20En(n)%7Bfor(var%20t%3D%7B%7D%2Ce%3Dwn(n)%2Cr%3D0%2Co%3De.length%3Br%3Co%3Br%2B%2B)t%5Bn%5Be%5Br%5D%5D%5D%3De%5Br%5D%3Breturn%20t%7Dfunction%20Mn(n)%7Bvar%20t%3D%5B%5D%3Bfor(var%20e%20in%20n)%24n(n%5Be%5D)%26%26t.push(e)%3Breturn%20t.sort()%7Dfunction%20In(n%2Ct)%7Breturn%20function(e)%7Bvar%20r%3Darguments.length%3Bif(t%26%26(e%3DObject(e))%2Cr%3C2%7C%7Cnull%3D%3De)return%20e%3Bfor(var%20o%3D1%3Bo%3Cr%3Bo%2B%2B)for(var%20i%3Darguments%5Bo%5D%2Cu%3Dn(i)%2Ca%3Du.length%2Cl%3D0%3Bl%3Ca%3Bl%2B%2B)%7Bvar%20f%3Du%5Bl%5D%3Bt%26%26void%200!%3D%3De%5Bf%5D%7C%7C(e%5Bf%5D%3Di%5Bf%5D)%7Dreturn%20e%7D%7Dvar%20An%3DIn(Tn)%2CNn%3DIn(wn)%3Bfunction%20qn(n%2Ct%2Ce)%7Bt%3D_(t%2Ce)%3Bfor(var%20r%2Co%3Dwn(n)%2Ci%3D0%2Cu%3Do.length%3Bi%3Cu%3Bi%2B%2B)if(t(n%5Br%3Do%5Bi%5D%5D%2Cr%2Cn))return%20r%7Dfunction%20Fn(n%2Ct%2Ce)%7Breturn%20t%20in%20e%7Dvar%20kn%3Db(function(n%2Ct)%7Bvar%20e%3D%7B%7D%2Cr%3Dt%5B0%5D%3Bif(null%3D%3Dn)return%20e%3B%24n(r)%3F(1%3Ct.length%26%26(r%3Dg(r%2Ct%5B1%5D))%2Ct%3DTn(n))%3A(r%3DFn%2Ct%3DG(t%2C!1%2C!1)%2Cn%3DObject(n))%3Bfor(var%20o%3D0%2Ci%3Dt.length%3Bo%3Ci%3Bo%2B%2B)%7Bvar%20u%3Dt%5Bo%5D%2Ca%3Dn%5Bu%5D%3Br(a%2Cu%2Cn)%26%26(e%5Bu%5D%3Da)%7Dreturn%20e%7D)%2CRn%3Db(function(n%2Ct)%7Bvar%20e%2Cr%3Dt%5B0%5D%3Breturn%20%24n(r)%3F(r%3Dyn(r)%2C1%3Ct.length%26%26(e%3Dt%5B1%5D))%3A(t%3DI(G(t%2C!1%2C!1)%2CString)%2Cr%3Dfunction(n%2Ce)%7Breturn!C(t%2Ce)%7D)%2Ckn(n%2Cr%2Ce)%7D)%2CLn%3DIn(Tn%2C!0)%3Bfunction%20Cn(n)%7Breturn%20zn(n)%3FPn(n)%3Fn.slice()%3AAn(%7B%7D%2Cn)%3An%7Dfunction%20Bn(n%2Ct)%7Bvar%20e%3Dwn(t)%2Cr%3De.length%3Bif(null%3D%3Dn)return!r%3Bfor(var%20o%3DObject(n)%2Ci%3D0%3Bi%3Cr%3Bi%2B%2B)%7Bvar%20u%3De%5Bi%5D%3Bif(t%5Bu%5D!%3D%3Do%5Bu%5D%7C%7C!(u%20in%20o))return!1%7Dreturn!0%7Dfunction%20Dn(n)%7Breturn%20function(t)%7Breturn%20u.call(t)%3D%3D%3D%22%5Bobject%20%22%2Bn%2B%22%5D%22%7D%7Dvar%20Pn%3Dl%7C%7CDn(%22Array%22)%3Bfunction%20zn(n)%7Bvar%20t%3Dtypeof%20n%3Breturn%22function%22%3D%3D%3Dt%7C%7C%22object%22%3D%3D%3Dt%26%26!!n%7Dvar%20Jn%3DDn(%22Arguments%22)%2C%24n%3DDn(%22Function%22)%2CWn%3DDn(%22String%22)%2CQn%3DDn(%22Number%22)%2CHn%3DDn(%22Date%22)%2CKn%3DDn(%22RegExp%22)%2CUn%3DDn(%22Error%22)%2CVn%3DDn(%22Symbol%22)%2CYn%3DDn(%22Map%22)%2CGn%3DDn(%22WeakMap%22)%2CXn%3DDn(%22Set%22)%2CZn%3DDn(%22WeakSet%22)%3B!function()%7BJn(arguments)%7C%7C(Jn%3Dfunction(n)%7Breturn%20j(n%2C%22callee%22)%7D)%7D()%3Bvar%20nt%3Dn.document%26%26n.document.childNodes%3Bfunction%20tt(n)%7Breturn%20Qn(n)%26%26s(n)%7Dfunction%20et(n)%7Breturn!0%3D%3D%3Dn%7C%7C!1%3D%3D%3Dn%7C%7C%22%5Bobject%20Boolean%5D%22%3D%3D%3Du.call(n)%7Dfunction%20rt(n)%7Breturn%20n%7Dfunction%20ot(n)%7Breturn%20Pn(n)%3Ffunction(t)%7Breturn%20w(t%2Cn)%7D%3AS(n)%7Dfunction%20it(n)%7Breturn%20n%3DNn(%7B%7D%2Cn)%2Cfunction(t)%7Breturn%20Bn(t%2Cn)%7D%7Dfunction%20ut(n%2Ct)%7Breturn%20null%3D%3Dt%26%26(t%3Dn%2Cn%3D0)%2Cn%2BMath.floor(Math.random()*(t-n%2B1))%7D%22function%22!%3Dtypeof%2F.%2F%26%26%22object%22!%3Dtypeof%20Int8Array%26%26%22function%22!%3Dtypeof%20nt%26%26(%24n%3Dfunction(n)%7Breturn%22function%22%3D%3Dtypeof%20n%7C%7C!1%7D)%3Bvar%20at%3DDate.now%7C%7Cfunction()%7Breturn(new%20Date).getTime()%7D%2Clt%3D%7B%22%26%22%3A%22%26amp%3B%22%2C%22%3C%22%3A%22%26lt%3B%22%2C%22%3E%22%3A%22%26gt%3B%22%2C'%22'%3A%22%26quot%3B%22%2C%22'%22%3A%22%26%23x27%3B%22%2C%22%60%22%3A%22%26%23x60%3B%22%7D%2Cft%3DEn(lt)%3Bfunction%20ct(n)%7Bvar%20t%3Dfunction(t)%7Breturn%20n%5Bt%5D%7D%2Ce%3D%22(%3F%3A%22%2Bwn(n).join(%22%7C%22)%2B%22)%22%2Cr%3DRegExp(e)%2Co%3DRegExp(e%2C%22g%22)%3Breturn%20function(n)%7Breturn%20n%3Dnull%3D%3Dn%3F%22%22%3A%22%22%2Bn%2Cr.test(n)%3Fn.replace(o%2Ct)%3An%7D%7Dvar%20st%3Dct(lt)%2Cpt%3Dct(ft)%2Cvt%3D0%2Cht%3Dh.templateSettings%3D%7Bevaluate%3A%2F%3C%25(%5B%5Cs%5CS%5D%2B%3F)%25%3E%2Fg%2Cinterpolate%3A%2F%3C%25%3D(%5B%5Cs%5CS%5D%2B%3F)%25%3E%2Fg%2Cescape%3A%2F%3C%25-(%5B%5Cs%5CS%5D%2B%3F)%25%3E%2Fg%7D%2Cdt%3D%2F(.)%5E%2F%2Cgt%3D%7B%22'%22%3A%22'%22%2C%22%5C%5C%22%3A%22%5C%5C%22%2C%22%5Cr%22%3A%22r%22%2C%22%5Cn%22%3A%22n%22%2C%22%5Cu2028%22%3A%22u2028%22%2C%22%5Cu2029%22%3A%22u2029%22%7D%2Cmt%3D%2F%5C%5C%7C'%7C%5Cr%7C%5Cn%7C%5Cu2028%7C%5Cu2029%2Fg%2Cyt%3Dfunction(n)%7Breturn%22%5C%5C%22%2Bgt%5Bn%5D%7D%3Bfunction%20_t(n%2Ct)%7Breturn%20n._chain%3Fh(t).chain()%3At%7Dfunction%20bt(n)%7Breturn%20M(Mn(n)%2Cfunction(t)%7Bvar%20e%3Dh%5Bt%5D%3Dn%5Bt%5D%3Bh.prototype%5Bt%5D%3Dfunction()%7Bvar%20n%3D%5Bthis._wrapped%5D%3Breturn%20o.apply(n%2Carguments)%2C_t(this%2Ce.apply(h%2Cn))%7D%7D)%2Ch%7DM(%5B%22pop%22%2C%22push%22%2C%22reverse%22%2C%22shift%22%2C%22sort%22%2C%22splice%22%2C%22unshift%22%5D%2Cfunction(n)%7Bvar%20e%3Dt%5Bn%5D%3Bh.prototype%5Bn%5D%3Dfunction()%7Bvar%20t%3Dthis._wrapped%3Breturn%20e.apply(t%2Carguments)%2C%22shift%22!%3D%3Dn%26%26%22splice%22!%3D%3Dn%7C%7C0!%3D%3Dt.length%7C%7Cdelete%20t%5B0%5D%2C_t(this%2Ct)%7D%7D)%2CM(%5B%22concat%22%2C%22join%22%2C%22slice%22%5D%2Cfunction(n)%7Bvar%20e%3Dt%5Bn%5D%3Bh.prototype%5Bn%5D%3Dfunction()%7Breturn%20_t(this%2Ce.apply(this._wrapped%2Carguments))%7D%7D)%2Ch.prototype.valueOf%3Dh.prototype.toJSON%3Dh.prototype.value%3Dfunction()%7Breturn%20this._wrapped%7D%2Ch.prototype.toString%3Dfunction()%7Breturn%20String(this._wrapped)%7D%3Bvar%20xt%3Dbt(%7Bdefault%3Ah%2CVERSION%3Ad%2Citeratee%3Ay%2CrestArguments%3Ab%2Ceach%3AM%2CforEach%3AM%2Cmap%3AI%2Ccollect%3AI%2Creduce%3AN%2Cfoldl%3AN%2Cinject%3AN%2CreduceRight%3Aq%2Cfoldr%3Aq%2Cfind%3AF%2Cdetect%3AF%2Cfilter%3Ak%2Cselect%3Ak%2Creject%3Afunction(n%2Ct%2Ce)%7Breturn%20k(n%2Cyn(_(t))%2Ce)%7D%2Cevery%3AR%2Call%3AR%2Csome%3AL%2Cany%3AL%2Ccontains%3AC%2Cincludes%3AC%2Cinclude%3AC%2Cinvoke%3AB%2Cpluck%3AD%2Cwhere%3Afunction(n%2Ct)%7Breturn%20k(n%2Cit(t))%7D%2CfindWhere%3Afunction(n%2Ct)%7Breturn%20F(n%2Cit(t))%7D%2Cmax%3AP%2Cmin%3Afunction(n%2Ct%2Ce)%7Bvar%20r%2Co%2Ci%3D1%2F0%2Cu%3D1%2F0%3Bif(null%3D%3Dt%7C%7C%22number%22%3D%3Dtypeof%20t%26%26%22object%22!%3Dtypeof%20n%5B0%5D%26%26null!%3Dn)for(var%20a%3D0%2Cl%3D(n%3DE(n)%3Fn%3AOn(n)).length%3Ba%3Cl%3Ba%2B%2B)null!%3D(r%3Dn%5Ba%5D)%26%26r%3Ci%26%26(i%3Dr)%3Belse%20t%3D_(t%2Ce)%2CM(n%2Cfunction(n%2Ce%2Cr)%7B((o%3Dt(n%2Ce%2Cr))%3Cu%7C%7Co%3D%3D%3D1%2F0%26%26i%3D%3D%3D1%2F0)%26%26(i%3Dn%2Cu%3Do)%7D)%3Breturn%20i%7D%2Cshuffle%3Afunction(n)%7Breturn%20z(n%2C1%2F0)%7D%2Csample%3Az%2CsortBy%3Afunction(n%2Ct%2Ce)%7Bvar%20r%3D0%3Breturn%20t%3D_(t%2Ce)%2CD(I(n%2Cfunction(n%2Ce%2Co)%7Breturn%7Bvalue%3An%2Cindex%3Ar%2B%2B%2Ccriteria%3At(n%2Ce%2Co)%7D%7D).sort(function(n%2Ct)%7Bvar%20e%3Dn.criteria%2Cr%3Dt.criteria%3Bif(e!%3D%3Dr)%7Bif(r%3Ce%7C%7Cvoid%200%3D%3D%3De)return%201%3Bif(e%3Cr%7C%7Cvoid%200%3D%3D%3Dr)return-1%7Dreturn%20n.index-t.index%7D)%2C%22value%22)%7D%2CgroupBy%3A%24%2CindexBy%3AW%2CcountBy%3AQ%2CtoArray%3Afunction(n)%7Breturn%20n%3FPn(n)%3Fi.call(n)%3AWn(n)%3Fn.match(H)%3AE(n)%3FI(n%2Crt)%3AOn(n)%3A%5B%5D%7D%2Csize%3Afunction(n)%7Breturn%20null%3D%3Dn%3F0%3AE(n)%3Fn.length%3Awn(n).length%7D%2Cpartition%3AK%2Cfirst%3AU%2Chead%3AU%2Ctake%3AU%2Cinitial%3AV%2Clast%3Afunction(n%2Ct%2Ce)%7Breturn%20null%3D%3Dn%7C%7Cn.length%3C1%3Fnull%3D%3Dt%3Fvoid%200%3A%5B%5D%3Anull%3D%3Dt%7C%7Ce%3Fn%5Bn.length-1%5D%3AY(n%2CMath.max(0%2Cn.length-t))%7D%2Crest%3AY%2Ctail%3AY%2Cdrop%3AY%2Ccompact%3Afunction(n)%7Breturn%20k(n%2CBoolean)%7D%2Cflatten%3Afunction(n%2Ct)%7Breturn%20G(n%2Ct%2C!1)%7D%2Cwithout%3AX%2Cuniq%3AZ%2Cunique%3AZ%2Cunion%3Ann%2Cintersection%3Afunction(n)%7Bfor(var%20t%3D%5B%5D%2Ce%3Darguments.length%2Cr%3D0%2Co%3DO(n)%3Br%3Co%3Br%2B%2B)%7Bvar%20i%3Dn%5Br%5D%3Bif(!C(t%2Ci))%7Bvar%20u%3Bfor(u%3D1%3Bu%3Ce%26%26C(arguments%5Bu%5D%2Ci)%3Bu%2B%2B)%3Bu%3D%3D%3De%26%26t.push(i)%7D%7Dreturn%20t%7D%2Cdifference%3Atn%2Cunzip%3Aen%2Czip%3Arn%2Cobject%3Afunction(n%2Ct)%7Bfor(var%20e%3D%7B%7D%2Cr%3D0%2Co%3DO(n)%3Br%3Co%3Br%2B%2B)t%3Fe%5Bn%5Br%5D%5D%3Dt%5Br%5D%3Ae%5Bn%5Br%5D%5B0%5D%5D%3Dn%5Br%5D%5B1%5D%3Breturn%20e%7D%2CfindIndex%3Aun%2CfindLastIndex%3Aan%2CsortedIndex%3Aln%2CindexOf%3Acn%2ClastIndexOf%3Asn%2Crange%3Afunction(n%2Ct%2Ce)%7Bnull%3D%3Dt%26%26(t%3Dn%7C%7C0%2Cn%3D0)%2Ce%7C%7C(e%3Dt%3Cn%3F-1%3A1)%3Bfor(var%20r%3DMath.max(Math.ceil((t-n)%2Fe)%2C0)%2Co%3DArray(r)%2Ci%3D0%3Bi%3Cr%3Bi%2B%2B%2Cn%2B%3De)o%5Bi%5D%3Dn%3Breturn%20o%7D%2Cchunk%3Afunction(n%2Ct)%7Bif(null%3D%3Dt%7C%7Ct%3C1)return%5B%5D%3Bfor(var%20e%3D%5B%5D%2Cr%3D0%2Co%3Dn.length%3Br%3Co%3B)e.push(i.call(n%2Cr%2Cr%2B%3Dt))%3Breturn%20e%7D%2Cbind%3Avn%2Cpartial%3Ahn%2CbindAll%3Adn%2Cmemoize%3Afunction(n%2Ct)%7Bvar%20e%3Dfunction(r)%7Bvar%20o%3De.cache%2Ci%3D%22%22%2B(t%3Ft.apply(this%2Carguments)%3Ar)%3Breturn%20j(o%2Ci)%7C%7C(o%5Bi%5D%3Dn.apply(this%2Carguments))%2Co%5Bi%5D%7D%3Breturn%20e.cache%3D%7B%7D%2Ce%7D%2Cdelay%3Agn%2Cdefer%3Amn%2Cthrottle%3Afunction(n%2Ct%2Ce)%7Bvar%20r%2Co%2Ci%2Cu%2Ca%3D0%3Be%7C%7C(e%3D%7B%7D)%3Bvar%20l%3Dfunction()%7Ba%3D!1%3D%3D%3De.leading%3F0%3Aat()%2Cr%3Dnull%2Cu%3Dn.apply(o%2Ci)%2Cr%7C%7C(o%3Di%3Dnull)%7D%2Cf%3Dfunction()%7Bvar%20f%3Dat()%3Ba%7C%7C!1!%3D%3De.leading%7C%7C(a%3Df)%3Bvar%20c%3Dt-(f-a)%3Breturn%20o%3Dthis%2Ci%3Darguments%2Cc%3C%3D0%7C%7Ct%3Cc%3F(r%26%26(clearTimeout(r)%2Cr%3Dnull)%2Ca%3Df%2Cu%3Dn.apply(o%2Ci)%2Cr%7C%7C(o%3Di%3Dnull))%3Ar%7C%7C!1%3D%3D%3De.trailing%7C%7C(r%3DsetTimeout(l%2Cc))%2Cu%7D%3Breturn%20f.cancel%3Dfunction()%7BclearTimeout(r)%2Ca%3D0%2Cr%3Do%3Di%3Dnull%7D%2Cf%7D%2Cdebounce%3Afunction(n%2Ct%2Ce)%7Bvar%20r%2Co%2Ci%3Dfunction(t%2Ce)%7Br%3Dnull%2Ce%26%26(o%3Dn.apply(t%2Ce))%7D%2Cu%3Db(function(u)%7Bif(r%26%26clearTimeout(r)%2Ce)%7Bvar%20a%3D!r%3Br%3DsetTimeout(i%2Ct)%2Ca%26%26(o%3Dn.apply(this%2Cu))%7Delse%20r%3Dgn(i%2Ct%2Cthis%2Cu)%3Breturn%20o%7D)%3Breturn%20u.cancel%3Dfunction()%7BclearTimeout(r)%2Cr%3Dnull%7D%2Cu%7D%2Cwrap%3Afunction(n%2Ct)%7Breturn%20hn(t%2Cn)%7D%2Cnegate%3Ayn%2Ccompose%3Afunction()%7Bvar%20n%3Darguments%2Ct%3Dn.length-1%3Breturn%20function()%7Bfor(var%20e%3Dt%2Cr%3Dn%5Bt%5D.apply(this%2Carguments)%3Be--%3B)r%3Dn%5Be%5D.call(this%2Cr)%3Breturn%20r%7D%7D%2Cafter%3Afunction(n%2Ct)%7Breturn%20function()%7Bif(--n%3C1)return%20t.apply(this%2Carguments)%7D%7D%2Cbefore%3A_n%2Conce%3Abn%2Ckeys%3Awn%2CallKeys%3ATn%2Cvalues%3AOn%2CmapObject%3Afunction(n%2Ct%2Ce)%7Bt%3D_(t%2Ce)%3Bfor(var%20r%3Dwn(n)%2Co%3Dr.length%2Ci%3D%7B%7D%2Cu%3D0%3Bu%3Co%3Bu%2B%2B)%7Bvar%20a%3Dr%5Bu%5D%3Bi%5Ba%5D%3Dt(n%5Ba%5D%2Ca%2Cn)%7Dreturn%20i%7D%2Cpairs%3Afunction(n)%7Bfor(var%20t%3Dwn(n)%2Ce%3Dt.length%2Cr%3DArray(e)%2Co%3D0%3Bo%3Ce%3Bo%2B%2B)r%5Bo%5D%3D%5Bt%5Bo%5D%2Cn%5Bt%5Bo%5D%5D%5D%3Breturn%20r%7D%2Cinvert%3AEn%2Cfunctions%3AMn%2Cmethods%3AMn%2Cextend%3AAn%2CextendOwn%3ANn%2Cassign%3ANn%2CfindKey%3Aqn%2Cpick%3Akn%2Comit%3ARn%2Cdefaults%3ALn%2Ccreate%3Afunction(n%2Ct)%7Bvar%20e%3Dx(n)%3Breturn%20t%26%26Nn(e%2Ct)%2Ce%7D%2Cclone%3ACn%2Ctap%3Afunction(n%2Ct)%7Breturn%20t(n)%2Cn%7D%2CisMatch%3ABn%2CisEqual%3Afunction(n%2Ct)%7Breturn%20function%20n(t%2Ce%2Co%2Ci)%7Bif(t%3D%3D%3De)return%200!%3D%3Dt%7C%7C1%2Ft%3D%3D1%2Fe%3Bif(null%3D%3Dt%7C%7Cnull%3D%3De)return!1%3Bif(t!%3Dt)return%20e!%3De%3Bvar%20a%3Dtypeof%20t%3Breturn(%22function%22%3D%3D%3Da%7C%7C%22object%22%3D%3D%3Da%7C%7C%22object%22%3D%3Dtypeof%20e)%26%26function(t%2Ce%2Co%2Ci)%7Bt%20instanceof%20h%26%26(t%3Dt._wrapped)%2Ce%20instanceof%20h%26%26(e%3De._wrapped)%3Bvar%20a%3Du.call(t)%3Bif(a!%3D%3Du.call(e))return!1%3Bswitch(a)%7Bcase%22%5Bobject%20RegExp%5D%22%3Acase%22%5Bobject%20String%5D%22%3Areturn%22%22%2Bt%3D%3D%22%22%2Be%3Bcase%22%5Bobject%20Number%5D%22%3Areturn%2Bt!%3D%2Bt%3F%2Be!%3D%2Be%3A0%3D%3D%2Bt%3F1%2F%2Bt%3D%3D1%2Fe%3A%2Bt%3D%3D%2Be%3Bcase%22%5Bobject%20Date%5D%22%3Acase%22%5Bobject%20Boolean%5D%22%3Areturn%2Bt%3D%3D%2Be%3Bcase%22%5Bobject%20Symbol%5D%22%3Areturn%20r.valueOf.call(t)%3D%3D%3Dr.valueOf.call(e)%7Dvar%20l%3D%22%5Bobject%20Array%5D%22%3D%3D%3Da%3Bif(!l)%7Bif(%22object%22!%3Dtypeof%20t%7C%7C%22object%22!%3Dtypeof%20e)return!1%3Bvar%20f%3Dt.constructor%2Cc%3De.constructor%3Bif(f!%3D%3Dc%26%26!(%24n(f)%26%26f%20instanceof%20f%26%26%24n(c)%26%26c%20instanceof%20c)%26%26%22constructor%22in%20t%26%26%22constructor%22in%20e)return!1%7Di%3Di%7C%7C%5B%5D%3Bfor(var%20s%3D(o%3Do%7C%7C%5B%5D).length%3Bs--%3B)if(o%5Bs%5D%3D%3D%3Dt)return%20i%5Bs%5D%3D%3D%3De%3Bif(o.push(t)%2Ci.push(e)%2Cl)%7Bif((s%3Dt.length)!%3D%3De.length)return!1%3Bfor(%3Bs--%3B)if(!n(t%5Bs%5D%2Ce%5Bs%5D%2Co%2Ci))return!1%7Delse%7Bvar%20p%2Cv%3Dwn(t)%3Bif(s%3Dv.length%2Cwn(e).length!%3D%3Ds)return!1%3Bfor(%3Bs--%3B)if(!j(e%2Cp%3Dv%5Bs%5D)%7C%7C!n(t%5Bp%5D%2Ce%5Bp%5D%2Co%2Ci))return!1%7Dreturn%20o.pop()%2Ci.pop()%2C!0%7D(t%2Ce%2Co%2Ci)%7D(n%2Ct)%7D%2CisEmpty%3Afunction(n)%7Breturn%20null%3D%3Dn%7C%7C(E(n)%26%26(Pn(n)%7C%7CWn(n)%7C%7CJn(n))%3F0%3D%3D%3Dn.length%3A0%3D%3D%3Dwn(n).length)%7D%2CisElement%3Afunction(n)%7Breturn!(!n%7C%7C1!%3D%3Dn.nodeType)%7D%2CisArray%3APn%2CisObject%3Azn%2CisArguments%3AJn%2CisFunction%3A%24n%2CisString%3AWn%2CisNumber%3AQn%2CisDate%3AHn%2CisRegExp%3AKn%2CisError%3AUn%2CisSymbol%3AVn%2CisMap%3AYn%2CisWeakMap%3AGn%2CisSet%3AXn%2CisWeakSet%3AZn%2CisFinite%3Afunction(n)%7Breturn!Vn(n)%26%26p(n)%26%26!s(parseFloat(n))%7D%2CisNaN%3Att%2CisBoolean%3Aet%2CisNull%3Afunction(n)%7Breturn%20null%3D%3D%3Dn%7D%2CisUndefined%3Afunction(n)%7Breturn%20void%200%3D%3D%3Dn%7D%2Chas%3Afunction(n%2Ct)%7Bif(!Pn(t))return%20j(n%2Ct)%3Bfor(var%20e%3Dt.length%2Cr%3D0%3Br%3Ce%3Br%2B%2B)%7Bvar%20o%3Dt%5Br%5D%3Bif(null%3D%3Dn%7C%7C!a.call(n%2Co))return!1%3Bn%3Dn%5Bo%5D%7Dreturn!!e%7D%2Cidentity%3Art%2Cconstant%3Afunction(n)%7Breturn%20function()%7Breturn%20n%7D%7D%2Cnoop%3Afunction()%7B%7D%2Cproperty%3Aot%2CpropertyOf%3Afunction(n)%7Breturn%20null%3D%3Dn%3Ffunction()%7B%7D%3Afunction(t)%7Breturn%20Pn(t)%3Fw(n%2Ct)%3An%5Bt%5D%7D%7D%2Cmatcher%3Ait%2Cmatches%3Ait%2Ctimes%3Afunction(n%2Ct%2Ce)%7Bvar%20r%3DArray(Math.max(0%2Cn))%3Bt%3Dg(t%2Ce%2C1)%3Bfor(var%20o%3D0%3Bo%3Cn%3Bo%2B%2B)r%5Bo%5D%3Dt(o)%3Breturn%20r%7D%2Crandom%3Aut%2Cnow%3Aat%2Cescape%3Ast%2Cunescape%3Apt%2Cresult%3Afunction(n%2Ct%2Ce)%7BPn(t)%7C%7C(t%3D%5Bt%5D)%3Bvar%20r%3Dt.length%3Bif(!r)return%20%24n(e)%3Fe.call(n)%3Ae%3Bfor(var%20o%3D0%3Bo%3Cr%3Bo%2B%2B)%7Bvar%20i%3Dnull%3D%3Dn%3Fvoid%200%3An%5Bt%5Bo%5D%5D%3Bvoid%200%3D%3D%3Di%26%26(i%3De%2Co%3Dr)%2Cn%3D%24n(i)%3Fi.call(n)%3Ai%7Dreturn%20n%7D%2CuniqueId%3Afunction(n)%7Bvar%20t%3D%2B%2Bvt%2B%22%22%3Breturn%20n%3Fn%2Bt%3At%7D%2CtemplateSettings%3Aht%2Ctemplate%3Afunction(n%2Ct%2Ce)%7B!t%26%26e%26%26(t%3De)%2Ct%3DLn(%7B%7D%2Ct%2Ch.templateSettings)%3Bvar%20r%2Co%3DRegExp(%5B(t.escape%7C%7Cdt).source%2C(t.interpolate%7C%7Cdt).source%2C(t.evaluate%7C%7Cdt).source%5D.join(%22%7C%22)%2B%22%7C%24%22%2C%22g%22)%2Ci%3D0%2Cu%3D%22__p%2B%3D'%22%3Bn.replace(o%2Cfunction(t%2Ce%2Cr%2Co%2Ca)%7Breturn%20u%2B%3Dn.slice(i%2Ca).replace(mt%2Cyt)%2Ci%3Da%2Bt.length%2Ce%3Fu%2B%3D%22'%2B%5Cn((__t%3D(%22%2Be%2B%22))%3D%3Dnull%3F''%3A_.escape(__t))%2B%5Cn'%22%3Ar%3Fu%2B%3D%22'%2B%5Cn((__t%3D(%22%2Br%2B%22))%3D%3Dnull%3F''%3A__t)%2B%5Cn'%22%3Ao%26%26(u%2B%3D%22'%3B%5Cn%22%2Bo%2B%22%5Cn__p%2B%3D'%22)%2Ct%7D)%2Cu%2B%3D%22'%3B%5Cn%22%2Ct.variable%7C%7C(u%3D%22with(obj%7C%7C%7B%7D)%7B%5Cn%22%2Bu%2B%22%7D%5Cn%22)%2Cu%3D%22var%20__t%2C__p%3D''%2C__j%3DArray.prototype.join%2Cprint%3Dfunction()%7B__p%2B%3D__j.call(arguments%2C'')%3B%7D%3B%5Cn%22%2Bu%2B%22return%20__p%3B%5Cn%22%3Btry%7Br%3Dnew%20Function(t.variable%7C%7C%22obj%22%2C%22_%22%2Cu)%7Dcatch(t)%7Bthrow%20t.source%3Du%2Ct%7Dvar%20a%3Dfunction(n)%7Breturn%20r.call(this%2Cn%2Ch)%7D%2Cl%3Dt.variable%7C%7C%22obj%22%3Breturn%20a.source%3D%22function(%22%2Bl%2B%22)%7B%5Cn%22%2Bu%2B%22%7D%22%2Ca%7D%2Cchain%3Afunction(n)%7Bvar%20t%3Dh(n)%3Breturn%20t._chain%3D!0%2Ct%7D%2Cmixin%3Abt%7D)%3Breturn%20xt._%3Dxt%7D)%2Clog%3Dfunction(n%2Ct%2Ce%3D!1)%7B1%3D%3D%3D(t%3Dt%7C%7C0)%26%26(e%3D!0)%2Ct%3E100%3Fconsole.log(n)%3A_.isObject(n)%3F_.each(n%2Cfunction(n%2Cr)%7B%22id%22!%3Dr%26%26%22issues%22!%3Dr%7C%7C(e%3D!0)%2Ce%3Fconsole.group(%22%25c%20%22%2Br%2C%22background%3A%20%23222222%3B%20color%3A%20%23aaff00%22)%3Aconsole.group(r)%2Clog(n%2Ct%2B1)%2Cconsole.groupEnd()%7D)%3Aconsole.log(n)%7D%2Cfunction(n%2Ct)%7B%22object%22%3D%3Dtypeof%20exports%26%26%22undefined%22!%3Dtypeof%20module%3Fmodule.exports%3Dt()%3A%22function%22%3D%3Dtypeof%20define%26%26define.amd%3Fdefine(t)%3An.parseSRT%3Dt()%7D(this%2Cfunction()%7B%22use%20strict%22%3Bfunction%20n(n)%7Bvar%20t%3Dn.split(%22%3A%22)%3Btry%7Bvar%20e%3Dt%5B2%5D.split(%22%2C%22)%3Breturn%201%3D%3D%3De.length%26%26(e%3Dt%5B2%5D.split(%22.%22))%2C3600*parseFloat(t%5B0%5D%2C10)%2B60*parseFloat(t%5B1%5D%2C10)%2BparseFloat(e%5B0%5D%2C10)%2BparseFloat(e%5B1%5D%2C10)%2F1e3%7Dcatch(n)%7Breturn%200%7D%7Dfunction%20t(n%2Ct)%7Bfor(var%20e%3Dt%3B!n%5Be%5D%3B)e%2B%2B%3Breturn%20e%7Dreturn%20function()%7Bfor(var%20e%3D%5B%5D%2Cr%3D(arguments.length%3E0%26%26void%200!%3D%3Darguments%5B0%5D%3Farguments%5B0%5D%3A%22%22).split(%2F(%3F%3A%5Cr%5Cn%7C%5Cr%7C%5Cn)%2Fgm)%2Co%3Dfunction(n)%7Bfor(var%20t%3Dn.length-1%3Bt%3E%3D0%26%26!n%5Bt%5D%3B)t--%3Breturn%20t%7D(r)%2B1%2Ci%3D0%2Cu%3Dvoid%200%2Ca%3Dvoid%200%2Cl%3Dvoid%200%2Cf%3D0%3Bf%3Co%3Bf%2B%2B)%7Bfor(l%3D%7B%7D%2Ca%3D%5B%5D%2Cf%3Dt(r%2Cf)%2Cl.id%3DparseInt(r%5Bf%2B%2B%5D%2C10)%2Cu%3Dr%5Bf%2B%2B%5D.split(%2F%5B%5Ct%20%5D*--%3E%5B%5Ct%20%5D*%2F)%2Cl.start%3Dn(u%5B0%5D)%2C-1!%3D%3D(i%3Du%5B1%5D.indexOf(%22%20%22))%26%26(u%5B1%5D%3Du%5B1%5D.substr(0%2Ci))%2Cl.end%3Dn(u%5B1%5D)%3Bf%3Co%26%26r%5Bf%5D%3B)a.push(r%5Bf%2B%2B%5D)%3Bl.text%3Da.join(%22%5C%5CN%22).replace(%2F%5C%7B(%5C%5C%5B%5Cw%5D%2B%5C(%3F(%5B%5Cw%5Cd%5D%2B%2C%3F)%2B%5C)%3F)%2B%5C%7D%2Fgi%2C%22%22)%2Cl.text%3Dl.text.replace(%2F%3C%2Fg%2C%22%26lt%3B%22).replace(%2F%3E%2Fg%2C%22%26gt%3B%22)%2Cl.text%3Dl.text.replace(%2F%26lt%3B(%5C%2F%3F(font%7Cb%7Cu%7Ci%7Cs))((%5Cs%2B(%5Cw%7C%5Cw%5B%5Cw%5C-%5D*%5Cw)(%5Cs*%3D%5Cs*(%3F%3A%22.*%3F%22%7C'.*%3F'%7C%5B%5E'%22%3E%5Cs%5D%2B))%3F)%2B%5Cs*%7C%5Cs*)(%5C%2F%3F)%26gt%3B%2Fgi%2C%22%3C%241%243%247%3E%22)%2Cl.text%3Dl.text.replace(%2F%5C%5CN%2Fgi%2C%22%5Cn%22)%2Ce.push(l)%7Dreturn%20e%7D%7D)%3Bvar%20our_clq%3Ddocument.location.href.toString().split(%22%3D%22)%5B1%5D.split(%22%3A%22)%5B2%5D%2Cclq_pattern%3Dnew%20RegExp(%22%5E%5B0-9a-f%5D%7B8%7D-%5B0-9a-f%5D%7B4%7D-%5B1-5%5D%5B0-9a-f%5D%7B3%7D-%5B89ab%5D%5B0-9a-f%5D%7B3%7D-%5B0-9a-f%5D%7B12%7D%24%22%2C%22i%22)%3Bif(!our_clq%7C%7C!clq_pattern.test(our_clq))throw%20alert(%22You%20must%20be%20in%20an%20Originator%20task!%22)%2Cnew%20Error%3Bif(!clq_pattern.test(our_clq))throw%20alert(%22The%20CLQ%20is%20invalid%3A%20%22%2Bour_clq%2B%22%5CnPlease%20report%20me%20to%20the%20developer.%22)%2Cnew%20Error%3Bvar%20lsJson%3DlocalStorage%5B%22clq%3Aorigination%3A%22%2Bour_clq%5D%3Bif(!lsJson)throw%20alert(%22Timed%20text%20events%20not%20found%20in%20localStorage%5Cnfor%20CLQ%3A%20%22%2Bour_clq%2B'%5CnIf%20the%20CLQ%20is%20correct%20and%5Cn%22Save%20to%20local%20storage%22%20is%20enabled%20in%20Settings%2C%5Cnsave%20the%20task%20and%20try%20again.')%2Cnew%20Error%3Bvar%20json_obj%3DJSON.parse(lsJson)%2Csrc%3Djson_obj.events%2Cfps_%3Djson_obj.meta.fps%2Cfps%3Dfps_.split(%22_%22)%5B1%5D%2F100%3Btry%7Bif(proposed_fps)%7Bvar%20int_fps%3Dproposed_fps.substring(0%2C2)%2Cdecimal_fps%3Dproposed_fps.substring(2%2Cproposed_fps.length)%3Bfps_%3D%22FPS_%22%2Bint_fps%2Bdecimal_fps%2Cfps%3D1*(int_fps%2B%22.%22%2Bdecimal_fps)%7D%7Dcatch(n)%7B%7Dvar%20frms%3D1e3%2Ffps%2Cline_limit%3D42%3Bfunction%20srtName(n%3D%22%22)%7Bvar%20t%3D(document.getElementsByClassName(%22cpe-page-menu-label%22)%5B0%5D.innerText.replace(%2F%5B%20%5D%2Fg%2C%22_%22).replace(%2F%5B%5Ea-z0-9_%5D%2Fgi%2C%22%22)%2B%22_%22%2Bn%2B%22.srt%22).trim()%3Breturn%20t%7C%7C(t%3Dour_clq%2B%22_%22%2Bn%2B%22.srt%22)%2Ct%7Dfunction%20frames2tcf(n%2Ct%3Dfps)%7Bvar%20e%3Dn%2Ft%2Cr%3DMath.floor(e)%2Co%3De-r%2Ci%3DMath.round(o*t)%2B%22%22%2Cu%3Dnew%20Date(0)%3Bu.setSeconds(r)%3Bvar%20a%3Du.toISOString().substr(11%2C8)%3Breturn%201%3D%3Di.length%26%26(i%3D%220%22%2Bi)%2Ca%2B%22%3A%22%2Bi%7Dfunction%20frames2timecode(n)%7Breturn%20TimeConversion(Math.round(n*frms))%7Dfunction%20array2srt(n)%7Bvar%20t%3D%5B%5D%3Bfor(var%20e%20in%20n)%7Btry%7Bvar%20r%3Dn%5Be%5D.type%3B%22fn%22%3D%3D%3Dr%26%26(n%5Be%5D.txt%2B%3D%22%3Cb%3E%3C%2Fb%3E%22%2Cr%3Dvoid%200%2Cdelete%20r)%7Dcatch(n)%7B%7Dt.push(%5Bn%5Be%5D.start%2Cn%5Be%5D.end%2Cn%5Be%5D.txt%2Cn%5Be%5D.styles%2Cn%5Be%5D.rgn%5D)%7Dt.sort(function(n%2Ct)%7Breturn%20n%5B0%5D-t%5B0%5D%7D)%3Bvar%20o%3D0%2Ci%3D%22%22%3Bfor(event%20of%20t)%7Bo%2B%2B%3Bvar%20u%3Dframes2timecode(event%5B0%5D)%2Ca%3Dframes2timecode(event%5B1%5D)%2Cl%3Devent%5B2%5D%3Btry%7Bvoid%200!%3D%3Devent%5B3%5D%5B0%5D.type%26%26%22italic%22%3D%3Devent%5B3%5D%5B0%5D.type%26%26(l%3Ditalicize(l%2Cevent%5B3%5D))%7Dcatch(n)%7B%7Dtry%7Bvoid%200!%3D%3Devent%5B4%5D%26%26%22top%22%3D%3Devent%5B4%5D%26%26(l%3D%22%7B%5C%5Can8%7D%22%2Bl)%7Dcatch(n)%7B%7Dtry%7B%22fn%22%3D%3Devent.type%26%26(l%2B%3D%22%3Cb%3E%3C%2Fb%3E%22)%7Dcatch(n)%7B%7Dlog(l)%2Ci%2B%3Do%2B%22%5Cn%22%2Bu%2B%22%20--%5Cx3e%20%22%2Ba%2B%22%5Cn%22%2Bl%2B%22%5Cn%22%2B%22%5Cn%22%7Dreturn%20i%7Dfunction%20italicize(n%2Ct)%7Bfor(var%20e%20of(position_offset%3D0%2Ct))%7Bvar%20r%3De.from%2Bposition_offset%3Bposition_offset%2B%3D3%2Cn%3D%5Bn.slice(0%2Cr)%2C%22%3Ci%3E%22%2Cn.slice(r)%5D.join(%22%22)%3Bvar%20o%3De.to%2Bposition_offset%3Bposition_offset%2B%3D4%2Cn%3D%5Bn.slice(0%2Co)%2C%22%3C%2Fi%3E%22%2Cn.slice(o)%5D.join(%22%22)%7Dreturn%20n%7Dfunction%20download(n%2Ct)%7Bvar%20e%3Ddocument.createElement(%22a%22)%3Be.setAttribute(%22href%22%2C%22data%3Atext%2Fplain%3Bcharset%3Dutf-8%2C%22%2BencodeURIComponent(t))%2Ce.setAttribute(%22download%22%2Cn)%2Ce.style.display%3D%22none%22%2Cdocument.body.appendChild(e)%2Ce.click()%2Cdocument.body.removeChild(e)%7Dfunction%20TimeConversion(n)%7Breturn%20formatTimeHMSS(parseDuration(n))%7Dfunction%20parseDuration(n)%7Blet%20t%3Dn%2Ce%3DMath.floor(t%2F36e5)%3Bt%25%3D36e5%3Blet%20r%3DMath.floor(t%2F6e4)%3Breturn%20t%25%3D6e4%2C%7Bhours%3Ae%2Cminutes%3Ar%2Cseconds%3AMath.floor(t%2F1e3)%2Cmilliseconds%3At%25%3D1e3%7D%7Dfunction%20formatTimeHMSS(n)%7Blet%20t%3Dn.hours.toString()%3B1%3D%3D%3Dt.length%26%26(t%3D%220%22%2Bt)%3Blet%20e%3Dn.minutes.toString()%3B1%3D%3D%3De.length%26%26(e%3D%220%22%2Be)%3Blet%20r%3Dn.seconds.toString()%3B1%3D%3D%3Dr.length%26%26(r%3D%220%22%2Br)%3Blet%20o%3Dn.milliseconds.toString()%3Breturn%201%3D%3D%3Do.length%26%26(o%3D%2200%22%2Bo)%2C2%3D%3D%3Do.length%26%26(o%3D%220%22%2Bo)%2Ct%2B%22%3A%22%2Be%2B%22%3A%22%2Br%2B%22%2C%22%2Bo%7Dfunction%20leftFillNum(n%2Ct)%7Breturn%20n.toString().padStart(t%2C0)%7Dvar%20SRT%3DparseSRT(array2srt(JSON.parse(localStorage%5B%22clq%3Aorigination%3A%22%2Bour_clq%5D).events))%2Cissues%3D%5B%5D%3Bfor(event%20of%20SRT)%7Bvar%20start_frames%3DMath.round(event.start*fps)%2Cend_frames%3DMath.round(event.end*fps)%2Cstart_tcf%3Dframes2tcf(start_frames)%2Cend_tcf%3Dframes2tcf(end_frames)%2Cid%3Devent.id%2C_id%3DleftFillNum(id%2C4)%2CeventIssue%3D%5B%5D%2CeventTxt%3Devent.text%3B-1!%3D%3D(eventTxt%3D(eventTxt%3DeventTxt.replace(%2F(%3C(%5B%5E%3E%5D%2B)%3E)%2Fgi%2C%22%22)).replace(%2F%7B.an.%7D%2Fgi%2C%22%22)).indexOf(%22%5Cn%22)%26%26-1%3D%3DeventTxt.indexOf(%22%5Cn-%22)%26%26eventTxt.replace(%22%5Cn%22%2C%22%20%22).length%3C%3Dline_limit%26%26eventIssue.push(%22Can%20fit%20on%20one%20line%22)%2C-1!%3D%3DeventTxt.indexOf(%22...%22)%26%26eventIssue.push(%22Can%20replace%20...%20with%20%E2%80%A6%22)%3Bvar%20hasSpace%3D%2F%5Cs%24%7C%5E%5Cs%2F%2CeventTxt_lines%3DeventTxt.split(%22%5Cn%22)%2CnPos%3DeventTxt.lastIndexOf(%22%5Cn%22)%2ChasSpaceIssue%3DnPos%26%26void%200%3D%3D%3DeventTxt%5BnPos%2B1%5D%2CoverLineLimit%3D!1%3Bfor(var%20line%20of%20eventTxt_lines)hasSpaceIssue%3DhasSpace.test(line)%7C%7ChasSpaceIssue%2Cline.length%3Eline_limit%26%26(overLineLimit%3D!0)%3BhasSpaceIssue%26%26eventIssue.push(%22One%20of%20the%20lines%20begins%20or%20ends%20with%20whitespace%22)%2CoverLineLimit%26%26eventIssue.push(%22Line%20over%20max%20limit%20of%20%22%2Bline_limit)%3Bvar%20totalLength%3DeventTxt.length%2CeventLines%3DeventTxt.split(%22%5Cn%22)%3Bvoid%200!%3D%3DeventIssue%26%26eventIssue.length%3E0%26%26(log_event%3D(start_tcf%2B%22%20%20%20%20%22%2BeventTxt_lines%5B0%5D.padEnd(44%2C%22%20%22)%2B_id).padEnd(50%2C%22%20%22)%2Cvoid%200!%3D%3DeventTxt_lines%5B1%5D%3Flog_event%2B%3D%22%5Cn%22%2Bend_tcf%2B%22%20%20%20%20%22%2BeventTxt_lines%5B1%5D.padEnd(48%2C%22%20%22)%3Alog_event%2B%3D%22%5Cn%22%2Bend_tcf%2B%22%20%20%20%20%22%2B%22%20%22.padEnd(48%2C%22%20%22)%2Cconsole.log(%22%25c%22%2Blog_event%2C%22background%3A%20%2312343b%3B%20color%3A%20%23e1b382%22)%2Cconsole.log((%22%25c%22%2BeventIssue.join(%22%5Cn%22)).padEnd(50)%2C%22background%3A%20%23FFF%3B%20color%3A%20%23FF0000%3B%20font-style%3A%20italic%3B%20border%3Asolid%201px%20%23000%3B%22)%2Cconsole.log(%22%E2%94%89%22.repeat(63))%2Cissue%3D%7Bid%3Aid%2Cissues%3AeventIssue%2Ccontent%3AeventTxt%2Cstart_tcf%3Astart_tcf%2Cend_tcf%3Aend_tcf%2Cstart_frames%3Astart_frames%2Cend_frames%3Aend_frames%7D%2Cissues.push(issue))%7D%7D)()%3B">AutoQC</a>
