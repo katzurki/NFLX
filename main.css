@@ -1,0 +1,320 @@
+/* CSS for dhampir.no generated dynamically by PHP */
+@font-face {
+	font-family: GlassTTYVT220;
+	src: local("Glass TTY VT220"), local("Glass TTY VT220 Medium"), url(/style/Glass_TTY_VT220.ttf) format("truetype");
+}
+
+
+/* main block */
+html {
+	background: url("https://www.bosshunting.com.au/wp-content/uploads/2020/03/56-scaled.jpg") no-repeat center fixed;
+	background-size: cover;
+}
+body {
+	background: transparent;
+	margin: 10px 10px 10px 10px;
+	padding: 0px 0px 0px 0px;
+	text-align: center;
+	color: #CCCCCC;
+	font: 100% "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+}
+body input[type="text"] {
+	border: 0px solid #BBBBBB;
+	background-color: #111111;
+	color: #22DD22;
+	font: 100% "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+}
+body input[type="submit"] {
+	border: 0px solid #BBBBBB;
+	background-color: transparent;
+	color: #ED9747;
+	font: 100% "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+	font-weight: bold;
+}
+body input[type="submit"]:hover {
+	background-color: #1F1200;
+	color: #EE2222;
+	cursor: pointer;
+}
+body .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 950px;
+  background: rgba(26,26,26,0.8);
+  margin: 0 auto 0 auto;
+  border: 0px dotted #BBBBBB;
+  text-align: left;
+  position: relative!important;
+  top: 60px!important;
+  min-height: 550px;
+}
+body .clear {
+	clear: both;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	line-height: 0%;
+	font-size: 0%;
+}
+body .break {
+	page-break-before: always;
+}
+body #header {
+	position: relative;
+	padding: 0px 0px 10px 0px;
+	margin: 0px 0px 0px 0px;
+}
+body #header div#logo {
+	padding: 0px 0px 0px 0px;
+	position: absolute;
+	top: 60px;
+	height: 100px;
+	position:relative;
+	border-bottom: none!important;
+	
+}
+body #header div#dhampir {
+	margin: 0px;
+	font-weight: bold;
+	padding: 0px;
+}
+body #header div#dhampir p {
+	margin: 0px;
+	padding: 0px;
+	line-height: normal;
+}
+body #header div#loadok {
+	margin: 0px;
+	padding: 0px;
+}
+body #header div#loadok p {
+	padding: 0px;
+	margin: 0px;
+	line-height: normal;
+}
+body #header div#content {
+	margin: 10px 10px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	border-bottom: 0px dotted #BBBBBB;
+	border-color: inherit;
+	width: 460px;
+}
+body #header div#content p {
+	margin: 0px;
+	padding: 0px;
+	line-height: normal;
+}
+body #header div#menu {
+	margin: 0;
+	padding: 2px 10px 0px 0px;
+	width: 450px;
+	float: right;
+	clear: right;
+}
+body .container #mainContent {
+	height: auto;
+	width: 930px;
+	margin: 10px auto 10px auto;
+	padding: 0px 0px 0px 0px;
+}
+body .container #mainContent h1 {
+	font-family: "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+	font-size: 125%;
+	font-style: normal;
+	line-height: normal;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+}
+body .container #mainContent h2 {
+	font-family: "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+	font-size: 110%;
+	font-style: normal;
+	line-height: normal;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0px;
+	margin-top: 20px;
+	margin-right: 0px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+}
+body .container #mainContent h3 {
+	font-family: "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+	font-size: 100%;
+	font-style: normal;
+	line-height: normal;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+body .container #mainContent #indextable table {
+	border-color: #BBBBBB;
+	border-collapse: collapse;
+	margin: 0px 0px 10px 0px;
+	/*background-color: #ffffff;*/
+	width: 930px;
+}
+body .container #mainContent #indextable tr,
+body .container #mainContent #indextable td,
+body .container #mainContent #indextable th {
+	padding: 2px 2px 2px 4px;
+	text-align: left;
+	border-color: #BBBBBB;
+	/*background-color: #ffffff;*/
+}
+body .container #mainContent p {
+	font-size: 100%;
+	font-family: "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-decoration: none;
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+body .container #mainContent p.nospace {
+	margin: 0px 0px 0px 0px;
+}
+body .container #mainContent a, body .container #mainContent a:visited, body .container #mainContent a:active, body #header div#menu a, body #header div#menu a:visited, body #header div#menu a:active {
+	text-decoration: none;
+	font-family: "Lucida Console", "Courier New", Terminus, "DejaVu Sans Mono", "Lucida Console", Courier, "Andale Mono", "Nimbus Mono L", "Lucida Sans Typewriter", monospace;
+	font-size: 100%;
+	text-decoration: none;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #ED9747;
+	background-color: transparent;
+}
+body #header div#menu a, body #header div#menu a:visited, body #header div#menu a:active {
+	color: #FF7E05;
+}
+body .container #mainContent a:hover, body #header div#menu a:hover {
+	color: #EE2222;
+	background-color: #1A1A1A;
+}
+body .container #mainContent ul {
+	margin: 0px 0px 0px 20px;
+	list-style-type: none;
+	padding: 0px 0px 0px 0px;
+	list-style-image:url("https://dhampir.no/image.php?img=bullet");
+}
+body .container #mainContent table {
+	text-align: left;
+}
+body .container #mainContent img.right {
+	border: 0px solid #444444;
+	margin: 0px 0px 0px 10px;
+	padding: 0px;
+	float: right;
+}
+body .container #mainContent img.left {
+	border: 0px solid #444444;
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	float: left;
+}
+body .container #mainContent img.center {
+	margin: 0px auto 0px auto;
+	display: block;
+	float: none;
+}
+body div.imageViewer {
+	width: 930px;
+	text-align: center;
+}
+body img.imageViewer {
+	border: 0px solid #BBBBBB;
+	padding: 0px;
+	margin: 0px;
+}
+body .container #footer {
+	margin: 0px 0px 0px 0px;
+	padding: 10px 10px 10px 10px;
+	border-top: 0px dotted #BBBBBB;
+	font-size: 80%;
+}
+body .container #footer #info p {
+	text-align: right;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 400px;
+	float: right;
+	clear: right;
+}
+body .container #footer #styleswitcher {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	display: none;
+	float: left;
+}
+body .container #footer #styleswitcher p {
+	margin: 0 0 2px 0;
+}
+
+
+/* CV */
+body .container #mainContent #cv table {
+	border-width: 0px;
+	border-spacing: 2px;
+	border-style: dotted;
+	border-color: #BBBBBB;
+	border-collapse: collapse;
+	margin: 0px 0px 10px 0px;
+	/*background-color: #ffffff;*/
+	width: 930px;
+}
+body .container #mainContent #cv tr,
+body .container #mainContent #cv td,
+body .container #mainContent #cv th {
+	border-width: 0px;
+	padding: 2px 2px 2px 4px;
+	border-style: dotted;
+	text-align: left;
+	border-color: #BBBBBB;
+	/*background-color: #ffffff;*/
+}
+body .container #mainContent #cv p {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+body .container #mainContent #cv p.comments {
+	font-size: 80%;
+	margin: 0px 0px 0px 30px;
+}
+body .container #mainContent #cv p.listComments {
+	font-size: 80%;
+	margin: 0px 0px 0px 60px;
+}
+body .container #mainContent #cv td.left,
+body .container #mainContent #cv th.left {
+	width: 135px;
+}
+body .container #mainContent #cv td.right,
+body .container #mainContent #cv th.right {
+	width: 170px;
+}
+body .container #mainContent #cv td.gradeCode,
+body .container #mainContent #cv th.gradeCode {
+	width: 75px;
+}
+body .container #mainContent #cv td.gradeGrade,
+body .container #mainContent #cv th.gradeGrade {
+	width: 95px;
+}
+body .container #mainContent #cv td.gradeDate,
+body .container #mainContent #cv th.gradeDate {
+	width: 115px;
+}
