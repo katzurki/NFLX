@@ -313,14 +313,14 @@ function runAutoQC() {
                 var moveTo = 12 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move out-cue to +12 frames after shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move out-cue to +12 frames after shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
 
             if (distance <= 0 && distance > -2) {
                 var moveTo = -2 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move out-cue left to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move out-cue left to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
 
             //<0
@@ -331,7 +331,7 @@ function runAutoQC() {
                 var moveTo = -2 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move out-cue right to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move out-cue right to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
             return violation
         }
@@ -352,28 +352,28 @@ function runAutoQC() {
                 var moveTo = 8 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move in-cue right to 8 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move in-cue right to 8 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
 
             if (distance < -4 && distance > -12) {
                 var moveTo = -12 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move in-cue left to -12 frames before shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move in-cue left to -12 frames before shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
 
             if (distance < 0 && distance >= -4) {
                 var moveTo = 0 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move in-cue right to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move in-cue right to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
 
             if (distance > 0 && distance <= 5) {
                 var moveTo = 0 - distance
                 var newTcf = frames2tcf(framesE+moveTo)
                 moveTo=moveToSigned(moveTo)
-                violation = '🎥 Move in-cue left to snap it to shot chnage<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' frames | SC at '+scTcf+']</font>'
+                violation = '🎥 Move in-cue left to snap it to shot chnage<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
             }
 
             return violation
