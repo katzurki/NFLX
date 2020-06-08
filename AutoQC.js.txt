@@ -337,7 +337,9 @@ function runAutoQC() {
         }
 
         function moveToSigned(moveTo){
-            if(moveTo <= 0) { return moveTo+'' } else {return '+'+moveTo}
+	    var frames = " frames"
+	    if(Math.abs(moveTo) == 1) {var frames = " frame"}
+            if(moveTo <= 0) { return moveTo+frames } else {return '+'+moveTo+frames}
         }
 
         function validateScS(distance,framesE,sc) {
