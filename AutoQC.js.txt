@@ -8,6 +8,8 @@
     'use strict';
 
 function runAutoQC() {
+        var our_clq = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
         document.removeEventListener("keypress",promptSettings)
         console.log(LANG)
         var line_limit = 0
@@ -32,15 +34,15 @@ function runAutoQC() {
             max_cps = 26
         }
 
-        try {our_clq = document.location.href
-                .toString()
-                .split("=")[1].split(":")[2]
-        }
-        catch (e) {
-            alert(
-                "You must be in a started, saved Originator task!");
-            return null
-        }
+     //   try {our_clq = document.location.href
+     //           .toString()
+     //           .split("=")[1].split(":")[2]
+     //   }
+     //   catch (e) {
+     //       alert(
+     //           "You must be in a started, saved Originator task!");
+     //      return null
+     //   }
         var clq_pattern = new RegExp(
             '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
             , 'i');
@@ -846,6 +848,14 @@ console.log("Custom user-defined LANG is "+LANG)
 
 LANG = "EN"
 console.log("Initialize. LANG is "+LANG)
-//document.addEventListener("keypress", promptSettings, {once:true})
-runAutoQC()
-
+       try {our_clq = document.location.href
+                .toString()
+                .split("=")[1].split(":")[2]
+        }
+        catch (e) {
+            alert(
+                "You must be in a started, saved Originator task!");
+            throw new Error
+        }
+document.addEventListener("keypress", promptSettings, {once:true})
+setTimeout(runAutoQC,3000,our_clq)
