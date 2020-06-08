@@ -723,8 +723,10 @@ function runAutoQC() {
             reportHtml += timedTextEvent +
                 "</div></div></div></div></div>"
         }
-
-        download(srtName("Auto_QC_Log_"+LANG+fps_, ".html"),
+	
+	var withSC = ''
+	if(shotChanges) {withSC = "_withSC"} 
+        download(srtName("Auto_QC_Log_"+LANG+'_'+fps_+withSC, ".html"),
             reportHtml)
 
     }
