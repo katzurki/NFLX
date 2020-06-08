@@ -846,6 +846,6 @@ console.log("Custom user-defined LANG is "+LANG)
 
 LANG = "EN"
 console.log("Initialize. LANG is "+LANG)
-document.addEventListener("keypress", promptSettings, {once:true})
-setTimeout(runAutoQC,5000)
+//document.addEventListener("keypress", promptSettings, {once:true})
+runAutoQC()
 
