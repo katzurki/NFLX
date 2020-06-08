@@ -39,7 +39,7 @@ function runAutoQC() {
         catch (e) {
             alert(
                 "You must be in a started, saved Originator task!");
-            throw new Error
+            return null
         }
         var clq_pattern = new RegExp(
             '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
@@ -48,14 +48,14 @@ function runAutoQC() {
         if (!our_clq || !clq_pattern.test(our_clq)) {
             alert(
                 "You must be in a started, saved Originator task!");
-            throw new Error
+            return null
         }
 
         if (!clq_pattern.test(our_clq)) {
             alert("The CLQ is invalid: " + our_clq +
                 "\n" +
                 "Please report me to the developer.");
-            throw new Error
+            return null
         }
 
         var shotChanges = localStorage.getItem("shotChanges:"+our_clq)
