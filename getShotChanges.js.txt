@@ -53,7 +53,7 @@ if (!localStorage.getItem("shotChanges:" + clq)) {
                     );
             }
             else {
-                localStorage.setItem("shotChanges:" + clq, data)
+                localStorage.setItem("shotChanges:" + clq, data["frameNumbers"])
                 alert("Shot changes for " + clq + " set!");
             }
         })
