@@ -1,0 +1,64 @@
+try {
+    var clq = document.location.href
+        .toString()
+        .split("=")[1].split(":")[2]
+}
+catch (e) {
+    alert(
+        "You must be in a started, saved Originator task!");
+    throw new Error
+}
+var clq_pattern = new RegExp(
+    '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+    , 'i');
+
+if (!clq || !clq_pattern.test(clq)) {
+    alert(
+        "You must be in a started, saved Originator task!");
+    throw new Error
+}
+
+if (!clq_pattern.test(clq)) {
+    alert("The CLQ is invalid: " + clq +
+        "\n" +
+        "Please report me to the developer.");
+    throw new Error
+}
+
+var getJSON = function (url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function () {
+        var status = xhr.status;
+        if (status === 200) {
+            callback(null, xhr.response);
+        }
+        else {
+            callback(status, xhr.response);
+        }
+    };
+    xhr.send();
+};
+
+if (!localStorage.getItem("shotChanges:" + clq)) {
+
+    getJSON("https://originator.backlot.netflix.com/api/request/shotchanges/clq:origination:" +
+        clq
+        , function (err, data) {
+            if (err !== null) {
+                alert('Something went wrong with error status: ' +
+                    err +
+                    '\nIf it\'s 500-something, please reload the page and try again.'
+                    );
+            }
+            else {
+                localStorage.setItem("shotChanges:" + clq, data)
+                alert("Shot changes for " + clq + " set!");
+            }
+        })
+}
+else {
+    alert("Shot changes for this task already in cache.");
+}
+
