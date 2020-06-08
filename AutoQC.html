@@ -8,7 +8,8 @@ var beautySrc = document.getElementById("display_source_code");
 var Src = document.getElementById("sourceCode").contentWindow.document.body.innerText;
 var a_en = document.getElementById("bookmarklet_EN")
 beautySrc.innerHTML = hljs.highlightAuto(Src).value;
-var bookmarklet_generic = "javascript:" + encodeURIComponent("(function(){" + Src + "})();");
+var bookmarklet_generic = ("javascript:" + encodeURIComponent("(function(){" + Src + "})();")).replace(/%20%20/g,"%20");
+
 a_en.href = bookmarklet_generic
 
 var beautySrc = document.getElementById("display_source_code2");
