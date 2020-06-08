@@ -1,6 +1,7 @@
 
 <head>
 	        <title>Javascript tool to Import SRT into Originator</title>
+<meta charset="utf-8">
 <meta property="og:type"            content="article" /> 
 <meta property="og:url"             content="https://katzurki.github.io/NFLX/ImportSRT.html" /> 
 <meta property="og:title"           content="ImportSRT functionality for Originator" /> 
@@ -205,6 +206,12 @@ function stylify(text) {
     return style_arr
 }
 
+function isUppercaseNoTags(str) {
+
+	str = str.replace(//)
+
+}
+
 function srtPrepare() {
     var start_previous = 0
     var end_previous = 0
@@ -252,7 +259,6 @@ function srtPrepare() {
         event_lines.splice(0, 2)
         var txt = event_lines.join("\n")
             .trim()
-        if(txt.indexOf("<b></b>")!== -1) {var type_fn = "fn"; txt = txt.replace("<b></b>", "")}
         var rgn = "bottom"
         if (txt.indexOf("{\\an8}") !== -1) {
             rgn = "top"
@@ -261,6 +267,7 @@ function srtPrepare() {
         var styles = stylify(txt)
         txt = txt.replace(/<i>/g, "")
         txt = txt.replace(/<\/i>/g, "")
+	if(txt.indexOf("<b></b>")!== -1 || txt.replace("<b></b>","").toUpperCase() === txt.replace("<b></b>","")  ) {var type_fn = "fn"; txt = txt.replace("<b></b>", "")}
         var editedByUser = true
         var markup = []
         var annotations = {}
