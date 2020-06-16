@@ -253,7 +253,7 @@ function runAutoQC() {
         }
 
         function italicize(content, italics_array) {
-            position_offset = 0
+            var position_offset = 0
             for (var italic of italics_array) {
                 var position_from = italic["from"] +
                     position_offset;
