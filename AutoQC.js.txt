@@ -357,23 +357,26 @@ return false
                 var moveTo = 12 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move out-cue right to +12 frames after shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move out-cue right '+moveTo+' to +12 frames after shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
             if ( isBetween(distance,-1,4) ) {
                 var moveTo = -2 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo;                 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move out-cue left to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move out-cue left ' + moveTo + ' to -2 frames before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
             if ( isBetween(distance,-3,-7)) {
                 var moveTo = -2 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move out-cue right to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move out-cue right ' +moveTo+ ' to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             } 
 
             if(violation) { V = {violation:css_cs1+violation+css_cs2,
@@ -405,8 +408,9 @@ return false
                 var moveTo = 0 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo;
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move in-cue left to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move in-cue left ' + moveTo + ' to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
 
@@ -414,8 +418,9 @@ return false
                 var moveTo = 8 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move in-cue right to 8 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move in-cue right ' + moveTo + ' to 8 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
 
@@ -424,8 +429,9 @@ return false
                 var moveTo = -12 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move in-cue left to -12 frames before shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move in-cue left ' + moveTo + ' to -12 frames before shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
 
@@ -434,8 +440,9 @@ return false
                 var moveTo = 0 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo;                 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move in-cue right to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN ' + oldTcf + ' ' + moveTo + ' | SC at '+scTcf+']</font>'
+                violation = '🎞 Move in-cue right ' + moveTo + ' to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
 
@@ -648,9 +655,6 @@ return false
 
             if (cps > (normal_cps + 0.5) && cps < (
                     max_cps + 0.5)) {
-                eventIssue.push(
-                    "<span class=\"minor_issue\">⚠️ Reading speed slightly over norm; consider adjusting timings?"
-                )
                 html_cps =
                     '<div><span style="color: gold;">&nbsp;&nbsp;&emsp;' +
                     round_int_cps + ' c/s</span></div>'
