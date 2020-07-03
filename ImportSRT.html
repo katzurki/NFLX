@@ -263,7 +263,7 @@ function srtPrepare() {
         var styles = stylify(txt)
         txt = txt.replace(/<i>/g, "")
         txt = txt.replace(/<\/i>/g, "")
-	if(txt.indexOf("<b></b>")!== -1 || txt.replace("<b></b>","").toUpperCase() === txt.replace("<b></b>","")  ) {var type_fn = "fn"; txt = txt.replace("<b></b>", "")}
+	if(txt.indexOf("<b></b>")!== -1 || (txt.replace("<b></b>","").toUpperCase() === txt.replace("<b></b>","") && !txt.match(/[\u3400-\u9FBF]/))  ) {var type_fn = "fn"; txt = txt.replace("<b></b>", "")}
         var editedByUser = true
         var markup = []
         var annotations = {}
