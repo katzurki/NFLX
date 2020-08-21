@@ -34,7 +34,7 @@ function runAutoQC() {
         var our_clq = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
         document.removeEventListener("keypress",promptSettings)
-	LANG = LANG.toUpperCase()
+    LANG = LANG.toUpperCase()
         console.log("Running with LANG: "+LANG)
         var line_limit = 0
         var max_cps = 0
@@ -381,7 +381,7 @@ return false
                 violation = '🎞 Move out-cue right ' +moveTo+ ' to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             } 
 
-            if ( distanceNext > 2 && distanceNext < 13 && distanceNext < distance)
+            if ( distanceNext > 2 && distanceNext < 12 && Math.abs(distanceNext) < Math.abs(distance))
             {
                 var moveTo = distanceNext - 2
                 var newFramesE = framesE+moveTo
@@ -390,7 +390,7 @@ return false
                 moveTo=moveToSigned(moveTo)
                 violation = '❓🎞 Move out-cue right '+moveTo+' to reduce frame gap from '+distanceNext+' to 2.<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
-	    
+        
             if(violation) { V = {violation:css_cs1+violation+css_cs2,
             start: undefined,
             end: frames2timecode(newFramesE)
@@ -401,8 +401,8 @@ return false
         }
 
         function moveToSigned(moveTo){
-	    var frames = " frames"
-	    if(Math.abs(moveTo) == 1) {var frames = " frame"}
+        var frames = " frames"
+        if(Math.abs(moveTo) == 1) {var frames = " frame"}
             if(moveTo <= 0) { return moveTo+frames } else {return '+'+moveTo+frames}
         }
 
@@ -843,9 +843,9 @@ return false
             reportHtml += timedTextEvent +
                 "</div></div></div></div></div>"
         }
-	
-	var withSC = ''
-	if(shotChanges) {withSC = "_withSC"} 
+    
+    var withSC = ''
+    if(shotChanges) {withSC = "_withSC"} 
     var fixesFilename = srtName("Fixes_"+LANG+"_"+fps_+withSC)
     var suggestedFixesTxt = '<a download="'+fixesFilename+'" href="data:text/plain;charset=utf-8,'+encodeURIComponent(parsed2srt(fSRT))+'"><button>✎</button></a>'
     reportHtml = reportHtml.replace("DLFIXSRTTOKEN",suggestedFixesTxt)
