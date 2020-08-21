@@ -388,7 +388,7 @@ return false
                 var newTcf = frames2tcf(newFramesE)
                 var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 NOT_CERTAIN_FIX Move out-cue right '+moveTo+' to reduce frame gap from '+distanceNext+' to 2.<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
+                violation = '❓🎞 Move out-cue right '+moveTo+' to reduce frame gap from '+distanceNext+' to 2.<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 	    
             if(violation) { V = {violation:css_cs1+violation+css_cs2,
