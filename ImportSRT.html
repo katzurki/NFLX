@@ -236,7 +236,7 @@ function srtPrepare() {
         end = tc2frames(end)
         delta_start = start - start_previous
         delta_end = end - end_previous
-        if (delta_start < 0 || delta_end <= 0 || delta_start > 7200 ||
+        if (delta_start < 0 || delta_end < 0 || delta_start > 7200 ||
             delta_end > 7200) {
             alert("Funky timecodes in event " + event +
                 "\n This event in-cue: " + start +
