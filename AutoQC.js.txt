@@ -1,3 +1,5 @@
+//beta version new Netflix guidelines
+
 try {our_clq = document.location.href
                 .split("=")[1].split(":")[2]
         }
@@ -52,8 +54,8 @@ function runAutoQC() {
         case "EN":
         default:
             line_limit = 42
-            normal_cps = 20
-            max_cps = 26
+            normal_cps = 17
+            max_cps = 22.5
         }
 
      //   try {our_clq = document.location.href
@@ -386,11 +388,9 @@ return false
                 var newTcf = frames2tcf(newFramesE)
                 var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Consider moving out-cue right ' +moveTo+' to reduce frame gap to next event to 2.<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
+                violation = '🎞 NOT_CERTAIN_FIX Move out-cue right '+moveTo+' to reduce frame gap from '+distanceNext+' to 2.<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
-
-            //NEEDS TO CHECK SHOT CHANGE BETWEEN HERE AND NEXT
-
+	    
             if(violation) { V = {violation:css_cs1+violation+css_cs2,
             start: undefined,
             end: frames2timecode(newFramesE)
@@ -440,7 +440,7 @@ return false
                 var newTcf = frames2tcf(newFramesE)
                 var intTo = (moveTo > 0) ? "+"+moveTo : moveTo;
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move in-cue right ' + moveTo + ' to put 12 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
+                violation = '🎞 Move in-cue right ' + moveTo + ' to +12 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
 
