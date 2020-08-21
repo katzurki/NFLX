@@ -1,4 +1,3 @@
-
 try {our_clq = document.location.href
                 .split("=")[1].split(":")[2]
         }
@@ -344,13 +343,14 @@ if(distance >= left_lim && distance <= right_lim) {return true}
 return false
 }
 
-        function validateScE(distance, framesE, sc) {
+        function validateScE(distance, framesE, sc, distance2) {
             var violation = false
             var V = {}
             var css_cs1='<span class="shot_change_issue">';
             var css_cs2='</span>';
             var oldTcf = frames2tcf(framesE)
             var scTcf = frames2tcf(sc)
+            var distanceNext = distance2
             if (isBetween(distance,5,11))
             
             {
@@ -379,6 +379,18 @@ return false
                 violation = '🎞 Move out-cue right ' +moveTo+ ' to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             } 
 
+            if ( distanceNext > 2 && distanceNext < 13 && distanceNext < distance)
+            {
+                var moveTo = distanceNext - 2
+                var newFramesE = framesE+moveTo
+                var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
+                moveTo=moveToSigned(moveTo)
+                violation = '🎞 Consider moving out-cue right ' +moveTo+' to reduce frame gap to next event to 2.<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
+            }
+
+            //NEEDS TO CHECK SHOT CHANGE BETWEEN HERE AND NEXT
+
             if(violation) { V = {violation:css_cs1+violation+css_cs2,
             start: undefined,
             end: frames2timecode(newFramesE)
@@ -404,7 +416,7 @@ return false
 
             
      
-            if (isBetween(distance,1,4) ) {
+            if (isBetween(distance,1,10) ) {
                 var moveTo = 0 - distance
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
@@ -413,15 +425,24 @@ return false
                 violation = '🎞 Move in-cue left ' + moveTo + ' to snap it to shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
 
-
-            if (isBetween(distance,5,7) ) {
-                var moveTo = 8 - distance
+            if (isBetween(distance,11,11) ) {
+                var moveTo = 1
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
-                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo; 
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo;
                 moveTo=moveToSigned(moveTo)
-                violation = '🎞 Move in-cue right ' + moveTo + ' to 8 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
+                violation = '🎞 Move in-cue right ' + moveTo + ' to put 12 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             }
+
+            if (isBetween(distance,10,10) ) {
+                var moveTo = 2
+                var newFramesE = framesE+moveTo
+                var newTcf = frames2tcf(newFramesE)
+                var intTo = (moveTo > 0) ? "+"+moveTo : moveTo;
+                moveTo=moveToSigned(moveTo)
+                violation = '🎞 Move in-cue right ' + moveTo + ' to put 12 frames after shot change<br><font style="color: #7FFFD4; font-family: monospace">[IN-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
+            }
+
 
 
             if ( isBetween(distance,-11,-7) )
@@ -487,6 +508,14 @@ return false
         var issues = []
         var events_detected = 0
 
+        for (var i=0;i<SRT.length;i++) {
+            var end_current = SRT[i]["end"]
+            if(typeof(SRT[i+1]) !== "undefined") {var start_next = SRT[i+1]["start"]} else {var start_next = end_current}
+            var distance = Math.round((start_next - end_current)*fps)
+        SRT[i]["frames_to_next"] = distance
+        console.log("In SRT id = " + i + "\nDistance is: " + distance)
+        console.log(SRT[i])
+        }
 
         for (event of SRT) {
             var start_time = event["start"]
@@ -499,6 +528,7 @@ return false
             var end_tcf = frames2tcf(end_frames)
             var id = event["id"]
             var srtId = id-1;
+            var distanceNextEvent = event["frames_to_next"]
             var _id = leftFillNum(id, 4)
             var eventIssue = []
             var eventTxt = event["text"]
@@ -516,7 +546,7 @@ return false
             var scStcf = frames2tcf(scS)
             var scEtcf = frames2tcf(scE)
             var violS = validateScS(scSD, start_frames, scS)
-            var violE = validateScE(scED, end_frames, scE)
+            var violE = validateScE(scED, end_frames, scE, distanceNextEvent)
 
             if (violS) {    
                 eventIssue.push(violS["violation"])
@@ -932,6 +962,4 @@ return false
 
 })));
 
-
-setTimeout(runAutoQC,3000,our_clq)
-
+setTimeout(runAutoQC,2000,our_clq)
