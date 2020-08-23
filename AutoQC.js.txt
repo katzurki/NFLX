@@ -381,8 +381,9 @@ return false
                 violation = '🎞 Move out-cue right ' +moveTo+ ' to -2 before shot change<br><font style="color: #7DFDFE; font-family: monospace">[OUT-CUE: ' + oldTcf + ' ' +intTo+ ' = ' + newTcf +']</font>'
             } 
 
-            if ( distanceNext > 2 && distanceNext < 12 && Math.abs(distanceNext) < Math.abs(distance))
-            {
+            if ( distanceNext > 2 && distanceNext < 12
+                 && distanceNext <= Math.abs(distance)) //fixes nasty, nasty situation!
+            { 
                 var moveTo = distanceNext - 2
                 var newFramesE = framesE+moveTo
                 var newTcf = frames2tcf(newFramesE)
