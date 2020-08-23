@@ -1,3 +1,5 @@
+
+
 /*
 	USAGE
 Drag the button above to your Bookmarks Bar in Chrome.
@@ -42,16 +44,36 @@ if (!lsJson) {
 }
 var json_obj = JSON.parse(lsJson)
 var src = json_obj["events"]
-var fps = (json_obj["meta"]["fps"]
+var fps_meta = json_obj["meta"]["fps"]
+var fps = (fps_meta
         .split("_")[1]) /
-    100 //From {"fps":"FPS_2500"}
-if (fps >= 23.97 && fps <= 24) fps =
-    23.976023976023978 //To take care of dropframes
+    100 //From {"fps
+//if (fps >= 23.97 && fps <= 24) fps =
+ //   23.976023976023978 //To take care of dropframes
 var fps_ = "_FPS_" + (fps *
     100
 ) //to include as part of the filename.srt
 var frms = 1000 / fps
-download(srtName(fps_), array2srt(src))
+var mid = json_obj["meta"]["movieId"]
+var pid = json_obj["meta"]["packageId"]
+var template_url = "https://originator.backlot.netflix.com/api/request/timedText/"+our_clq+'/'+pid+'/'+mid+'/en/TEMPLATE/PRIMARY/'+fps_meta+'?source=ORIGINATOR'
+var targetFilename = srtName(fps_+"_TRANSLATION")
+var sourceFilename = srtName(fps_+"_SOURCE")
+
+async function getSourceColumnEvents() {
+  var result = await (await fetch(template_url)).json(); 
+  return result;
+}
+
+async function delayedDownload() {
+  var result = await getSourceColumnEvents();
+  download(sourceFilename, array2srt(result))
+}
+
+
+delayedDownload()
+download(targetFilename,array2srt(src))
+
 
 function srtName(suffix = "") {
     var s = document
@@ -63,10 +85,8 @@ function srtName(suffix = "") {
             .replace(/[^a-z0-9_]/gi
                 , '') + suffix + ".srt"
         ) //This gets rid of all punctuation, spaces and non-English letters
-        .trim() ///resulting in a name like 14545_El_Burrito_A_Breaking_Fat_Movie_FPS_2500.srt
-    if (!srtName) srtName = our_clq +
-        "_" + suffix +
-        ".srt" //Fallback measure. Useful for debugging later
+        .trim() ///resultin,array2srt(src)in a name like 14545_El_Burrito_A_Breaking_Fat_Movie_FPS_2500.srt
+    if (!srtName) srtName = our_clq +        ".srt" //Fallback measure. Useful for debugging later
     return srtName
 }
 
@@ -79,6 +99,7 @@ function frames2timecode(frames) {
 }
 
 function array2srt(events_object) {
+	console.log(events_object)
     var ordered_events = []
     for (var id in events_object) {
         ordered_events.push([
@@ -175,3 +196,7 @@ function formatTimeHMSS(o) {
         seconds + "," +
         milliseconds
 }
+
+
+
+
