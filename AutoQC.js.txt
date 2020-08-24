@@ -536,7 +536,7 @@ return false
             var eventIssue = []
             var eventTxt = event["text"]
             var eventOriginalTxt = event["text"]
-            var eventFixedTxt = event["text"]
+            var eventFixedTxt = curlyQuotes(event["text"])
             var eventIsFn = false
 
             var scS = getNearestShotchange(start_frames)
