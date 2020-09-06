@@ -2,8 +2,9 @@
             //Originator/Backlot/SRT AutoQC Tool under GNU GPLv3
             //No guarantee of result, no warranty. 
             //Data obtained with this tool inherits access rights from source
-          	//Change LANG to switch to language-specific CPS and line limits
-          	//(AR, CN, DE, FR, GR, PT-BR, RU, EN)
+            //Change LANG to switch to language-specific CPS and line limits
+            //(AR, CN, DE, FR, GR, PT, RU, EN)
+            //USAGE: Run from console, or drag to bar as bookmarklet (https://caiorss.github.io/bookmarklet-maker/) and click once
 
             var LANG = "EN"
             var outOfTheBox
@@ -548,6 +549,10 @@
                 vertical-align: middle
             }
 
+            #logonetflix {
+                margin-left: 12px;
+            }
+
             .TimedTextEvent .footer {
                 height: .5rem;
                 border-bottom: 2px solid rgba(0, 0, 0, .77);
@@ -607,7 +612,7 @@
 
             </style><body style="width:70%;height:100%">
             <div id="navbar">
-              <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/215758617-Timed-Text-Style-Guide-General-Requirements"><img width="auto" height="32" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" title="Netflix TTSG Quality Compliance Initiative"></a>
+              <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/215758617-Timed-Text-Style-Guide-General-Requirements"><img id="logonetflix" width="auto" height="32" src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" title="Netflix TTSG Quality Compliance Initiative"></a>
               <span id="titleinfo" title="TITLEINFOTOKEN">TITLEINFOTOKEN</span>
             </div>
             <div id="background">
@@ -615,7 +620,7 @@
             <p class="bg-text" style="top: -100px; left: 540px;">NETFLIX CONFIDENTIAL<br>WATERMARKPLACEHOLDER</p>
                 </div>
 
-                <div id="stick" style="position:relative;left:750px;"><button type="button" class="f" onclick="z(\'cSpace\')" title="Highlight whitespace">🟩</button><button title="Display minor issues" type="button" class="f" onclick="z(\'minor_issue\') ">⚠️</button><button title="Display major issues" type="button" class="f" onclick="z(\'major_issue\')">🚫</button><button title="Shot-change suggestions" type="button" onclick="z(\'shot_change_issue\') ">🎞</button>DLFIXSRTTOKEN<span style="position: relative; top: 3px; left: 165px; font-family: monospace; color: #fdfdf2; opacity: 0.33;">Linguist: LINGUISTNAME</div>`
+                <div id="stick" style="position:relative;left:750px;"><button type="button" class="f" onclick="alert(Window.autoQC_safe_meta)">🛈</button><button type="button" class="f" onclick="z(\'cSpace\')" title="Highlight whitespace">🟩</button><button title="Display minor issues" type="button" class="f" onclick="z(\'minor_issue\') ">⚠️</button><button title="Display major issues" type="button" class="f" onclick="z(\'major_issue\')">🚫</button><button title="Shot-change suggestions" type="button" onclick="z(\'shot_change_issue\') ">🎞</button>DLFIXSRTTOKEN<span style="position: relative; top: 3px; left: 165px; font-family: monospace; color: #fdfdf2; opacity: 0.33;">Linguist: LINGUISTNAME</div>`
 
                     if(document.location.href
                         .includes(
