@@ -1,6 +1,8 @@
 # nflx-bookmarklets
 A suite of bookmarklets to improve the Originator UX.
 
+DEPRECATED: Use https://katzurki.github.io/nettufurikusu
+
 Please visit https://katzurki.github.io/NFLX for a current list, or browse the jumble of files here.
 
 (c) 2019-2020 Dan Biktashev mailto:katzurki@gmail.com
