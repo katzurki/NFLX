@@ -37,6 +37,26 @@ a_en.href = bookmarklet_generic
 
 <meta property="og:description"    content="Find and fix common issues such as trailing spaces, two-liners that fit on one line, obsolete characters and more" />
 <style>
+    .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
 #page-wrap {
      width: 900px;
      margin: 0 auto;
@@ -128,6 +148,11 @@ body {
 <head>
 <title>Extending Originator UI: Perform AutoQC on Current Task</title>
 </head>
+    
+    <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Attention!</strong> This bookmarklet is OUTDATED. Install the <a href="https://chrome.google.com/webstore/detail/originator-autoqc-etc/fmdlmdfceiaaljfpdkbpfhoppcklkopo">Chrome extension</a> instead.
+</div>
     
     <div id="page-wrap">
 <center><font color="silver">
